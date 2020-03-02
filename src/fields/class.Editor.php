@@ -12,9 +12,9 @@
 
 class Editor extends TextArea
 {
-	function Editor( $oForm, $sName )
+	public function __construct( $oForm, $sName )
 	{
-		parent::TextArea( $oForm, $sName );	
+		parent::__construct( $oForm, $sName );	
 		
 		static $bSetJS = false;
 
@@ -36,7 +36,7 @@ class Editor extends TextArea
         $this->setServerPath( '' );
 		
         // set the language
-        $this->_oEditor->config['language']  = str_replace('-utf8', '', $oForm->_lang);        
+        $this->_oEditor->config['language']  = str_replace('-utf8', '', $oForm->GetLang());        
 
 		// default height & width
         $this->setWidth ( 720 );
@@ -58,7 +58,7 @@ class Editor extends TextArea
      * @access public
      * @author Teye Heimans
      */
-    function setHeight( $iHeight )
+    public function setHeight( $iHeight )
     {
         $this->_oEditor->config['height'] = $iHeight;
     }	
@@ -73,10 +73,9 @@ class Editor extends TextArea
      * @access public
      * @author Teye Heimans
      */
-    function setValue( $sValue )
+    public function setValue( $sValue )
     {
     	$this->_mValue = $sValue;
-    	$this->_oEditor->Value = $sValue;
     }
 
 
@@ -90,7 +89,7 @@ class Editor extends TextArea
      * @access public
      * @author Teye Heimans
      */
-    function setWidth( $iWidth)
+    public function setWidth( $iWidth)
     {
         $this->_oEditor->config['width'] = $iWidth;
     }
@@ -105,7 +104,7 @@ class Editor extends TextArea
      * @access public
      * @author Teye Heimans
      */
-    function setToolbar( $sToolbar )
+    public function setToolbar( $sToolbar )
     {
         $this->_oEditor->config['toolbar'] = $sToolbar;
     }
@@ -121,7 +120,7 @@ class Editor extends TextArea
      * @access public
      * @author Teye Heimans
      */
-    function setConfig( $config )
+    public function setConfig( $config )
     {
         $this->_oEditor->config = array_merge( $this->_oEditor->config, $config );
     }
@@ -136,7 +135,7 @@ class Editor extends TextArea
      * @access public
      * @author Teye Heimans
      */
-    function setServerPath( $sPath )
+    public function setServerPath( $sPath )
     {
         if( $sPath === false )
         {
@@ -176,7 +175,7 @@ class Editor extends TextArea
      * @access public
      * @author Teye Heimans
      */
-    function setSkin( $sSkin )
+    public function setSkin( $sSkin )
     {
     	$this->_oEditor->config['skin'] = $sSkin;
     }        
@@ -192,7 +191,7 @@ class Editor extends TextArea
      * @access private
      * @author Teye Heimans
      */
-    function _getServerPath( $sDir, $sServerPath )
+    private function _getServerPath( $sDir, $sServerPath )
     {
     	// remove ending slash at the server path
     	if( substr($sServerPath, -1) == '/' )
@@ -251,7 +250,7 @@ class Editor extends TextArea
      * @author Teye Heimans
      * @access public
      */
-	function getField()
+	public function getField()
 	{
 		// view mode enabled ?
 		if( $this -> getViewMode() )

@@ -89,15 +89,15 @@ function newYadal( $database = null, $type = null )
  */
 class Yadal
 {
-	var $_conn;			// resource: contains the connection resource
-    var $_db;           // string: contains the database name
-    var $_table;        // string: contains the table name
-    var $_keys;         // array: contains the primary keys
-    var $_isConnected;  // boolean: do we have a connection ?
-    var $_quoteNumbers; // boolean: do we have to quote numbers?
-    var $_nameQuote;    // char/array: quote to use around table and field names (for possible spaces in the names)
-    var $_lastQuery;	// string: the last query executed
-    var $_cache;        // array: cache of most actions.
+	protected $_conn;			// resource: contains the connection resource
+    protected $_db;           // string: contains the database name
+    protected $_table;        // string: contains the table name
+    protected $_keys;         // array: contains the primary keys
+    protected $_isConnected;  // boolean: do we have a connection ?
+    public $_quoteNumbers; // boolean: do we have to quote numbers?
+    protected $_nameQuote;    // char/array: quote to use around table and field names (for possible spaces in the names)
+    protected $_lastQuery;	// string: the last query executed
+    protected $_cache;        // array: cache of most actions.
 
     /**
      * Yadal::Yadal()
@@ -109,7 +109,7 @@ class Yadal
      * @param string $db: the database we are using
      * @author Teye Heimans
      */
-    function Yadal( $db = null )
+    public function __construct( $db = null )
     {
         if( !is_null( $db ) )
         {
@@ -135,7 +135,7 @@ class Yadal
      * @access public
      * @author Teye Heimans
      */
-    function setConnectionResource( &$conn )
+    public function setConnectionResource( &$conn )
     {
     	$this->_conn = &$conn;
     	$this->_isConnected = true;
@@ -150,7 +150,7 @@ class Yadal
      * @access public
      * @author Teye Heimans
      */
-    function isConnected()
+    public function isConnected()
     {
         return $this->_isConnected;
     }
@@ -167,7 +167,7 @@ class Yadal
      * @access public
      * @author Teye Heimans
      */
-    function dbDate( $y, $m, $d )
+    public function dbDate( $y, $m, $d )
     {
         return "'$y-$m-$d'";
     }
@@ -194,7 +194,7 @@ class Yadal
      * @access public
      * @author Teye Heimans
      */
-    function array2case( $field, $options, $default = 'Unknown' )
+    public function array2case( $field, $options, $default = 'Unknown' )
     {
         // if there are 2 options, use an if statement
     	if( sizeof( $options ) == 2 )
@@ -234,7 +234,7 @@ class Yadal
      * @access public
      * @author Teye Heimans
      */
-    function quoteNumbers()
+    public function quoteNumbers()
     {
     	return $this->_quoteNumbers;
     }
@@ -249,7 +249,7 @@ class Yadal
      * @access public
      * @author Teye Heimans
      */
-    function quote( $name )
+    public function quote( $name )
     {
         // is there a dot in the name ? (like table.name)
         $pos = strpos($name, '.');
@@ -278,7 +278,7 @@ class Yadal
      * @access public
      * @author Teye Heimans
      */
-    function clearCache()
+    public function clearCache()
     {
         $this->_cache = null;
     }
@@ -292,7 +292,7 @@ class Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getLastQuery()
+    public function getLastQuery()
     {
     	return $this->_lastQuery;
     }
@@ -309,7 +309,7 @@ class Yadal
      * @access public
      * @author Teye Heimans
      */
-    function result( $sql, $row = 0, $field = null )
+    public function result( $sql, $row = 0, $field = null )
     {
     	$i = 0;
     	while( $data = $this->getRecord( $sql ) )
@@ -339,7 +339,7 @@ class Yadal
     	return false;
     }
 
-    function getTables( )
+    public function getTables( )
     {
     	trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -347,7 +347,7 @@ class Yadal
         );
     }
 
-    function getFieldTypes( $table )
+    public function getFieldTypes( $table )
     {
     	trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -355,7 +355,7 @@ class Yadal
         );
     }
 
-    function connect( )
+    public function connect( )
     {
     	trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -363,7 +363,7 @@ class Yadal
         );
     }
 
-    function getNotNullFields( $table )
+    public function getNotNullFields( $table )
     {
 	    trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -371,7 +371,7 @@ class Yadal
         );
     }
 
-    function getUniqueFields( $table )
+    public function getUniqueFields( $table )
     {
         trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -379,7 +379,7 @@ class Yadal
         );
     }
 
-    function getPrKeys( $table )
+    public function getPrKeys( $table )
     {
         trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -387,7 +387,7 @@ class Yadal
         );
     }
 
-    function recordCount( $sql )
+    public function recordCount( $sql )
     {
         trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -395,7 +395,7 @@ class Yadal
         );
     }
 
-    function getFieldNames( $table )
+    public function getFieldNames( $table )
     {
         trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -403,7 +403,7 @@ class Yadal
         );
     }
 
-    function escapeString( $string )
+    public function escapeString( $string )
     {
         trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -411,7 +411,7 @@ class Yadal
         );
     }
 
-    function getRecord( $sql )
+    public function getRecord( $sql )
     {
         trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -419,7 +419,7 @@ class Yadal
         );
     }
 
-    function getInsertId()
+    public function getInsertId()
     {
         trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -427,7 +427,7 @@ class Yadal
         );
     }
 
-    function query( $query )
+    public function query( $query )
     {
         trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -435,7 +435,7 @@ class Yadal
         );
     }
 
-    function close()
+    public function close()
     {
         trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -443,7 +443,7 @@ class Yadal
         );
     }
 
-    function getError()
+    public function getError()
     {
         trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),
@@ -451,7 +451,7 @@ class Yadal
         );
     }
 
-    function GetErrorNo()
+    public function GetErrorNo()
     {
         trigger_error(
           'Error, abstract function '.__FUNCTION__.' has not been overwritten by class '.get_class( $this ),

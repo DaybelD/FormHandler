@@ -11,12 +11,12 @@
 
 class DateField extends Field
 {
-    var $_sMask;     // string: how to display the fields (d-m-y) or other
-    var $_oDay;      // SelectField or TextField: object of the day selectfield
-    var $_oMonth;    // SelectField or TextField: object of the month selectfield
-    var $_oYear;     // SelectField or TextField: object of the year selectfield
-    var $_sInterval; // string: interval of the year
-    var $_bRequired; // boolean: if the field is required or if we have to give the option to leave this field empty
+    private $_sMask;     // string: how to display the fields (d-m-y) or other
+    private $_oDay;      // SelectField or TextField: object of the day selectfield
+    private $_oMonth;    // SelectField or TextField: object of the month selectfield
+    private $_oYear;     // SelectField or TextField: object of the year selectfield
+    private $_sInterval; // string: interval of the year
+    private $_bRequired; // boolean: if the field is required or if we have to give the option to leave this field empty
 
     /**
      * DateField::DateField()
@@ -30,7 +30,7 @@ class DateField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function DateField( &$oForm, $sName, $sMask = null, $bRequired = null, $sInterval = null )
+    public function __construct( &$oForm, $sName, $sMask = null, $bRequired = null, $sInterval = null )
     {
         // set the default date display
         $this -> setMask( !is_null( $sMask ) ? $sMask : FH_DATEFIELD_DEFAULT_DISPLAY );
@@ -159,7 +159,7 @@ class DateField extends Field
         }
 
         // call the Field constructor
-        parent::Field( $oForm, $sName );
+        parent::__construct( $oForm, $sName );
     }
 
     /**
@@ -173,7 +173,7 @@ class DateField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setRequired( $bStatus )
+    public function setRequired( $bStatus )
     {
         $this->_bRequired = $bStatus;
 
@@ -198,7 +198,7 @@ class DateField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setMask( $sMask )
+    public function setMask( $sMask )
     {
         $this->_sMask = $sMask ;
     }
@@ -216,7 +216,7 @@ class DateField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setInterval( $sInterval )
+    public function setInterval( $sInterval )
     {
         $this->_sInterval = $sInterval;
     }
@@ -231,7 +231,7 @@ class DateField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setExtra( $sExtra )
+    public function setExtra( $sExtra )
     {
     	if( isset( $this -> _oYear ) && is_object( $this -> _oYear ) )
     	  $this -> _oYear -> setExtra ( $sExtra );
@@ -253,7 +253,7 @@ class DateField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function getValue( $fld = null)
+    public function getValue( $fld = null)
     {
         // when no specific field is requested..
         if( $fld == null )
@@ -310,7 +310,7 @@ class DateField extends Field
      * @author Teye Heimans
      * @since 25/11/2005
      */
-    function getAsArray()
+    public function getAsArray()
     {
         $d = $this -> getValue('d');
         $m = $this -> getValue('m');
@@ -328,7 +328,7 @@ class DateField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function isValid()
+    public function isValid()
     {
     	// the result has been requested before..
     	if( isset($this->_isValid))
@@ -418,7 +418,7 @@ class DateField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function getField()
+    public function getField()
     {
         // set the date when:
         // - the field is empty
@@ -478,7 +478,7 @@ class DateField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setValue( $sValue )
+    public function setValue( $sValue )
     {
         // remove the time part if the date is coming from a datetime field
     	$aMatch = array();
@@ -561,10 +561,10 @@ class DateField extends Field
      *
      * @param string $mask: The mask where we should get the fields from
      * @return string
-     * @access private
+     * @access protected
      * @author Teye Heimans
      */
-    function _getFieldsFromMask( $mask = null)
+    protected function _getFieldsFromMask( $mask = null)
     {
         // when no mask is given, use the default mask
         if( is_null( $mask ) )
@@ -616,10 +616,10 @@ class DateField extends Field
      * @param string $m: The replacement for the "m"
      * @param string $y: The replacement for the "y"
      * @return string
-     * @access private
+     * @access protected
      * @author Teye Heimans
      */
-    function _fillMask( $d = '', $m = '', $y = '', $mask = null )
+    protected function _fillMask( $d = '', $m = '', $y = '', $mask = null )
     {
         // when no mask is given, use the default mask
         if( is_null( $mask ) )
@@ -680,10 +680,10 @@ class DateField extends Field
      * Get the year interval
      *
      * @return array
-     * @access private
+     * @access protected
      * @author Teye Heimans
      */
-    function _getYearInterval ()
+    protected function _getYearInterval ()
     {
     	$sInterval = $this->_sInterval;
 

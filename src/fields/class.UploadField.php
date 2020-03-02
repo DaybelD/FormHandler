@@ -12,9 +12,9 @@
  */
 class UploadField extends Field
 {
-	var $_aConfig;           // array: which contains the default upload config
-	var $_bAlertOverwrite;   // boolean: display a message when the file already exists
-	var $_sFilename;         // string: filename of the file
+	private $_aConfig;           // array: which contains the default upload config
+	private $_bAlertOverwrite;   // boolean: display a message when the file already exists
+	private $_sFilename;         // string: filename of the file
 
 	/**
      * UploadField::UploadField()
@@ -28,7 +28,7 @@ class UploadField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function UploadField( &$oForm, $sName, $aConfig )
+	public function __construct( &$oForm, $sName, $aConfig )
 	{
 		require_once(FH_INCLUDE_DIR.'includes/mimeTypes.php');
 		static $bSetJS = false;
@@ -197,7 +197,7 @@ class UploadField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function getFileInfo()
+	public function getFileInfo()
 	{
 		// file uploaded! return the data!
 		if( $this -> isUploaded() )
@@ -219,7 +219,7 @@ class UploadField extends Field
       * @access public
       * @author Teye Heimans
       */
-	function setValue( $sFilename )
+	public function setValue( $sFilename )
 	{
 		$this->_sFilename = $sFilename;
 	}
@@ -233,7 +233,7 @@ class UploadField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function getSavePath()
+	public function getSavePath()
 	{
 		return $this->_aConfig['path'];
 	}
@@ -247,7 +247,7 @@ class UploadField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function getValue()
+	public function getValue()
 	{
 		return isset($this->_sFilename) ? $this->_sFilename : '';
 	}
@@ -262,7 +262,7 @@ class UploadField extends Field
      * @author Remco van Arkelen
      * @since 19-11-2008
      */
-	function _getViewValue( )
+	public function _getViewValue( )
 	{
 		return '<a href="'. $this->getSavePath(). $this->getValue() .'" target="_blank">'. $this->getValue() .'</a>';
 	}
@@ -276,7 +276,7 @@ class UploadField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function isUploaded()
+	public function isUploaded()
 	{
 		if(!_global) global $_FILES;
 
@@ -296,7 +296,7 @@ class UploadField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function getField()
+	public function getField()
 	{
 		// view mode enabled ?
 		if( $this -> getViewMode() )
@@ -373,7 +373,7 @@ class UploadField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function setAlertOverwrite( $bStatus )
+	public function setAlertOverwrite( $bStatus )
 	{
 		$this->_bAlertOverwrite = $bStatus;
 	}
@@ -387,7 +387,7 @@ class UploadField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function isValid()
+	public function isValid()
 	{
 		// make the files array global if they are not
 		if(!_global) global $_FILES;
@@ -564,7 +564,7 @@ class UploadField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function doUpload()
+	public function doUpload()
 	{
 		// alias for the file data
 		$aFile = $this->_mValue;
@@ -639,7 +639,7 @@ class UploadField extends Field
      * @access private
      * @author Teye Heimans
      */
-	function _forceDir( $sPath, $iMode)
+	private function _forceDir( $sPath, $iMode)
 	{
 		if ( strlen( $sPath) == 0)
 		{
@@ -671,7 +671,7 @@ class UploadField extends Field
      * @access private
      * @author Teye Heimans
      */
-	function _getFilename( $bIgnoreRename = false )
+	private function _getFilename( $bIgnoreRename = false )
 	{
 		// easy name to work with
 		$sFile = $this->_mValue['name'];
@@ -728,7 +728,7 @@ class UploadField extends Field
      * @access private
      * @author Teye Heimans
      */
-	function _getExtension( $sFilename )
+	private function _getExtension( $sFilename )
 	{
 		$sExt = substr(strrchr( $sFilename, '.'), 1);
 
@@ -744,7 +744,7 @@ class UploadField extends Field
      * @access private
      * @author Teye Heimans
      */
-	function _getMaxUploadSize()
+	private function _getMaxUploadSize()
 	{
 		static $iIniSize = false;
 
@@ -767,7 +767,7 @@ class UploadField extends Field
      * @access private
      * @author Teye Heimans
      */
-	function _iniSizeToBytes( $sIniSize )
+	private function _iniSizeToBytes( $sIniSize )
 	{
 		$aIniParts = array();
 		if (!is_string($sIniSize))

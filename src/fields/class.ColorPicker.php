@@ -13,7 +13,7 @@ require_once(dirname(__FILE__)."/class.TextField.php");
  */
 class ColorPicker extends TextField
 {
-	var $sTitleAdd = "";
+	public $sTitleAdd = "";
 
 	/**
      * ColorPicker::ColorPicker()
@@ -26,9 +26,9 @@ class ColorPicker extends TextField
      * @access public
      * @author Rick den Haan
      */
-	function ColorPicker( &$oForm, $sName )
+	public function __construct( &$oForm, $sName )
 	{
-		parent::TextField($oForm, $sName);
+		parent::__construct($oForm, $sName);
 
 		static $bSetJS = false;
 
@@ -50,7 +50,7 @@ class ColorPicker extends TextField
      * @access public
      * @author Rick den Haan
      */
-	function getField()
+	public function getField()
 	{
 		// view mode enabled ?
 		if( $this -> getViewMode() )

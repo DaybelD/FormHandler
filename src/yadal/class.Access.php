@@ -22,7 +22,7 @@
 include_once('class.Yadal.php');
 class Access extends Yadal
 {
-    var $_cursor;   // integer: what was the cursor position? (Used for recordCount)
+    private $_cursor;   // integer: what was the cursor position? (Used for recordCount)
 
     /**
      * Access::Access()
@@ -34,9 +34,9 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function Access( $db )
+    public function __construct( $db )
     {
-    	parent::Yadal( $db );
+    	parent::__construct( $db );
         $this->_nameQuote = array('[',']');
     }
 
@@ -53,7 +53,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function connect( $connStr = '', $username = '', $password = '' )
+    public function connect( $connStr = '', $username = '', $password = '' )
     {
     	// make connection with the database
         $this->_conn = new COM('ADODB.Connection');
@@ -96,7 +96,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function close()
+    public function close()
     {
         if( $this->_isConnected )
         {
@@ -115,7 +115,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function query( $query )
+    public function query( $query )
     {
     	// save the last query...
     	$this->_lastQuery = $query;
@@ -151,7 +151,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getInsertId( $table )
+    public function getInsertId( $table )
     {
         $keys = $this->getPrKeys( $table );
         $k    = each( $keys );
@@ -174,7 +174,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getError()
+    public function getError()
     {
     	// are there errors?
         $errc = $this->_conn->Errors;
@@ -200,7 +200,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function recordCount( $rs )
+    public function recordCount( $rs )
     {
         // go to the first record
         if( !$rs->BOF )
@@ -236,7 +236,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getFieldTypes( $table )
+    public function getFieldTypes( $table )
     {
         return array(); // TODO!!
     }
@@ -251,7 +251,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getRecord( $rs )
+    public function getRecord( $rs )
     {
         // are we at the end of the records ?
         if( $rs->EOF ) {
@@ -306,7 +306,7 @@ class Access extends Yadal
 	 * @access public
      * @author Teye Heimans
 	 */
-	function getFieldNames( $table )
+	public function getFieldNames( $table )
 	{
 		$table = strtolower( $table );
 
@@ -357,7 +357,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getNotNullFields ( $table )
+    public function getNotNullFields ( $table )
     {
     	$table = strtolower($table);
 
@@ -412,7 +412,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getPrKeys( $table )
+    public function getPrKeys( $table )
     {
         $table = strtolower( $table );
 
@@ -468,7 +468,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function dbDate( $y, $m, $d )
+    public function dbDate( $y, $m, $d )
     {
     	return " # $d-$m-$y # ";
     }
@@ -483,7 +483,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function escapeString( $string )
+    public function escapeString( $string )
     {
         return str_replace("'", "''", $string);
     }
@@ -498,7 +498,7 @@ class Access extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getUniqueFields( $table )
+    public function getUniqueFields( $table )
     {
         // Access does not know unique fields... but primary key fields are also unique...
         return array('Primary Key' => $this->getPrKeys( $table ));

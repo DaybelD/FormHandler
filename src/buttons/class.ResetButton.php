@@ -22,9 +22,9 @@ class ResetButton extends Button
      * @access public
      * @author Teye Heimans
      */
-    function ResetButton(&$oForm, $sName)
+    public function __construct(&$oForm, $sName)
     {
-        $this->Button($oForm, $sName);
+        parent::__construct($oForm, $sName);
 
         $this->setCaption( $oForm->_text( 27 ) );
     }
@@ -38,7 +38,7 @@ class ResetButton extends Button
      * @access public
      * @author Teye Heimans
      */
-    function getButton()
+    public function getButton()
     {
         return sprintf(
           '<input type="reset" value="%s" name="%s" id="%2$s"%s '. FH_XHTML_CLOSE .'>',

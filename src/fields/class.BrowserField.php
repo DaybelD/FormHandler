@@ -10,8 +10,8 @@
  */
 class BrowserField extends Field
 {
-    var $_iSize;         // int: the size of the field
-    var $_form;    		 // object: form
+    private $_iSize;         // int: the size of the field
+    private $_form;    		 // object: form
 
     /**
      * TextField::BrowserField()
@@ -25,10 +25,10 @@ class BrowserField extends Field
      * @author Johan Wiegel
      * @access public
      */
-    function BrowserField( &$oForm, $sName, $sPath )
+    public function __construct( &$oForm, $sName, $sPath )
     {
         // call the constructor of the Field class
-        parent::Field($oForm, $sName);
+        parent::__construct($oForm, $sName);
         $this->_path = $sPath;
 		$this->_form = $oForm;
         $this->setSize( 20 );
@@ -46,7 +46,7 @@ class BrowserField extends Field
      * @author Teye Heimans
      * @access public
      */
-    function setSize( $iSize )
+    public function setSize( $iSize )
     {
         $this->_iSize = $iSize;
     }
@@ -60,7 +60,7 @@ class BrowserField extends Field
      * @access public
      * @author Johan Wiegel
      */
-    function getField()
+    public function getField()
     {
         // view mode enabled ?
         if( $this -> getViewMode() )

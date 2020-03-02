@@ -11,11 +11,11 @@
  */
 class Button
 {
-    var $_oForm;
-    var $_sName;
-    var $_sExtra;
-    var $_sCaption;
-    var $_iTabIndex;
+    private $_oForm;
+    protected $_sName;
+    private $_sExtra;
+    protected $_sCaption;
+    private $_iTabIndex;
 
     /**
      * Button::Button()
@@ -28,7 +28,7 @@ class Button
      * @access public
      * @author Teye Heimans
      */
-    function Button(&$oForm, $sName)
+    public function __construct(&$oForm, $sName)
     {
         // set the button name and caption
         $this->_oForm    = $oForm;
@@ -45,7 +45,7 @@ class Button
      * @access public
      * @author Teye Heimans
      */
-    function setTabIndex( $iIndex )
+    public function setTabIndex( $iIndex )
     {
         $this->_iTabIndex = $iIndex;
     }
@@ -61,7 +61,7 @@ class Button
      * @access public
      * @author Teye Heimans
      */
-    function setCaption($sCaption)
+    public function setCaption($sCaption)
     {
         $this->_sCaption = $sCaption;
     }
@@ -75,7 +75,7 @@ class Button
      * @access public
      * @author Teye Heimans
      */
-    function getButton()
+    public function getButton()
     {
         return sprintf(
           '<input type="button" name="%s" id="%1$s" value="%s"%s '. FH_XHTML_CLOSE .'>',
@@ -96,7 +96,7 @@ class Button
      * @access public
      * @author Teye Heimans
      */
-    function setExtra($sExtra)
+    public function setExtra($sExtra)
     {
         $this->_sExtra = $sExtra;
     }

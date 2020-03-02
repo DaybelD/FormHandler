@@ -11,9 +11,9 @@
  */
 class TextSelectField extends TextField
 {
-	var $_iSize;         // int: the size of the field
-	var $_iMaxlength;    // int: the maxlength of the field
-	var $_sOptions;
+	protected $_iSize;         // int: the size of the field
+	private $_iMaxlength;    // int: the maxlength of the field
+	private $_sOptions;
 	
 	/**
      * TextSelectField::TextSelectField()
@@ -27,9 +27,9 @@ class TextSelectField extends TextField
      * @access public
      */
 
-	function TextSelectField( &$oForm, $sName, $aOptions )
+	public function __construct( &$oForm, $sName, $aOptions )
 	{
-		parent::TextField($oForm, $sName);
+		parent::__construct($oForm, $sName);
 		
 		static $bSetJS = false;
 
@@ -61,7 +61,7 @@ class TextSelectField extends TextField
 		$this->setMaxlength( 0 );
 	}
 
-	function getField()
+	public function getField()
 	{
 		// view mode enabled ?
 		if( $this -> getViewMode() )

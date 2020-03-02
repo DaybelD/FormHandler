@@ -10,11 +10,11 @@
 */
 class SelectField extends Field
 {
-	var $_aOptions;              // array: the options of the selectfield
-	var $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values
-	var $_iSize;                 // integer: set the size of the field
-	var $_bMultiple;             // boolean: can multiple items be selected or not?
-	var $_classOpt;
+	public $_aOptions;              // array: the options of the selectfield
+	public $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values
+	private $_iSize;                 // integer: set the size of the field
+	private $_bMultiple;             // boolean: can multiple items be selected or not?
+	private $_classOpt;
 	/**
      * SelectField::SelectField()
      *
@@ -26,10 +26,10 @@ class SelectField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function SelectField( &$oForm, $sName )
+	public function __construct( &$oForm, $sName )
 	{
 		// call the constructor of the Field class
-		parent::Field( $oForm, $sName );
+		parent::__construct( $oForm, $sName );
 
 		$this->setSize( 1 );
 		$this->useArrayKeyAsValue( FH_DEFAULT_USEARRAYKEY );
@@ -45,7 +45,7 @@ class SelectField extends Field
      * @access public
      * @author Teye Heimans     
      */
-	function getValue()
+	public function getValue()
 	{
 		// are multiple selects possible?
 		if( $this->_bMultiple )
@@ -77,7 +77,7 @@ class SelectField extends Field
      * @author Teye Heimans
 	 * @since 12-08-2008 Altered by Johan Wiegel, repaired valid html </optgroup> thanks to Roland van Wanrooy
      */
-	function getField()
+	public function getField()
 	{
 		// view mode enabled ?
 		if( $this -> getViewMode() )
@@ -186,13 +186,13 @@ class SelectField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function setOptions( $aOptions )
+	public function setOptions( $aOptions )
 	{
 		$this->_aOptions = $aOptions;
 	}
 	
 	// added by sid benachenhou for handling styles
-	function setCOptions( $_classOpt )
+	public function setCOptions( $_classOpt )
 	{
 		$this->_classOpt = $_classOpt;
 	}
@@ -206,7 +206,7 @@ class SelectField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function setMultiple( $bMultiple )
+	public function setMultiple( $bMultiple )
 	{
 		$this->_bMultiple = $bMultiple;
 	}
@@ -221,7 +221,7 @@ class SelectField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function setSize( $iSize )
+	public function setSize( $iSize )
 	{
 		$this->_iSize = $iSize;
 	}
@@ -236,7 +236,7 @@ class SelectField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function useArrayKeyAsValue( $bMode )
+	public function useArrayKeyAsValue( $bMode )
 	{
 		$this->_bUseArrayKeyAsValue = $bMode;
 	}

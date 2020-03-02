@@ -11,14 +11,14 @@
  */
 class ListField extends Field
 {
-    var $_aOptions;             // Array: the options of the selectfield
-    var $_oHidden;              // HiddenField: the fielf where the value is saved in
-    var $_oOn;                  // SelectField: the field where the items are displayed which are "on"
-    var $_oOff;                 // SelectField: the field where the items are displayed which are "off"
-    var $_sOnTitle;             // String: the title used for the on section
-    var $_sOffTitle;            // String: the title used for the off section
-    var $_bUseArrayKeyAsValue;  // Boolean: if the keys of the array should be used as values
-	var $_bVerticalMode; 		// Boolean: if field is stacked horizontal or vertical
+    private $_aOptions;             // Array: the options of the selectfield
+    private $_oHidden;              // HiddenField: the fielf where the value is saved in
+    private $_oOn;                  // SelectField: the field where the items are displayed which are "on"
+    private $_oOff;                 // SelectField: the field where the items are displayed which are "off"
+    private $_sOnTitle;             // String: the title used for the on section
+    private $_sOffTitle;            // String: the title used for the off section
+    private $_bUseArrayKeyAsValue;  // Boolean: if the keys of the array should be used as values
+	private $_bVerticalMode; 		// Boolean: if field is stacked horizontal or vertical
     /**
      * ListField::ListField()
      *
@@ -31,7 +31,7 @@ class ListField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function ListField( &$oForm, $sName, $aOptions )
+    public function __construct( &$oForm, $sName, $aOptions )
     {
     	$this->_mValue = array();
     	static $bSetJS = false;
@@ -46,7 +46,7 @@ class ListField extends Field
     	// set the options
         $this->_aOptions = $aOptions;
 
-        parent::Field( $oForm, $sName, $aOptions );
+        parent::__construct( $oForm, $sName, $aOptions );
 
         // make the fields of the listfield
         $this->_oHidden = new HiddenField($oForm, $sName);
@@ -73,7 +73,7 @@ class ListField extends Field
      * @since 20-03-2008 added by Johan Wiegel
      */
     
-    function setVerticalMode($bVerticalMode)
+    public function setVerticalMode($bVerticalMode)
     {
         $this->_bVerticalMode = $bVerticalMode;
     }     
@@ -88,7 +88,7 @@ class ListField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setValue( $aValue )
+    public function setValue( $aValue )
     {
     	// make an array from the value
         if(!is_array($aValue))
@@ -126,7 +126,7 @@ class ListField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setExtra( $sExtra )
+    public function setExtra( $sExtra )
     {
     	$this->_oOff->setExtra ( $sExtra );
     	$this->_oOn->setExtra  ( $sExtra );
@@ -142,7 +142,7 @@ class ListField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setOnTitle($sTitle)
+    public function setOnTitle($sTitle)
     {
         $this->_sOnTitle = $sTitle;
     }
@@ -157,7 +157,7 @@ class ListField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setOffTitle($sTitle)
+    public function setOffTitle($sTitle)
     {
         $this->_sOffTitle = $sTitle;
     }
@@ -171,7 +171,7 @@ class ListField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function getField()
+    public function getField()
     {
         // view mode enabled ?
         if( $this -> getViewMode() )
@@ -246,7 +246,7 @@ class ListField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setSize( $iSize )
+    public function setSize( $iSize )
     {
         $this->_oOn->setSize ( $iSize );
         $this->_oOff->setSize( $iSize );
@@ -262,7 +262,7 @@ class ListField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function useArrayKeyAsValue( $bMode )
+    public function useArrayKeyAsValue( $bMode )
     {
         $this->_bUseArrayKeyAsValue = $bMode;
         $this->_oOn->useArrayKeyAsValue  ( $bMode );

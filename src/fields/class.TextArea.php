@@ -11,10 +11,10 @@
  */
 class TextArea extends Field {
 
-    var $_iCols;        // int: number of colums which the textarea should get
-    var $_iRows;        // int: number of rows which the textarea should get
-    var $_iMaxLength;   // int: the number of characters allowed
-    var $_bShowMessage; // boolean: should we display the limit message
+    private $_iCols;        // int: number of colums which the textarea should get
+    private $_iRows;        // int: number of rows which the textarea should get
+    private $_iMaxLength;   // int: the number of characters allowed
+    private $_bShowMessage; // boolean: should we display the limit message
 
     /**
      * TextArea::TextArea()
@@ -27,10 +27,10 @@ class TextArea extends Field {
      * @author Teye Heimans
      * @access public
      */
-    function TextArea( &$oform, $sName )
+    public function __construct( &$oform, $sName )
     {
         // call the constructor of the Field class
-        parent::Field( $oform, $sName );
+        parent::__construct( $oform, $sName );
 
         $this->setCols( 40 );
         $this->setRows( 7 );
@@ -46,7 +46,7 @@ class TextArea extends Field {
      * @author Teye Heimans
      * @access public
      */
-    function setCols( $iCols )
+    public function setCols( $iCols )
     {
         $this->_iCols = $iCols;
     }
@@ -61,7 +61,7 @@ class TextArea extends Field {
      * @access public
      * @author Teye Heimans
      */
-    function setMaxLength( $iMaxLength, $bDisplay )
+    public function setMaxLength( $iMaxLength, $bDisplay )
     {
         $this -> _iMaxLength   = $iMaxLength;
         $this -> _bShowMessage = $bDisplay;
@@ -76,7 +76,7 @@ class TextArea extends Field {
      * @access public
      * @author Teye Heimans
      */
-    function isValid()
+    public function isValid()
     {
         // is a max length set ?
         if( isset( $this -> _iMaxLength ) && $this -> _iMaxLength > 0 )
@@ -112,7 +112,7 @@ class TextArea extends Field {
      * @author Teye Heimans
      * @access public
      */
-    function setRows( $iRows )
+    public function setRows( $iRows )
     {
         $this->_iRows = $iRows;
     }
@@ -126,7 +126,7 @@ class TextArea extends Field {
      * @author Teye Heimans
      * @access public
      */
-    function getField()
+    public function getField()
     {
         // view mode enabled ?
         if( $this -> getViewMode() )

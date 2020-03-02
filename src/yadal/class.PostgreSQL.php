@@ -26,9 +26,9 @@ class PostgreSQL extends Yadal
      * @param string $db: The database to use to
      * @author Teye Heimans
      */
-    function PostgreSQL( $db )
+	public function __construct( $db )
     {
-        $this->Yadal( $db );
+        parent::__construct( $db );
         $this->_nameQuote    = array('"', '"');
         $this->_quoteNumbers = true;
     }
@@ -46,7 +46,7 @@ class PostgreSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function connect( $host = '', $username = '', $password = '' )
+    public function connect( $host = '', $username = '', $password = '' )
     {
         // build connection string based on internal settings.
         $connStr = '';
@@ -86,7 +86,7 @@ class PostgreSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function close()
+    public function close()
     {
         if( $this->_isConnected )
         {
@@ -105,7 +105,7 @@ class PostgreSQL extends Yadal
    	 * @access public
    	 * @author Teye Heimans
    	 */
-    function query( $query )
+    public function query( $query )
     {
     	$this->_lastQuery = $query;
 
@@ -122,7 +122,7 @@ class PostgreSQL extends Yadal
      * @access public
    	 * @author Teye Heimans
      */
-    function getInsertId( $table )
+    public function getInsertId( $table )
     {
         $k = $this->getPrKeys( $table );
 
@@ -176,7 +176,7 @@ class PostgreSQL extends Yadal
      * @access public
    	 * @author Teye Heimans
      */
-    function getError( $sql = null)
+    public function getError( $sql = null)
     {
         return !is_null($sql) ? pg_result_error($this->_sql) : pg_last_error();
     }
@@ -193,7 +193,7 @@ class PostgreSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function result( $result, $row = 0, $field = null )
+    public function result( $result, $row = 0, $field = null )
     {
     	return pg_result( $result, $row, $field );
     }
@@ -207,7 +207,7 @@ class PostgreSQL extends Yadal
      * @access public
    	 * @author Teye Heimans
      */
-    function recordCount( $sql)
+    public function recordCount( $sql)
     {
         return pg_numrows( $sql );
     }
@@ -222,7 +222,7 @@ class PostgreSQL extends Yadal
      * @access public
    	 * @author Teye Heimans
      */
-    function getRecord( $sql )
+    public function getRecord( $sql )
     {
         return pg_fetch_assoc( $sql );
     }
@@ -237,7 +237,7 @@ class PostgreSQL extends Yadal
      * @access public
    	 * @author Teye Heimans
      */
-    function getFieldNames( $table )
+    public function getFieldNames( $table )
     {
         $t = strtolower($table);
 
@@ -297,7 +297,7 @@ class PostgreSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getTables()
+    public function getTables()
     {
         // return the data from the cache if it exists
         if( isset( $this->_cache['tables'] ) )
@@ -351,7 +351,7 @@ class PostgreSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getNotNullFields ( $table )
+    public function getNotNullFields ( $table )
     {
         $t = strtolower($table);
 
@@ -413,7 +413,7 @@ class PostgreSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getFieldTypes( $table )
+    public function getFieldTypes( $table )
     {
         $t = strtolower($table);
 
@@ -522,7 +522,7 @@ class PostgreSQL extends Yadal
      * @access public
    	 * @author Teye Heimans
      */
-    function escapeString( $string )
+    public function escapeString( $string )
     {
         return pg_escape_string( $string );
     }
@@ -537,7 +537,7 @@ class PostgreSQL extends Yadal
      * @access public
    	 * @author Teye Heimans
      */
-    function getPrKeys( $table )
+    public function getPrKeys( $table )
     {
         $t = strtolower($table);
 
@@ -605,7 +605,7 @@ class PostgreSQL extends Yadal
      * @access public
    	 * @author Teye Heimans
      */
-    function getUniqueFields( $table)
+    public function getUniqueFields( $table)
     {
         $t = strtolower( $table );
 

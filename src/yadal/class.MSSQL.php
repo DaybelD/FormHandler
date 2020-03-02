@@ -25,9 +25,9 @@ class MSSQL extends Yadal
      *
      * @author Teye Heimans
      */
-    function MSSQL( $db )
+    public function __construct( $db )
     {
-        $this->Yadal( $db );
+        parent::__construct( $db );
         $this->_nameQuote = array('[',']');
     }
 
@@ -44,7 +44,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function connect( $servername = '', $username = '', $password = '' )
+    public function connect( $servername = '', $username = '', $password = '' )
     {
     	// try to connect
     	$this->_conn = mssql_connect( $servername, $username, $password );
@@ -74,7 +74,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function close()
+    public function close()
     {
         if( $this->_isConnected )
         {
@@ -93,7 +93,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function query( $query )
+    public function query( $query )
     {
     	$this->_lastQuery = $query;
 

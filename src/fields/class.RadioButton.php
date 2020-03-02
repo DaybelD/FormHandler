@@ -11,10 +11,10 @@
  */
 class RadioButton extends Field
 {
-    var $_aOptions;              // string: the value with is selected
-    var $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values
-    var $_sMask;                 // string: what kind of "glue" should be used to merge the fields
-    var $_oLoader;               // object: a maskloader object
+    public $_aOptions;              // string: the value with is selected
+    private $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values
+    private $_sMask;                 // string: what kind of "glue" should be used to merge the fields
+    private $_oLoader;               // object: a maskloader object
 
     /**
      * RadioButton::RadioButton()
@@ -27,10 +27,10 @@ class RadioButton extends Field
      * @return RadioButton
      * @author Teye Heimans
      */
-    function RadioButton( &$oForm, $sName, $aOptions )
+    public function __construct( &$oForm, $sName, $aOptions )
     {
         // call the constructor of the Field class
-        parent::Field( $oForm, $sName );
+        parent::__construct( $oForm, $sName );
 
         $this->_aOptions = $aOptions;
 
@@ -48,7 +48,7 @@ class RadioButton extends Field
      * @access public
      * @author Teye Heimans
      */
-    function useArrayKeyAsValue( $bMode )
+    public function useArrayKeyAsValue( $bMode )
     {
         $this->_bUseArrayKeyAsValue = $bMode;
     }
@@ -63,7 +63,7 @@ class RadioButton extends Field
      * @author Teye Heimans
      * @access public
      */
-    function setMask( $sMask )
+    public function setMask( $sMask )
     {
         // when there is no %field% used, put it in front of the mask/glue
         if( strpos( $sMask, '%field%' ) === false )
@@ -83,7 +83,7 @@ class RadioButton extends Field
      * @access Public
      * @author Teye Heimans
      */
-    function getField()
+    public function getField()
     {
         // view mode enabled ?
         if( $this -> getViewMode() )
@@ -138,7 +138,7 @@ class RadioButton extends Field
      * @access Private
      * @author Teye Heimans
      */
-    function _getRadioButton( $sValue, $sTitle, $bUseMask = false )
+    private function _getRadioButton( $sValue, $sTitle, $bUseMask = false )
     {
         
         static $counter = 1;

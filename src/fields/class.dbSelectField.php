@@ -11,8 +11,6 @@
 
 class dbSelectField extends SelectField
 {
-    var $_oDb;
-
     /**
      * dbSelectField::dbSelectField()
      *
@@ -29,10 +27,10 @@ class dbSelectField extends SelectField
      * @access public
      * @author Teye Heimans
      */
-	function dbSelectField( &$oForm, $sName, &$oDb, $sTable, $mFields, $sExtraSQL = null, $aMergeArray = array() )
+	public function __construct( &$oForm, $sName, &$oDb, $sTable, $mFields, $sExtraSQL = null, $aMergeArray = array() )
 	{
 	    // call the constructor of the selectfield
-		parent::SelectField( $oForm, $sName );
+		parent::__construct( $oForm, $sName );
 
 		// make sure that the fields are set in an array
 		$aFields = !is_array($mFields) ? array( $mFields ) : $mFields;

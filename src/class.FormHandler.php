@@ -7,49 +7,49 @@
  */
 
 /******* BUILD IN VALIDATOR FUNCTIONS *******/
-define('FH_STRING',     'IsString',    true);	// any string that doesn't have control characters (ASCII 0 - 31) but spaces are allowed
-define('FH_ALPHA',      'IsAlpha',     true);	// only letters a-z and A-Z
-define('FH_DIGIT',      'IsDigit',     true);	// only numbers 0-9
-define('FH_ALPHA_NUM',  'IsAlphaNum',  true);	// letters and numbers
-define('FH_INTEGER',    'IsInteger',   true);	// only numbers 0-9 and an optional - (minus) sign (in the beginning only)
-define('FH_FLOAT',      'IsFloat',     true);	// like FH_INTEGER, only with , (comma)
-define('FH_FILENAME',   'IsFilename',  true);	// a valid file name (including dots but no slashes and other forbidden characters)
-define('FH_BOOL',       'IsBool',      true);	// a boolean (TRUE is either a case-insensitive "true" or "1". Everything else is FALSE)
-define('FH_VARIABLE',   'IsVariabele', true);	// a valid variable name (letters, digits, underscore)
-define('FH_PASSWORD',   'IsPassword',  true);	// a valid password (alphanumberic + some other characters but no spaces. Only allow ASCII 33 - 126)
-define('FH_URL',        'IsURL',       true);	// a valid URL
-define('FH_URL_HOST',   'IsURLHost',   true);   // a valid URL (http connection is used to check if url exists!)
-define('FH_EMAIL',      'IsEmail',     true);	// a valid email address (only checks for valid format: xxx@xxx.xxx)
-define('FH_EMAIL_HOST', 'IsEmailHost', true);   // like FH_EMAIL only with host check
-define('FH_TEXT',       'IsText',      true);	// like FH_STRING, but newline characters are allowed
-define('FH_NOT_EMPTY',  'notEmpty',    true);   // check if the value is not empty
-define('FH_NO_HTML',	'NoHTML',	   true);   // check if the value does not contain html
-define('FH_IP',		    'IsIp',		   true);   // check if the value is a valid ip adres (xxx.xxx.xxx.xxx:xxxx)
+define('FH_STRING',     'IsString');	// any string that doesn't have control characters (ASCII 0 - 31) but spaces are allowed
+define('FH_ALPHA',      'IsAlpha');		// only letters a-z and A-Z
+define('FH_DIGIT',      'IsDigit');		// only numbers 0-9
+define('FH_ALPHA_NUM',  'IsAlphaNum');	// letters and numbers
+define('FH_INTEGER',    'IsInteger');	// only numbers 0-9 and an optional - (minus) sign (in the beginning only)
+define('FH_FLOAT',      'IsFloat');		// like FH_INTEGER, only with , (comma)
+define('FH_FILENAME',   'IsFilename');	// a valid file name (including dots but no slashes and other forbidden characters)
+define('FH_BOOL',       'IsBool');		// a boolean (TRUE is either a case-insensitive "true" or "1". Everything else is FALSE)
+define('FH_VARIABLE',   'IsVariabele');	// a valid variable name (letters, digits, underscore)
+define('FH_PASSWORD',   'IsPassword');	// a valid password (alphanumberic + some other characters but no spaces. Only allow ASCII 33 - 126)
+define('FH_URL',        'IsURL');		// a valid URL
+define('FH_URL_HOST',   'IsURLHost');	// a valid URL (http connection is used to check if url exists!)
+define('FH_EMAIL',      'IsEmail');		// a valid email address (only checks for valid format: xxx@xxx.xxx)
+define('FH_EMAIL_HOST', 'IsEmailHost');	// like FH_EMAIL only with host check
+define('FH_TEXT',       'IsText');		// like FH_STRING, but newline characters are allowed
+define('FH_NOT_EMPTY',  'notEmpty');	// check if the value is not empty
+define('FH_NO_HTML',	'NoHTML');		// check if the value does not contain html
+define('FH_IP',		    'IsIp');		// check if the value is a valid ip adres (xxx.xxx.xxx.xxx:xxxx)
 
 // for dutch people
-define('FH_POSTCODE',   'IsPostcode',  true);   // valid dutch postcode (eg. 9999 AA)
-define('FH_PHONE',      'IsPhone',     true);   // valid dutch phone-number(eg. 058-2134778)
+define('FH_POSTCODE',   'IsPostcode');	// valid dutch postcode (eg. 9999 AA)
+define('FH_PHONE',      'IsPhone');		// valid dutch phone-number(eg. 058-2134778)
 
 // same as above, but with these the value is not required
-define('_FH_STRING',     '_IsString',    true);
-define('_FH_ALPHA',      '_IsAlpha',     true);
-define('_FH_DIGIT',      '_IsDigit',     true);
-define('_FH_ALPHA_NUM',  '_IsAlphaNum',  true);
-define('_FH_INTEGER',    '_IsInteger',   true);
-define('_FH_FLOAT',      '_IsFloat',     true);
-define('_FH_FILENAME',   '_IsFilename',  true);
-define('_FH_BOOL',       '_IsBool',      true);
-define('_FH_VARIABLE',   '_IsVariabele', true);
-define('_FH_PASSWORD',   '_IsPassword',  true);
-define('_FH_URL',        '_IsURL',       true);
-define('_FH_URL_HOST',   '_IsURLHost',   true);
-define('_FH_EMAIL',      '_IsEmail',     true);
-define('_FH_EMAIL_HOST', '_IsEmailHost', true);
-define('_FH_TEXT',       '_IsText',      true);
-define('_FH_POSTCODE',   '_IsPostcode',  true);
-define('_FH_PHONE',      '_IsPhone',     true);
-define('_FH_NO_HTML',	 '_NoHTML',	     true);
-define('_FH_IP',		 '_IsIp',		 true);
+define('_FH_STRING',     '_IsString');
+define('_FH_ALPHA',      '_IsAlpha');
+define('_FH_DIGIT',      '_IsDigit');
+define('_FH_ALPHA_NUM',  '_IsAlphaNum');
+define('_FH_INTEGER',    '_IsInteger');
+define('_FH_FLOAT',      '_IsFloat');
+define('_FH_FILENAME',   '_IsFilename');
+define('_FH_BOOL',       '_IsBool');
+define('_FH_VARIABLE',   '_IsVariabele');
+define('_FH_PASSWORD',   '_IsPassword');
+define('_FH_URL',        '_IsURL');
+define('_FH_URL_HOST',   '_IsURLHost');
+define('_FH_EMAIL',      '_IsEmail');
+define('_FH_EMAIL_HOST', '_IsEmailHost');
+define('_FH_TEXT',       '_IsText');
+define('_FH_POSTCODE',   '_IsPostcode');
+define('_FH_PHONE',      '_IsPhone');
+define('_FH_NO_HTML',	 '_NoHTML');
+define('_FH_IP',		 '_IsIp');
 
 // Mask for titles above the fields..
 // This is not used by default but can be handy for the users
@@ -97,35 +97,35 @@ require_once( FH_INCLUDE_DIR . 'includes/class.MaskLoader.php' );
 class FormHandler
 {
 	// protected !!
-	var $_fields;           // array: contains all the fields
-	var $_posted;           // boolean: if the form is posted or not
-	var $_name;             // string: the name of the form
-	var $_action;           // string: the action of the form
-	var $_displayErrors;    // boolean: if we have to display the errors in the form
-	var $_mask;             // string: the mask which should be used
-	var $_upload;           // array: contains the names of the uploadfields
-	var $_date;             // array: contains the names of the datefields
-	var $_onCorrect;        // string: the callback function when the form is correct
-	var $_add;              // array: contains the data which was added by the user
-	var $_focus;            // string: the field which should get the focus
-	var $_convert;          // array: fields which should be converted (eg. resizeimage or mergeimage)
-	var $_buffer;           // array: buffer of set values (used when the field does not exists yet)
-	var $_text;             // array: the language array we are using to display the messages etc
-	var $_lang;				// string: the language used
-	var $_setTable;			// boolean: set a html table arround the fields or has the user done that in the mask ?
-	var $_extra;			// string: extra tag information for the <form> tag (like CSS or javascript)
-	var $_pageCounter;      // int: how many pages has this form
-	var $_curPage;          // int: current page
-	var $_mail;             // array: contains the mailing data
-	var $_tabindexes;       // array: tab indexes of the fields...
-	var $_js;				// array: contains all the needed javascript for the form
-	var $_help;				// array: contains the help text for the fields
-	var $_helpIcon;		    // string: the path to the help image
-	var $_cache;			// array: save the values of the field in this array after the flush is called (then the objects are deleted!)
-	var $_viewMode;			// boolean: is view mode enabled or not
-	var $_tableSettings;    // array: array with all table settings
-	var $_ajaxValidator;	// boolean: if Ajax validation must be used or not.
-	var $_ajaxValidatorScript;	// boolean: if Ajax validation must include library or not.
+	protected $_fields;           // array: contains all the fields
+	protected $_posted;           // boolean: if the form is posted or not
+	protected $_name;             // string: the name of the form
+	protected $_action;           // string: the action of the form
+	protected $_displayErrors;    // boolean: if we have to display the errors in the form
+	protected $_mask;             // string: the mask which should be used
+	protected $_upload;           // array: contains the names of the uploadfields
+	protected $_date;             // array: contains the names of the datefields
+	protected $_onCorrect;        // string: the callback function when the form is correct
+	protected $_add;              // array: contains the data which was added by the user
+	protected $_focus;            // string: the field which should get the focus
+	protected $_convert;          // array: fields which should be converted (eg. resizeimage or mergeimage)
+	protected $_buffer;           // array: buffer of set values (used when the field does not exists yet)
+	protected $_text;             // array: the language array we are using to display the messages etc
+	protected $_lang;             // string: the language used
+	protected $_setTable;         // boolean: set a html table arround the fields or has the user done that in the mask ?
+	protected $_extra;            // string: extra tag information for the <form> tag (like CSS or javascript)
+	protected $_pageCounter;      // int: how many pages has this form
+	protected $_curPage;          // int: current page
+	protected $_mail;             // array: contains the mailing data
+	protected $_tabindexes;       // array: tab indexes of the fields...
+	protected $_js;               // array: contains all the needed javascript for the form
+	protected $_help;             // array: contains the help text for the fields
+	protected $_helpIcon;         // string: the path to the help image
+	protected $_cache;            // array: save the values of the field in this array after the flush is called (then the objects are deleted!)
+	protected $_viewMode;         // boolean: is view mode enabled or not
+	protected $_tableSettings;    // array: array with all table settings
+	protected $_ajaxValidator;    // boolean: if Ajax validation must be used or not.
+	protected $_ajaxValidatorScript;	// boolean: if Ajax validation must include library or not.
 
 	/**
      * FormHandler::FormHandler()
@@ -138,7 +138,7 @@ class FormHandler
      * @author Teye Heimans
      * @return FormHandler
      */
-	function FormHandler( $name = null, $action = null, $extra = null )
+	public function __construct( $name = null, $action = null, $extra = null )
 	{
 		// initialisation
 		$this->_viewMode        = false;
@@ -273,7 +273,7 @@ class FormHandler
      * @access public
      * @author Johan Wiegel
      */
-	function browserField(
+	public function browserField(
 	$title,
 	$name,
 	$path,
@@ -309,7 +309,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function textField(
+	public function textField(
 	$title,
 	$name,
 	$validator = null,
@@ -345,7 +345,7 @@ class FormHandler
      * @author Johan Wiegel
      * @since 27-11-2007
      */
-	function CaptchaField(
+	public function CaptchaField(
 	$title,
 	$name,
 	$size      = null,
@@ -403,7 +403,7 @@ class FormHandler
      * @author Johan wiegel
      * @since 22-10-2008
      */
-	function textSelectField(
+	public function textSelectField(
 	$title,
 	$name,
 	$aOptions,
@@ -441,7 +441,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function passField(
+	public function passField(
 	$title,
 	$name,
 	$validator = null,
@@ -477,7 +477,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function hiddenField(
+	public function hiddenField(
 	$name,
 	$value     = null,
 	$validator = null,
@@ -513,7 +513,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function textArea(
+	public function textArea(
 	$title,
 	$name,
 	$validator = null,
@@ -552,7 +552,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function selectField(
+	public function selectField(
 	$title,
 	$name,
 	$options,
@@ -614,7 +614,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function checkBox(
+	public function checkBox(
 	$title,
 	$name,
 	$value              = 'on',
@@ -653,7 +653,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function radioButton(
+	public function radioButton(
 	$title,
 	$name,
 	$options,
@@ -701,7 +701,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function uploadField(
+	public function uploadField(
 	$title,
 	$name,
 	$config         = array(),
@@ -744,7 +744,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function listField(
+	public function listField(
 	$title,
 	$name,
 	$options,
@@ -802,7 +802,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function editor(
+	public function editor(
 	$title,
 	$name,
 	$validator = null,
@@ -848,7 +848,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function dateField(
+	public function dateField(
 	$title,
 	$name,
 	$validator = null,
@@ -897,7 +897,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function jsDateField(
+	public function jsDateField(
 	$title,
 	$name,
 	$validator = null,
@@ -940,7 +940,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function timeField(
+	public function timeField(
 	$title,
 	$name,
 	$validator = null,
@@ -979,7 +979,7 @@ class FormHandler
 	 * @author Johan Wiegel
 	 * @since 23-10-2008
      */
-	function colorPicker(
+	public function colorPicker(
 	$title,
 	$name,
 	$validator = null,
@@ -1018,7 +1018,7 @@ class FormHandler
      * @since 16-03-2010
       */	
 
-	function dateTextField(
+	public function dateTextField(
 	$title,
 	$name,
 	$validator = null,
@@ -1066,7 +1066,7 @@ class FormHandler
      * @author Thomas Branius
      * @since 16-03-2010
      */
-	function jsDateTextField(
+	public function jsDateTextField(
 	$title,
 	$name,
 	$validator = null,
@@ -1115,7 +1115,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function button( $caption, $name = null, $extra = null)
+	public function button( $caption, $name = null, $extra = null)
 	{
 		// get new button name if none is given
 		if( empty($name) )
@@ -1149,7 +1149,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function submitButton( $caption = null, $name = null, $extra = null, $disableOnSubmit = null)
+	public function submitButton( $caption = null, $name = null, $extra = null, $disableOnSubmit = null)
 	{
 		require_once(FH_INCLUDE_DIR.'buttons/class.SubmitButton.php');
 
@@ -1183,7 +1183,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function imageButton( $image, $name = null, $extra = null )
+	public function imageButton( $image, $name = null, $extra = null )
 	{
 		require_once(FH_INCLUDE_DIR.'buttons/class.ImageButton.php');
 
@@ -1214,7 +1214,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function resetButton($caption = null, $name = null, $extra = null)
+	public function resetButton($caption = null, $name = null, $extra = null)
 	{
 		require_once(FH_INCLUDE_DIR.'buttons/class.ResetButton.php');
 
@@ -1246,7 +1246,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function cancelButton($caption = null, $url = null, $name = null, $extra = null)
+	public function cancelButton($caption = null, $url = null, $name = null, $extra = null)
 	{
 		// get new button name if none given
 		if(empty($name))
@@ -1293,7 +1293,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function backButton( $caption = null, $name = null, $extra = null)
+	public function backButton( $caption = null, $name = null, $extra = null)
 	{
 		static $setJS = false;
 
@@ -1347,7 +1347,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function setMaxLength( $field, $maxlength, $displaymessage = true )
+	public function setMaxLength( $field, $maxlength, $displaymessage = true )
 	{
 		static $setJSmaxlength = false;
 
@@ -1392,7 +1392,7 @@ class FormHandler
      * @since 07-01-2009
      */
 
-	function parse_error_style( $mask )
+	public function parse_error_style( $mask )
 	{
 		// Get element containing %error_style%
 		$pattern = '/<[^<>]*%error_style%[^<>]*>/';
@@ -1431,7 +1431,7 @@ class FormHandler
 	 * @author Johan Wiegel
 	 * @since 25-08-2009
 	 */
-	function parse_error_Fieldstyle( $field )
+	public function parse_error_Fieldstyle( $field )
 	{
 		// Check if class-attribute already exists in element
 		if( preg_match( '/class=\"[^"]*"/', $field ) OR preg_match( '/class=\'[^"]*\'/', $field ) )
@@ -1487,7 +1487,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function setHelpText( $field, $helpText, $helpTitle = null )
+	public function setHelpText( $field, $helpText, $helpTitle = null )
 	{
 		static $setJS = false;
 		if( !FH_USE_OVERLIB )
@@ -1525,7 +1525,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function setHelpIcon( $helpIcon )
+	public function setHelpIcon( $helpIcon )
 	{
 		$this->_helpIcon = $helpIcon;
 	}
@@ -1540,7 +1540,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function addHTML( $html )
+	public function addHTML( $html )
 	{
 		$this->_fields[] = array( '__HTML__', $html );
 	}
@@ -1555,7 +1555,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function addLine( $text = null )
+	public function addLine( $text = null )
 	{
 		$this->_fields[] = array( '__LINE__', sprintf( FH_LINE_MASK, $text ) );
 	}
@@ -1572,7 +1572,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function borderStart( $caption = null, $name = null, $extra = '' )
+	public function borderStart( $caption = null, $name = null, $extra = '' )
 	{
 		static $i = 1;
 
@@ -1596,7 +1596,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function borderStop()
+	public function borderStop()
 	{
 		$this->_fields[] = array('__FIELDSET-END__', true);
 	}
@@ -1612,7 +1612,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function useTable( $setTable )
+	public function useTable( $setTable )
 	{
 		$this->_setTable = (bool) $setTable;
 
@@ -1630,7 +1630,7 @@ class FormHandler
      * @author Teye Heimans
      * @since 14-02-2008 Changed in order to also parse php as a template by Johan Wiegel
      */
-	function setMask( $mask = null, $repeat = true )
+	public function setMask( $mask = null, $repeat = true )
 	{
 		// when no mask is given, set the default mask
 		if(is_null($mask))
@@ -1680,7 +1680,7 @@ class FormHandler
 	 * @author sid benachenhou
 	 * @since 14-02-2008 added by Johan Wiegel
 	 */
-	function get_include_contents( $sFilename )
+	public function get_include_contents( $sFilename )
 	{
 		if( is_file( $sFilename ) )
 		{
@@ -1704,7 +1704,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function setErrorMessage( $field, $message, $useStyle = true )
+	public function setErrorMessage( $field, $message, $useStyle = true )
 	{
 		$this->_customMsg[$field] = array( $message, $useStyle );
 	}
@@ -1720,7 +1720,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function setAutoComplete( $field, $options )
+	public function setAutoComplete( $field, $options )
 	{
 		static $setJS = false;
 
@@ -1775,7 +1775,7 @@ class FormHandler
      * @author Rob Geerts
 	 * @since 12-02-2008 ADDED BY Johan Wiegel
      */
-	function setAutoCompleteAfter( $field, $after, $options )
+	public function setAutoCompleteAfter( $field, $after, $options )
 	{
 		static $setJS = false;
 
@@ -1827,7 +1827,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function newPage()
+	public function newPage()
 	{
 		$this->_fields[] = array( '__PAGE__', $this->_pageCounter++ );
 	}
@@ -1843,7 +1843,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function setTabIndex( $tabs )
+	public function setTabIndex( $tabs )
 	{
 		// is the given value a string?
 		if( is_string( $tabs ) )
@@ -1908,7 +1908,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function setLanguage( $sLanguage = null )
+	public function setLanguage( $sLanguage = null )
 	{
 		if(!_global) global $_SERVER;
 
@@ -1936,7 +1936,7 @@ class FormHandler
 				}
 
 				// set the language which formhandler supports
-				while (list (, $l) = each ($aLang))
+				foreach($aLang as $l)
 				{
 					$lFilename = null;
 					// check if the language file exists in UTF-8
@@ -2008,7 +2008,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function catchErrors( $display = false )
+	public function catchErrors( $display = false )
 	{
 		// only return the errors when the form is posted
 		// and the form is not correct
@@ -2069,7 +2069,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function setFocus( $field )
+	public function setFocus( $field )
 	{
 		// if the field is false, no focus has to be set...
 		if( $field === false )
@@ -2135,7 +2135,7 @@ class FormHandler
 	 * @author Johan Wiegel
 	 */
 
-	function enableAjaxValidator( $mode = true, $bScript = true)
+	public function enableAjaxValidator( $mode = true, $bScript = true)
 	{
 		$this->_ajaxValidator = (bool) $mode;
 		$this->_ajaxValidatorScript = (bool) $bScript;
@@ -2149,7 +2149,7 @@ class FormHandler
 	 * @param boolean $mode: The new state of the Forms View Mode
 	 * @return void
 	 */
-	function enableViewMode( $mode = true)
+	public function enableViewMode( $mode = true)
 	{
 		$this->_viewMode = (bool) $mode;
 	}
@@ -2163,7 +2163,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
 	 */
-	function isViewMode()
+	public function isViewMode()
 	{
 		return $this->_viewMode;
 	}
@@ -2178,7 +2178,7 @@ class FormHandler
      * @return void
      * @access public
      */
-	function setFieldViewMode( $field, $mode = true )
+	public function setFieldViewMode( $field, $mode = true )
 	{
 		// does the field exists?
 		if( $this -> fieldExists( $field ) )
@@ -2205,7 +2205,7 @@ class FormHandler
      * @return boolean
      * @access public
      */
-	function isFieldViewMode( $field )
+	public function isFieldViewMode( $field )
 	{
 		// does the field exists?
 		if( $this -> fieldExists( $field ) && is_object( $this -> _fields[$field][1] ) && method_exists( $this -> _fields[$field][1], 'getViewMode' ) )
@@ -2230,7 +2230,7 @@ class FormHandler
 	 * @return void
 	 * @author Teye Heimans
 	 */
-	function setTableSettings(
+	public function setTableSettings(
 	$width       = null,
 	$cellspacing = null,
 	$cellpadding = null,
@@ -2268,7 +2268,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function getValue( $field )
+	public function getValue( $field )
 	{
 		return $this->value( $field );
 	}
@@ -2283,7 +2283,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function getAsArray( $datefield )
+	public function getAsArray( $datefield )
 	{
 		// check if the datefield exists
 		if( in_array($datefield, $this->_date ) )
@@ -2312,7 +2312,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function value( $field )
+	public function value( $field )
 	{
 		if(!_global) global $_POST;
 
@@ -2370,7 +2370,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function setValue( $sField, $sValue, $bOverwriteCurrentValue = false )
+	public function setValue( $sField, $sValue, $bOverwriteCurrentValue = false )
 	{
 		// check if the field exists
 		if( $this->fieldExists( $sField ) )
@@ -2401,21 +2401,14 @@ class FormHandler
      *
      * @param string $field: The field which value we have to set
      * @param string $value: The value we have to set
-     * @param boolean $sqlFunction: Is the value an SQL function ?
      * @return void
      * @access public
      * @author Teye Heimans
      */
-	function addValue($field, $value, $sqlFunction = false)
+	public function addValue($field, $value)
 	{
 		// save the added value
 		$this->_add[$field] = $value;
-
-		// add to the sql list if the value is a sql function
-		if( $sqlFunction )
-		{
-			$this->_sql[] = $field;
-		}
 	}
 
 	/**
@@ -2428,7 +2421,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function onCorrect( $callback )
+	public function onCorrect( $callback )
 	{
 		// is the given value a string ?
 		if(!is_array($callback))
@@ -2479,12 +2472,12 @@ class FormHandler
      * @author Filippo Toso - filippotoso@libero.it
      */
 
-	function setError( $field, $error )
+	public function setError( $field, $error )
 	{
 		if ( isset( $this->_fields[$field][1] ) )
 		{
 			$this -> _fields[$field][1] -> setError( $error );
-			$this -> _fields[$field][1] -> _isValid = false;
+			$this -> _fields[$field][1] -> setInvalid();
 			return true;
 		}
 
@@ -2506,7 +2499,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function getFileInfo( $uploadfield )
+	public function getFileInfo( $uploadfield )
 	{
 		// does the field exists ?
 		if( $this -> fieldExists( $uploadfield ) )
@@ -2554,7 +2547,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function isUploaded( $uploadfield )
+	public function isUploaded( $uploadfield )
 	{
 		// does the field exists ?
 		if( $this -> fieldExists( $uploadfield ) )
@@ -2598,7 +2591,7 @@ class FormHandler
 	 * @author Remco van Arkelen & Johan Wiegel
 	 * @since 21-08-2009
 	 */
-	function getLastSubmittedPage()
+	public function getLastSubmittedPage()
 	{
 		return $this->getPage();
 	}
@@ -2612,7 +2605,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function getPage()
+	public function getPage()
 	{
 		return $this->_pageCounter;
 	}
@@ -2626,11 +2619,20 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function getCurrentPage()
+	public function getCurrentPage()
 	{
 		return $this->_curPage;
 	}
 
+	/**
+	 * Liefert die eingestelle Sprache
+	 * @return string
+	 */
+	public function getLang()
+	{
+		return $this->_lang;
+	}
+	
 	/**
      * FormHandler::linkSelectFields()
      *
@@ -2643,7 +2645,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function linkSelectFields( $filename, $fields )
+	public function linkSelectFields( $filename, $fields )
 	{
 		static $setJS = false;
 
@@ -2805,7 +2807,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function setDynamicOptions( $options, $useArrayKeyAsValue = true )
+	public function setDynamicOptions( $options, $useArrayKeyAsValue = true )
 	{
 
 		$output = 'var options = Array('." \n";
@@ -2833,7 +2835,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function getTitle( $sField )
+	public function getTitle( $sField )
 	{
 		// check if the field exists
 		if( isset($this->_fields[$sField]) && is_object( $this->_fields[$sField][1] ))
@@ -2875,7 +2877,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function getLanguage()
+	public function getLanguage()
 	{
 		return $this->_lang;
 	}
@@ -2890,7 +2892,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function fieldExists( $sField )
+	public function fieldExists( $sField )
 	{
 		return array_key_exists( $sField, $this->_fields );
 	}
@@ -2904,7 +2906,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function getFormName()
+	public function getFormName()
 	{
 		return $this->_name;
 	}
@@ -2914,14 +2916,14 @@ class FormHandler
      *
      * Return the needed javascript code for this form
      *
-     * @param $header: Return the javascript code for in the header (otherwise the javascript code which hase to be beneath the form will be returned)
+     * @param bool $header: returns the javascript code for in the header (otherwise the javascript code which hase to be beneath the form will be returned)
      * @return string: the needed javascript code for this form
      * @access public
      * @author Teye Heimans
      * 
      * @since 17-08-2009 removed static before $return in order to handle multiple forms on a page. JW
      */
-	function getJavascriptCode( $header = true )
+	public function getJavascriptCode( $header = true )
 	{
 		$return = array( 0 => false, 1 => false );;
 
@@ -2968,7 +2970,7 @@ class FormHandler
      * @author Teye Heimans
      * @since 25/11/2005
      */
-	function getAsMailBody( $mask = null )
+	public function getAsMailBody( $mask = null )
 	{
 		// TODO
 		// replacement of %field% and of %{fieldname}%
@@ -2980,9 +2982,8 @@ class FormHandler
 		$replace = array();
 
 		// walk all elements in this form
-		reset( $this->_fields );
 		$mail = '';
-		while( list( $name, $fld ) = each( $this->_fields) )
+		foreach($this->_fields as $name => $fld)
 		{
 			// only use it in the mail if it has a view value (the fields)
 			if( is_object( $fld[1] ) && method_exists($fld[1], 'getViewValue') && $name != $this->_name.'_submit')
@@ -3039,7 +3040,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function resizeImage( $field, $saveAs = null, $maxWidth = null, $maxHeight = null, $quality = null, $constrainProportions = true )
+	public function resizeImage( $field, $saveAs = null, $maxWidth = null, $maxHeight = null, $quality = null, $constrainProportions = true )
 	{
 		require_once( FH_INCLUDE_DIR.'includes/class.ImageConverter.php' );
 
@@ -3074,7 +3075,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function mergeImage( $field, $merge, $align = 'center', $valign = 'bottom', $transparantColor = null )
+	public function mergeImage( $field, $merge, $align = 'center', $valign = 'bottom', $transparantColor = null )
 	{
 		require_once(FH_INCLUDE_DIR.'includes/class.ImageConverter.php');
 
@@ -3108,7 +3109,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function checkPassword($field1, $field2, $setEditMsg = true)
+	public function checkPassword($field1, $field2, $setEditMsg = true)
 	{
 		// check if the fields exists and that they are both passfields
 		if( !$this->fieldExists( $field1 ) || !$this->fieldExists( $field2) ||
@@ -3143,7 +3144,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function isPosted()
+	public function isPosted()
 	{
 		return $this->_posted;
 	}
@@ -3157,7 +3158,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function isCorrect()
+	public function isCorrect()
 	{
 		if( !_global) global $_POST;
 
@@ -3196,7 +3197,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function flush( $return = false )
+	public function flush( $return = false )
 	{
 		if( $this->_ajaxValidator === true )
 		{
@@ -3243,8 +3244,7 @@ class FormHandler
 
 			// generate the data array
 			$data = array();
-			reset( $this->_fields );
-			while( list( $name, $fld ) = each( $this->_fields) )
+			foreach($this->_fields as $name => $fld)
 			{
 				if(is_object($fld[1]) && method_exists($fld[1], 'getValue') && $name != $this->_name.'_submit')
 				{
@@ -3289,8 +3289,7 @@ class FormHandler
 		}
 
 		// cache all the fields values for the function value()
-		reset( $this->_fields );
-		while( list( $fld, $value ) = each( $this->_fields) )
+		foreach($this->_fields as $fld => $value)
 		{
 			// check if it's a field
 			if( is_object($this->_fields[$fld][1]) && method_exists($this->_fields[$fld][1], "getvalue"))
@@ -3344,7 +3343,7 @@ class FormHandler
      * @return string: the new unique button name
      * @author Teye Heimans
      */
-	function _getNewButtonName()
+	private function _getNewButtonName()
 	{
 		static $counter = 1;
 
@@ -3363,7 +3362,7 @@ class FormHandler
      * @access private
      * @author Teye Heimans
      */
-	function _setJS( $js, $isFile = false, $before = true)
+	public function _setJS( $js, $isFile = false, $before = true)
 	{
 		$this->_js[$before?0:1][$isFile?'file':'code'][] = $js;
 	}
@@ -3378,7 +3377,7 @@ class FormHandler
      * @access private
      * @author Teye Heimans
      */
-	function _text( $iIndex )
+	public function _text( $iIndex )
 	{
 
 		// is a language set?
@@ -3410,7 +3409,7 @@ class FormHandler
      * @access private
      * @author Teye Heimans
      */
-	function _registerField( $name, &$field, $title = null )
+	protected function _registerField( $name, &$field, $title = null )
 	{
 		// if no title is known then its a button..
 		if( $title === null )
@@ -3435,7 +3434,7 @@ class FormHandler
      * @access private
      * @author Teye Heimans
      */
-	function _registerFileName( $sFilename, $sField )
+	public function _registerFileName( $sFilename, $sField )
 	{
 		static $aFilenames = array();
 
@@ -3459,7 +3458,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function _handleUploads()
+	protected function _handleUploads()
 	{
 		// upload the uploaded files
 		foreach( $this->_upload as $name )
@@ -3575,7 +3574,7 @@ class FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function _getForm( $iDisplayPage = null )
+	protected function _getForm( $iDisplayPage = null )
 	{
 		// is no specific page requested, then get the "current" page
 		if( is_null( $iDisplayPage ) )
@@ -3590,9 +3589,8 @@ class FormHandler
 		}
 
 		// set the tab indexes for the fields...
-		reset( $this->_tabindexes );
 		ksort( $this->_tabindexes );
-		while( list( $index, $field ) = each( $this->_tabindexes ))
+		foreach($this->_tabindexes as $index => $field )
 		{
 			// check if the field exists in the form ?
 			if( $this->fieldExists( $field ) )
@@ -3617,8 +3615,7 @@ class FormHandler
 			if( sizeof( $this->_tabindexes) > 0 )
 			{
 				// set the focus to the element with the lowest positive tab index
-				reset( $this->_tabindexes );
-				while( list( $key, $field ) = each( $this->_tabindexes ))
+				foreach($this->_tabindexes as $key => $field)
 				if( $key >= 0 && $this->setFocus( $field ))
 				break;
 			}

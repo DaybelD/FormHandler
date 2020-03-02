@@ -30,7 +30,7 @@ else
 {
     // Please set here the location to the FH3 directory
     // like: /engineering/FH3/
-    $__fh_root = '';
+    $__fh_root = 'D:/PHP-Entwicklung/Formhandler';
 
     if( empty( $__fh_root ) )
     {

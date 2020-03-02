@@ -11,7 +11,7 @@
  */
 class jsDateField extends DateField
 {
-	var $_isOk;  // boolean: is the mask containing all 3 fields (so that the js calendar can be used)
+	private $_isOk;  // boolean: is the mask containing all 3 fields (so that the js calendar can be used)
 
 	/**
      * jsDateField::jsDateField()
@@ -27,10 +27,10 @@ class jsDateField extends DateField
      * @return jsDateField
      * @author Teye Heimans
      */
-	function jsDateField(&$oForm, $sName, $sMask = null, $bRequired = null, $sInterval = null, $bIncludeJS )
+	public function __construct(&$oForm, $sName, $sMask = null, $bRequired = null, $sInterval = null, $bIncludeJS )
 	{
 		// call the constructor of the datefield
-		parent::DateField( $oForm, $sName, $sMask, $bRequired, $sInterval );
+		parent::__construct( $oForm, $sName, $sMask, $bRequired, $sInterval );
 
 		// check if the mask contains all three fields..
 		$str = $this->_getFieldsFromMask();
@@ -91,7 +91,7 @@ class jsDateField extends DateField
      * @author Teye Heimans
      * @access public
      */
-	function getField()
+	public function getField()
 	{
 		// view mode enabled ?
 		if( $this -> getViewMode() )
@@ -135,9 +135,9 @@ class jsDateField extends DateField
 		"   cal_".$this->_sName.".addDisabledDates(null,'Dec 31, ".(date('Y')-$iStart-1)."');\n".
 		"   cal_".$this->_sName.".addDisabledDates('Jan 1, ".(date('Y')+$iEnd+1)."',null);\n".
 		"   function set".$this->_sName."Values(y,m,d) {\n".
-		"       document.forms['".$this -> _oForm->_name."'].elements['".$this->_sName."_day'].value   = LZ(d);\n".
-		"       document.forms['".$this -> _oForm->_name."'].elements['".$this->_sName."_month'].value = LZ(m);\n".
-		"       document.forms['".$this -> _oForm->_name."'].elements['".$this->_sName."_year'].value  = y;\n".
+		"       document.forms['".$this -> _oForm->getFormName()."'].elements['".$this->_sName."_day'].value   = LZ(d);\n".
+		"       document.forms['".$this -> _oForm->getFormName()."'].elements['".$this->_sName."_month'].value = LZ(m);\n".
+		"       document.forms['".$this -> _oForm->getFormName()."'].elements['".$this->_sName."_year'].value  = y;\n".
 		//"    cal_".$sName.".setDate(
 		"   }\n".
 		"}\n", 0, 0
@@ -145,7 +145,7 @@ class jsDateField extends DateField
 
 		$html .=
 		"<a href='javascript:;' ".
-		"onclick=\"if( cal_".$this->_sName." ) cal_".$this->_sName.".showCalendar('anchor_".$this->_sName."', getDateString('".$this->_oForm->_name."','".$this->_sName."_year', '".$this->_sName."_month', '".$this->_sName."_day')); return false;\" ".
+		"onclick=\"if( cal_".$this->_sName." ) cal_".$this->_sName.".showCalendar('anchor_".$this->_sName."', getDateString('".$this->_oForm->getFormName()."','".$this->_sName."_year', '".$this->_sName."_month', '".$this->_sName."_day')); return false;\" ".
 		" name='anchor_".$this->_sName."' id='anchor_".$this->_sName."'>".
 		"<img src='".FH_FHTML_DIR."images/calendar.gif' border='0' alt='Select Date' ". FH_XHTML_CLOSE ."></a>\n".
 		"<span id='".$this->_sName."_span' ".

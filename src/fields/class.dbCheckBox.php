@@ -12,9 +12,7 @@
 
 class dbCheckBox extends CheckBox
 {
-    var $_oDb;
-
-    /**
+     /**
      * dbCheckBox::dbCheckBox()
      *
      * Public constructor: create a new db CheckBox object
@@ -29,10 +27,10 @@ class dbCheckBox extends CheckBox
      * @access public
      * @author Johan Wiegel
      */
-	function dbCheckBox( &$oForm, $sName, &$oDb, $sTable, $mFields, $sExtraSQL = null, $sMask = null )
+	public function __construct( &$oForm, $sName, &$oDb, $sTable, $mFields, $sExtraSQL = null, $sMask = null )
 	{
 	    // call the constructor of the selectfield
-		parent::CheckBox( $oForm, $sName, array() );
+		parent::__construct( $oForm, $sName, array() );
 
 		// make sure that the fields are set in an array
 		$aFields = !is_array($mFields) ? array( $mFields ) : $mFields;

@@ -32,7 +32,7 @@ class DateTextField extends TextField
      * @author Thomas Branius
      * @since 16-03-2010
      */
-	function DateTextField( &$oForm, $sName, $sMask = null, $bParseOtherPresentations = false )
+	public function __construct( &$oForm, $sName, $sMask = null)
 	{
 		// set the default date display
 		$this->setMask( !is_null( $sMask ) ? $sMask : FH_DATETEXTFIELD_DEFAULT_DISPLAY );
@@ -42,7 +42,7 @@ class DateTextField extends TextField
 		//$this->setValidator(array(&$this, "validate"));
 
 		// call the constructor of the Field class
-		parent::TextField($oForm, $sName);
+		parent::__construct($oForm, $sName);
 	}
 
 	/**
@@ -120,7 +120,7 @@ class DateTextField extends TextField
      * @author Thomas Branius
      * @since 16-03-2010
      */
-	function getAsArray()
+	public function getAsArray()
 	{
 		if ($this->getValue() == "")
 		{
@@ -144,7 +144,7 @@ class DateTextField extends TextField
      * @author Thomas Branius
      * @since 16-03-2010
      */
-	function getValue()
+	public function getValue()
 	{
 		$sValue = parent::getValue();
 
@@ -166,7 +166,7 @@ class DateTextField extends TextField
      * @author Thomas Branius
      * @since 16-03-2010
      */
-	function setValue( $mValue )
+	public function setValue( $mValue )
 	{
 		if ($this->_oForm->isPosted())
 		return parent::setValue($mValue);
@@ -190,14 +190,14 @@ class DateTextField extends TextField
 	}
 
 	/**
-     T* try to parse other presentations of dateformat
+     * try to parse other presentations of dateformat
      *
      * @return mixed: the value of the field
      * @access public
      * @author Thomas Branius
      * @since 16-03-2010
      */
-	function parseOtherPresentations($sValue)
+	public function parseOtherPresentations($sValue)
 	{
 		// dd.mm.YYYY, dd/mm/YYYY, dd-mm-YYYY
 		// dd.mm.YY, dd/mm/YY, dd-mm-YY
@@ -255,7 +255,7 @@ class DateTextField extends TextField
      * @access public
      * @author Thomas Branius
      */
-	function isValid()
+	public function isValid()
 	{
 		// the result has been requested before..
 		if( isset( $this->_isValid ) )

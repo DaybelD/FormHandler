@@ -11,7 +11,7 @@
  */
 class ImageButton extends Button
 {
-	var $_sImage;
+	private $_sImage;
 
     /**
      * ImageButton::ImageButton()
@@ -25,9 +25,9 @@ class ImageButton extends Button
      * @access public
      * @author Teye Heimans
      */
-    function ImageButton( &$oForm, $sName, $sImage)
+    public function __construct( &$oForm, $sName, $sImage)
     {
-        $this->Button($oForm, $sName);
+        parent::__construct($oForm, $sName);
 
         // set the image we use
         $this->_sImage = $sImage;
@@ -42,7 +42,7 @@ class ImageButton extends Button
      * @access public
      * @author Teye Heimans
      */
-    function getButton()
+    public function getButton()
     {
         // return the button
         return sprintf(

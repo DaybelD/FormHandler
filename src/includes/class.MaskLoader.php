@@ -18,16 +18,16 @@
  */
 class MaskLoader
 {
-    var $_mask;
-    var $_search;
-    var $_subject;
+    private $_mask;
+    private $_search;
+    private $_subject;
 
     /**
      * Constructor
      *
      * @return MaskLoader
      */
-    function MaskLoader()
+    public function __construct()
     {
     }
 
@@ -41,7 +41,7 @@ class MaskLoader
      * @author Teye Heimans
      * @access public
      */
-    function setMask( $mask )
+    public function setMask( $mask )
     {
         $this->_mask = $mask;
 
@@ -58,7 +58,7 @@ class MaskLoader
      * @author Teye Heimans
      * @access public
      */
-    function fill( $replace = null, $limit = 1 )
+    public function fill( $replace = null, $limit = 1 )
     {    
         // do we have to return a half filled mask ?
         if( $replace === null )
@@ -139,7 +139,7 @@ class MaskLoader
      * @access public
      * @author Teye Heimans
      */
-    function setSearch( $search )
+    public function setSearch( $search )
     {
         $this->_search = $search;
 
@@ -155,7 +155,7 @@ class MaskLoader
      * @access public
      * @author Teye Heimans
      */
-    function isFull()
+    public function isFull()
     {
         // when there is no subject, it is not full ;-)
         if( $this->_subject === null )
