@@ -11,7 +11,7 @@
  */
 class SubmitButton extends Button
 {
-    var $_bDisableOnSubmit;
+    private $_bDisableOnSubmit;
 
     /**
      * SubmitButton::SubmitButton()
@@ -24,9 +24,9 @@ class SubmitButton extends Button
      * @access public
      * @author Teye Heimans
      */
-    function SubmitButton(&$oForm, $sName)
+    public function __construct(&$oForm, $sName)
     {
-        $this->Button( $oForm, $sName );
+        parent::__construct( $oForm, $sName );
 
         $this->disableOnSubmit( FH_DEFAULT_DISABLE_SUBMIT_BTN );
 
@@ -45,7 +45,7 @@ class SubmitButton extends Button
      * @access public
      * @author Teye Heimans
      */
-    function disableOnSubmit( $bStatus )
+    public function disableOnSubmit( $bStatus )
     {
         $this->_bDisableOnSubmit = (bool) $bStatus;
     }
@@ -59,7 +59,7 @@ class SubmitButton extends Button
      * @access public
      * @author Teye Heimans
      */
-    function getButton()
+    public function getButton()
     {
         // set the javascript disable dubble submit option if wanted
         if( $this->_bDisableOnSubmit )

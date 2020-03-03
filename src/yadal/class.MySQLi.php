@@ -25,9 +25,9 @@ class YadalMySQLi extends Yadal
      * @param string $db: The database which should be used
      * @author Teye Heimans
      */
-	function YadalMySQLi( $db )
+	public function __construct( $db )
 	{
-		$this->Yadal( $db );
+		parent::__construct( $db );
 		$this->_quoteNumbers = true;
 		$this->_nameQuote = '`';
 	}
@@ -45,7 +45,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function connect( $host = 'localhost', $username = '', $password = '' )
+	public function connect( $host = 'localhost', $username = '', $password = '' )
 	{
 		// connect with the mysql database
 		$this->_conn = mysqli_connect( $host, $username, $password );
@@ -76,7 +76,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function close()
+	public function close()
 	{
 		if( $this->_isConnected )
 		{
@@ -97,7 +97,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function query( $query )
+	public function query( $query )
 	{
 		$this->_lastQuery = $query;
 
@@ -113,7 +113,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function getInsertId()
+	public function getInsertId()
 	{
 		return mysqli_insert_id( $this->_conn );
 	}
@@ -130,7 +130,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function result( $sql, $row = 0, $field = 0 )
+	public function result( $sql, $row = 0, $field = 0 )
 	{
 		return $this->mysqli_result( $sql, $row, $field );
 	}
@@ -144,7 +144,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function getError()
+	public function getError()
 	{
 		return mysqli_error( $this->_conn );
 	}
@@ -158,7 +158,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function getErrorNo()
+	public function getErrorNo()
 	{
 		return mysqli_errno( $this->_conn );
 	}
@@ -173,7 +173,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function recordCount( $sql )
+	public function recordCount( $sql )
 	{
 		return mysqli_num_rows( $sql );
 	}
@@ -188,7 +188,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function getRecord( $sql )
+	public function getRecord( $sql )
 	{
 		return mysqli_fetch_assoc( $sql );
 	}
@@ -203,7 +203,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function getFieldNames( $table )
+	public function getFieldNames( $table )
 	{
 		$t = strtolower($table);
 
@@ -270,7 +270,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function getTables()
+	public function getTables()
 	{		
 		// return the data from the cache if it exists
 		if( isset( $this->_cache['tables'] ) )
@@ -315,7 +315,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function getNotNullFields ( $table )
+	public function getNotNullFields ( $table )
 	{
 		$t = strtolower($table);
 
@@ -365,7 +365,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function getFieldTypes( $table )
+	public function getFieldTypes( $table )
 	{
 		$t = strtolower($table);
 
@@ -428,7 +428,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function escapeString( $string )
+	public function escapeString( $string )
 	{
 		return mysqli_real_escape_string( $this->_conn, $string );
 	}
@@ -479,7 +479,7 @@ class YadalMySQLi extends Yadal
      * @access public
      * @author Teye Heimans
      */
-	function getUniqueFields( $table )
+	public function getUniqueFields( $table )
 	{
 		$t = strtolower( $table );
 
@@ -511,7 +511,7 @@ class YadalMySQLi extends Yadal
 		return $unique;
 	}
 
-	function mysqli_result( $res, $row, $field=0 )
+	private function mysqli_result( $res, $row, $field=0 )
 	{
 		$res->data_seek($row);
 		$datarow = $res->fetch_array();

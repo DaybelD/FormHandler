@@ -11,8 +11,8 @@
  */
 class TextField extends Field
 {
-	var $_iSize;         // int: the size of the field
-	var $_iMaxlength;    // int: the maxlength of the field
+	protected $_iSize;         // int: the size of the field
+	private $_iMaxlength;    // int: the maxlength of the field
 
 	/**
      * TextField::TextField()
@@ -25,10 +25,10 @@ class TextField extends Field
      * @author Teye Heimans
      * @access public
      */
-	function TextField( &$oForm, $sName )
+	public function __construct( &$oForm, $sName )
 	{
 		// call the constructor of the Field class
-		parent::Field($oForm, $sName);
+		parent::__construct($oForm, $sName);
 
 		$this->setSize( 20 );
 		$this->setMaxlength( 0 );
@@ -44,7 +44,7 @@ class TextField extends Field
      * @author Teye Heimans
      * @access public
      */
-	function setSize( $iSize )
+	public function setSize( $iSize )
 	{
 		$this->_iSize = $iSize;
 	}
@@ -61,7 +61,7 @@ class TextField extends Field
 	 * @since 17-04-2009
 	 */
 
-	function checkMaxLength( $iLength )
+	public function checkMaxLength( $iLength )
 	{
 		if( strlen( $this->getValue() ) > $iLength )
 		{
@@ -82,7 +82,7 @@ class TextField extends Field
 	 * @since 17-04-2009
 	 */
 
-	function checkMinLength( $iLength )
+	public function checkMinLength( $iLength )
 	{
 		if( strlen( $this->getValue() ) < $iLength )
 		{
@@ -101,7 +101,7 @@ class TextField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function setMaxlength( $iMaxlength )
+	public function setMaxlength( $iMaxlength )
 	{
 		$this->_iMaxlength = $iMaxlength;
 	}
@@ -115,7 +115,7 @@ class TextField extends Field
      * @access public
      * @author Teye Heimans
      */
-	function getField()
+	public function getField()
 	{
 		// view mode enabled ?
 		if( $this -> getViewMode() )

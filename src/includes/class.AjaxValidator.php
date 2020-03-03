@@ -14,12 +14,12 @@ class AjaxValidator
 {
 	static $bScript = true;
 
-	function AjaxValidator( $bScript = true  )
+	public function __construct( $bScript = true  )
 	{
 		self::$bScript = $bScript;
 	}
 
-	function CreateObservers( $oForm )
+	public function CreateObservers( $oForm )
 	{
 		$bSetJS = false;
 
@@ -109,7 +109,7 @@ class AjaxValidator
 		}
 	}
 
-	function Validate( $aRequest, $oValidator )
+	public function Validate( $aRequest, $oValidator )
 	{
 		// determin if there is more than one validator
 		if( $aRequest['validator'] != '' AND $aRequest['msg'] != '' AND isset( $aRequest['value'] ) )

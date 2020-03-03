@@ -12,15 +12,15 @@
 
 class Field
 {
-	var $_oForm;         // object: the form where the field is located in
-	var $_sName;         // string: name of the field
-	var $_sValidator;    // string: callback function to validate the value of the field
-	var $_mValue;        // mixed: the value of the field
-	var $_sError;        // string: if the field is not valid, this var contains the error message
-	var $_sExtra;        // string: extra data which should be added into the HTML tag (like CSS or JS)
-	var $_iTabIndex;     // int: tabindex or null when no tabindex is set
-	var $_sExtraAfter;   // string: extra data which should be added AFTER the HTML tag
-	var $_viewMode;      // boolean: should we only display the value instead of the field ?
+	protected $_oForm;         // object: the form where the field is located in
+	protected $_sName;         // string: name of the field
+	protected $_sValidator;    // string: callback function to validate the value of the field
+	protected $_mValue;        // mixed: the value of the field
+	public $_sError;        // string: if the field is not valid, this var contains the error message
+	protected $_sExtra;        // string: extra data which should be added into the HTML tag (like CSS or JS)
+	protected $_iTabIndex;     // int: tabindex or null when no tabindex is set
+	protected $_sExtraAfter;   // string: extra data which should be added AFTER the HTML tag
+	public $_viewMode;      // boolean: should we only display the value instead of the field ?
 
 
 	/**
@@ -34,7 +34,7 @@ class Field
      * @access public
      * @author Teye Heimans
      */
-	function Field( &$oForm, $sName )
+	public function __construct( &$oForm, $sName )
 	{
 		// save the form and nome of the field
 		$this->_oForm = &$oForm;
@@ -60,7 +60,7 @@ class Field
 				{
 					// save the value...
 					$this->setValue(
-					get_magic_quotes_gpc() ? stripslashes($_POST[$sName]) : $_POST[$sName]
+						$_POST[$sName]
 					);
 				}
 				// the posted value is an array
@@ -70,7 +70,7 @@ class Field
 					$item = array();
 					foreach ( $_POST[$sName] as $key => $value )
 					{
-						$item[$key] = get_magic_quotes_gpc() ? stripslashes($value) : $value;
+						$item[$key] = $value;
 					}
 					$this->setValue($item);
 				}
@@ -139,7 +139,7 @@ class Field
      * @since 11-04-2008 ADDED POSSIBILITY TO USE MULTIPLE VALIDATORS 
      * @author Remco van Arkelen & Johan Wiegel
      */
-	function isValid()
+	public function isValid()
 	{
 		// done this function before... return the prefious value
 		if( isset( $this->_isValid ) )
@@ -274,7 +274,7 @@ class Field
 	 * @author Johan Wiegel
 	 * @since 04-12-2008
 	 */
-	function getValidator( )
+	public function getValidator( )
 	{
 		return $this->_sValidator;
 	}
@@ -292,7 +292,7 @@ class Field
      * @access public
      * @author Teye Heimans
      */
-	function setValidator( $sValidator )
+	public function setValidator( $sValidator )
 	{
 		$this->_sValidator = $sValidator;
 
@@ -318,7 +318,7 @@ class Field
      * @author Teye Heimans
      * @access public
      */
-	function setTabIndex( $iIndex )
+	public function setTabIndex( $iIndex )
 	{
 		$this->_iTabIndex = $iIndex;
 	}
@@ -328,12 +328,12 @@ class Field
      *
      * Set some extra HTML, JS or something like that (to use after the html tag)
      *
-     * @param strint $sExtra: the extra html to insert into the tag
+     * @param string $sExtra: the extra html to insert into the tag
      * @return void
      * @author Teye Heimans
      * @access public
      */
-	function setExtraAfter( $sExtraAfter )
+	public function setExtraAfter( $sExtraAfter )
 	{
 		$this->_sExtraAfter = $sExtraAfter;
 	}
@@ -348,7 +348,7 @@ class Field
      * @access public
      * @author Filippo Toso - filippotoso@libero.it
      */
-	function setError( $sError )
+	public function setError( $sError )
 	{
 		$this->_sError = $sError;
 	}
@@ -362,7 +362,7 @@ class Field
      * @access public
      * @author Teye Heimans
      */
-	function getValue()
+	public function getValue()
 	{
 		return isset( $this->_mValue ) ? $this->_mValue : '';
 	}
@@ -376,7 +376,7 @@ class Field
      * @access public
      * @author Teye Heimans
      */
-	function getError()
+	public function getError()
 	{
 		return isset( $this->_sError ) && strlen($this->_sError) > 0 ? sprintf( FH_ERROR_MASK, $this->_sName ,$this->_sError): '';
 	}
@@ -391,7 +391,7 @@ class Field
      * @access public
      * @author Teye Heimans
      */
-	function setValue( $mValue )
+	public function setValue( $mValue )
 	{
 		$this->_mValue = $mValue;
 	}
@@ -401,12 +401,12 @@ class Field
      *
      * Set some extra CSS, JS or something like that (to use in the html tag)
      *
-     * @param strint $sExtra: the extra html to insert into the tag
+     * @param string $sExtra: the extra html to insert into the tag
      * @return void
      * @access public
      * @author Teye Heimans
      */
-	function setExtra( $sExtra )
+	public function setExtra( $sExtra )
 	{
 		$this->_sExtra = $sExtra;
 	}
@@ -421,7 +421,7 @@ class Field
      * @access public
      * @author Teye Heimans
      */
-	function getField()
+	public function getField()
 	{
 		trigger_error('Error, getField has not been overwritten!', E_USER_WARNING);
 		return '';
@@ -436,7 +436,7 @@ class Field
      * @access public
      * @author Teye Heimans
      */
-	function getViewMode()
+	public function getViewMode()
 	{
 		return (isset( $this -> _viewMode) && $this -> _viewMode) ||
 		(isset( $this -> _oForm -> _viewMode ) && $this -> _oForm -> _viewMode);
@@ -452,7 +452,7 @@ class Field
      * @access public
      * @author Teye Heimans
      */
-	function setViewMode( $mode = true )
+	public function setViewMode( $mode = true )
 	{
 		$this -> _viewMode = (bool) $mode;
 	}
@@ -463,10 +463,10 @@ class Field
 	 * Return the value of the field
 	 *
 	 * @return mixed: the value of the field
-	 * @access private
+	 * @access protected
 	 * @author Teye Heimans
 	 */
-	function _getViewValue()
+	protected function _getViewValue()
 	{
 		// edit form and posted ? then first get the database value!
 		if( isset( $this -> _oForm -> edit ) && $this -> _oForm -> edit && $this -> _oForm -> isPosted() )

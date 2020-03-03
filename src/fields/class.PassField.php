@@ -11,7 +11,7 @@
  */
 class PassField extends TextField
 {
-    var $_sPre;
+    private $_sPre;
 
     /**
      * PassField::PassField()
@@ -24,10 +24,10 @@ class PassField extends TextField
      * @author Teye Heimans
      * @access public
      */
-    function PassField(&$oForm, $sName)
+    public function __construct(&$oForm, $sName)
     {
         // call the constructor of the Field class
-        parent::Field($oForm, $sName);
+        parent::__construct($oForm, $sName);
 
         $this->_sPre = '';
         $this->setSize( 20 );
@@ -43,7 +43,7 @@ class PassField extends TextField
      * @author Teye Heimans
      * @access public
      */
-    function getField()
+    public function getField()
     {
         // view mode enabled ?
         if( $this -> getViewMode() )
@@ -74,7 +74,7 @@ class PassField extends TextField
      * @author Teye Heimans
      * @access public
      */
-    function setPre( $sMsg)
+    public function setPre( $sMsg)
     {
         $this->_sPre = $sMsg;
     }
@@ -89,7 +89,7 @@ class PassField extends TextField
      * @author Teye Heimans
      * @access public
      */
-    function checkPassword( &$oObj )
+    public function checkPassword( &$oObj )
     {
         // if the fields doesn't match
         if($this->getValue() != $oObj->getValue())

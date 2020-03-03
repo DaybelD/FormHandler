@@ -18,7 +18,7 @@ class Validator
      * @param string $value: The string to check
      * @return bool
      */
-	function IsString($value)
+	public static function IsString($value)
 	{
 		return preg_match("/^[^\x-\x1F]+$/", $value);
 	}
@@ -31,7 +31,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function _IsString($value)
+	public static function _IsString($value)
 	{
 		return StrLen($value) == 0 || Validator::IsString($value);
 	}
@@ -44,7 +44,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function IsAlpha($value)
+	public static function IsAlpha($value)
 	{
 		return (bool)preg_match("/^[a-z]+$/i", $value);
 	}
@@ -57,7 +57,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function _IsAlpha($value)
+	public static function _IsAlpha($value)
 	{
 		return StrLen($value) == 0 || Validator::IsAlpha($value);
 	}
@@ -70,7 +70,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function IsDigit($value)
+	public static function IsDigit($value)
 	{
 		return (bool) preg_match("/^[0-9]+$/", $value);
 	}
@@ -83,7 +83,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function _IsDigit($value)
+	public static function _IsDigit($value)
 	{
 		return StrLen($value) == 0 || Validator::IsDigit($value);
 	}
@@ -96,7 +96,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function IsAlphaNum($value)
+	public static function IsAlphaNum($value)
 	{
 		return (bool)preg_match("/^[a-z0-9]+$/i", $value);
 	}
@@ -109,7 +109,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function _IsAlphaNum($value)
+	public static function _IsAlphaNum($value)
 	{
 		return StrLen($value) == 0 || Validator::IsAlphaNum($value);
 	}
@@ -122,7 +122,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function IsFloat($value)
+	public static function IsFloat($value)
 	{
 		return (bool) preg_match("/^-?([0-9]*\.?,?[0-9]+)$/", $value);
 	}
@@ -135,7 +135,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function _IsFloat($value)
+	public static function _IsFloat($value)
 	{
 		return StrLen($value) == 0 || Validator::IsFloat($value);
 	}
@@ -148,7 +148,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function IsInteger($value)
+	public static function IsInteger($value)
 	{
 		return (bool) preg_match("/^-?[0-9]+$/", $value);
 	}
@@ -161,7 +161,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function _IsInteger($value)
+	public static function _IsInteger($value)
 	{
 		return StrLen($value) == 0 || Validator::IsInteger($value);
 	}
@@ -174,7 +174,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function IsFilename($value)
+	public static function IsFilename($value)
 	{
 		return preg_match("{^[^\\/\*\?\:\,]+$}", $value);
 	}
@@ -187,7 +187,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function _IsFilename($value)
+	public static function _IsFilename($value)
 	{
 		return StrLen($value) == 0 || Validator::IsFilename($value);
 	}
@@ -200,7 +200,7 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function IsBool(&$value)
+	public static function IsBool(&$value)
 	{
 		if(preg_match("/^true$|^1|^false|^0$/i", $value))
 		{
@@ -221,13 +221,13 @@ class Validator
      * @param string $value
      * @return bool
      */
-	function _IsBool($value)
+	public static function _IsBool($value)
 	{
 		return StrLen($value) == 0 || Validator::IsBool($value);
 	}
 
 	// a valid variable name (letters, digits, underscore)
-	function IsVariabele($value)
+	public static function IsVariabele($value)
 	{
 		if($value == '_')
 		{
@@ -243,24 +243,24 @@ class Validator
 		}
 	}
 
-	function _IsVariabele($value)
+	public static function _IsVariabele($value)
 	{
 		return StrLen($value) == 0 || Validator::IsVariabele($value);
 	}
 
 	// a valid password (alphanumberic + some other characters but no spaces. Only allow ASCII 33 - 126)
-	function IsPassword($value)
+	public static function IsPassword($value)
 	{
 		return preg_match("/^[\41-\176]+$/", $value);
 	}
 
-	function _IsPassword($value)
+	public static function _IsPassword($value)
 	{
 		return StrLen($value) == 0 || Validator::IsPassword($value);
 	}
 
 	// check for a valid url
-	function IsURL ( $value )
+	public static function IsURL ( $value )
 	{
 		//$regex = '/^((http|ftp|https):\/{2})?(([0-9a-zA-Z_-]+\.)+[a-zA-Z]+)((:[0-9]+)?)((\/([0-9a-zA-Z=%\.\/_-]+)?(\?[0-9a-zA-Z%\/&=_-]+)?)?)$/';
 		$regex = '/^([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/';
@@ -316,7 +316,7 @@ class Validator
 	}
 
 	// like IsMail only with host check
-	function IsEmailHost($value)
+	public static function IsEmailHost($value)
 	{
 		$check = array();
 		if (preg_match("/^[0-9A-Za-z_]([-_.]?[0-9A-Za-z_])*@[0-9A-Za-z][-.0-9A-Za-z]*\\.[a-zA-Z]{2,3}[.]?$/", $value, $check))
@@ -341,49 +341,49 @@ class Validator
 		return false;
 	}
 
-	function _IsEmailHost($value)
+	public static function _IsEmailHost($value)
 	{
 		return StrLen($value) == 0 || Validator::IsEmailHost($value);
 	}
 
 	// like IsString, but newline characters and tabs are allowed
-	function IsText($value)
+	public static function IsText($value)
 	{
 		return
 		preg_match("/^([^\x-\x1F]|[\r\n\t])+$/", $value);
 	}
 
-	function _IsText($value)
+	public static function _IsText($value)
 	{
 		return StrLen($value) == 0 || Validator::IsText($value);
 	}
 
 	// is a valid dutch postcode (eg. 9999 AA)
-	function IsPostcode($value)
+	public static function IsPostcode($value)
 	{
 		return preg_match('/^[1-9][0-9]{3} ?[a-zA-Z]{2}$/', $value);
 	}
 
-	function _IsPostcode($value)
+	public static function _IsPostcode($value)
 	{
 		return StrLen($value) == 0 || Validator::IsPostcode($value);
 	}
 
 	// is a valid dutch phone-number
-	function IsPhone($value)
+	public static function IsPhone($value)
 	{
 		$regex = '/^[0-9]{2,4}[-]?[0-9]{6,8}$/';
 		$value = str_replace(array(' ', '-'), array('', ''), $value);
 		return (strLen($value) == 10 && preg_match($regex, $value));
 	}
 
-	function _IsPhone($value)
+	public static function _IsPhone($value)
 	{
 		return StrLen($value) == 0 || Validator::IsPhone($value);
 	}
 
 	// check if the value is not empty
-	function notEmpty($value)
+	public static function notEmpty($value)
 	{
 		if(!is_array($value))
 		{
@@ -404,23 +404,23 @@ class Validator
 	}
 
 	// check if it's a valid ip adres
-	function IsIp( $ip )
+	public static function IsIp( $ip )
 	{
 		return preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}.\d{1,3}:?\d*$/', $ip);
 	}
 
-	function _IsIp( $ip )
+	public static function _IsIp( $ip )
 	{
 		return StrLen( $ip ) == 0 || Validator::IsIp( $ip );
 	}
 
 	// check if the value does not contains any html
-	function NoHTML( $value )
+	public static function NoHTML( $value )
 	{
 		return strip_tags($value) == $value && strlen($value) > 0;
 	}
 
-	function _NoHTML($value)
+	public static function _NoHTML($value)
 	{
 		return StrLen($value) == 0 || Validator::noHTML( $value );
 	}
@@ -433,7 +433,7 @@ class Validator
 	 * @author Johan Wiegel
 	 * @since 27-11-2008
 	 */
-	function FH_CAPTCHA( $value )
+	public static function FH_CAPTCHA( $value )
 	{
 		require(FH_FHTML_INCLUDE_DIR . 'securimage/securimage.php');
 		$img = new Securimage();

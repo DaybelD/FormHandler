@@ -11,12 +11,12 @@
 class ImageConverter
 {
 	// private vars!
-    var $_sImage;
-    var $_sError;
-    var $_aSize;
-    var $_aNewSize;
-    var $_iQuality;
-    var $_bConstrainProportions;
+    private $_sImage;
+    private $_sError;
+    private $_aSize;
+    private $_aNewSize;
+    private $_iQuality;
+    private $_bConstrainProportions;
 
     /**
      * ImageConverter::ImageConverter()
@@ -28,7 +28,7 @@ class ImageConverter
      * @author Teye Heimans
      * @access public
      */
-    function ImageConverter( $sImage )
+    public function __construct( $sImage )
     {
         $this->_bConstrainProportions = true;
         $this->_sError   = '';
@@ -68,7 +68,7 @@ class ImageConverter
      * @author Teye Heimans
      * @access public
      */
-    function setQuality( $iQuality )
+    public function setQuality( $iQuality )
     {
     	if( !empty( $iQuality ) && is_numeric( $iQuality ) )
     	{
@@ -85,7 +85,7 @@ class ImageConverter
      * @author Teye Heimans
      * @access public
      */
-    function getError()
+    public function getError()
     {
     	return isset($this->_sError) ? $this->_sError : '';
     }
@@ -102,7 +102,7 @@ class ImageConverter
      * @author Teye Heimans
      * @access public
      */
-    function doResize( $sDestination , $iNewWidth, $iNewHeight )
+    public function doResize( $sDestination , $iNewWidth, $iNewHeight )
     {
         // if no errors occourd
         if($this->_sError == '')
@@ -183,7 +183,7 @@ class ImageConverter
      * @access public
      * @author Teye Heimans
      */
-    function setConstrainProportions( $status = true )
+    public function setConstrainProportions( $status = true )
     {
         $this->_bConstrainProportions = (bool) $status;
     }
@@ -201,7 +201,7 @@ class ImageConverter
      * @access public
      * @author Teye Heimans
      */
-    function doMerge( $sStamp, $sAlign, $sValign, $aTransparant = null )
+    public function doMerge( $sStamp, $sAlign, $sValign, $aTransparant = null )
     {
         if( file_exists($sStamp))
         {
@@ -268,7 +268,7 @@ class ImageConverter
 	 * @access public
 	 * @author Teye Heimans
 	 */
-	function GDVersion($user_ver = 0)
+	public static function GDVersion($user_ver = 0)
 	{
 	   	if (!extension_loaded('gd'))
 	   	{
@@ -341,7 +341,7 @@ class ImageConverter
       * @access private
       * @author Teye Heimans
       */
-    function _setSize( $x, $y )
+    private function _setSize( $x, $y )
     {
         // if no errors occourd
         if($this->_sError == '')
@@ -383,7 +383,7 @@ class ImageConverter
 	 * @access private
 	 * @author Teye Heimans
 	 */
-    function _getPos( $size, $stampSize, $where )
+    private function _getPos( $size, $stampSize, $where )
     {
     	// percentage ?
     	if(strpos($where, '%') !== false)
@@ -429,7 +429,7 @@ class ImageConverter
      * @access private
      * @author Teye Heimans
      */
-    function _getNewSize( &$x, &$y, $max )
+    private function _getNewSize( &$x, &$y, $max )
     {
         $procent = $x / 100;
         $scale   = $max / $procent;
@@ -447,7 +447,7 @@ class ImageConverter
      * @access private
      * @author Teye Heimans
      */
-    function _getExtension( $sFile )
+    private function _getExtension( $sFile )
     {
         $fp = explode( '.', $sFile );
         return StrToLower( $fp[ count($fp) -1 ] );
@@ -463,7 +463,7 @@ class ImageConverter
      * @author Teye Heimans
      * @access private
      */
-    function _imageCreate( $sFile )
+    private function _imageCreate( $sFile )
     {
         $sExt = $this->_getExtension( $sFile );
 
@@ -500,7 +500,7 @@ class ImageConverter
      * @access private
      * @author Teye Heimans
      */
-    function _saveImage( &$rImage, $sDestination, $iQuality = null )
+    private function _saveImage( &$rImage, $sDestination, $iQuality = null )
     {
         $sExt = $this->_getExtension( $sDestination );
 

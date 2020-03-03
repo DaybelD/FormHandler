@@ -22,7 +22,7 @@
  * @package Yadal
  */
 class ODBC extends Yadal {
-    var $_dsn;		// dsn
+    private $_dsn;		// dsn
 
     /**
      * ODBC::ODBC()
@@ -33,8 +33,8 @@ class ODBC extends Yadal {
      * @access public
      * @author Teye Heimans
      */
-    function ODBC( $db ) {
-        $this->Yadal( $db );
+    public function __construct( $db ) {
+        parent::__construct( $db );
         $this->_nameQuote = "'";
     }
 
@@ -51,7 +51,7 @@ class ODBC extends Yadal {
      * @access public
      * @author Teye Heimans
      */
-    function connect( $dsn = '', $username = '', $password = '' ) {
+    public function connect( $dsn = '', $username = '', $password = '' ) {
     	// connect with odbc
     	$this->_conn = odbc_connect( $dsn, $username, $password );
     	$this->_dsn  = $dsn;
@@ -76,7 +76,7 @@ class ODBC extends Yadal {
      * @access public
      * @author Teye Heimans
      */
-    function query( $query ) {
+    public function query( $query ) {
     	$this->_lastQuery = $query;
 
         // execute the query
@@ -92,7 +92,7 @@ class ODBC extends Yadal {
      * @access public
      * @author Teye Heimans
      */
-    function getInsertId() {
+    public function getInsertId() {
         //
     }
 
@@ -105,7 +105,7 @@ class ODBC extends Yadal {
      * @access public
      * @author Teye Heimans
      */
-    function getError() {
+    public function getError() {
         return odbc_errormsg( $this->_conn );
     }
 
@@ -119,7 +119,7 @@ class ODBC extends Yadal {
      * @access public
      * @author Teye Heimans
      */
-    function recordCount( $sql) {
+    public function recordCount( $sql) {
         return odbc_num_rows( $sql );
     }
 
@@ -133,7 +133,7 @@ class ODBC extends Yadal {
      * @access public
      * @author Teye Heimans
      */
-    function getRecord( $sql ) {
+    public function getRecord( $sql ) {
         return mysql_fetch_assoc( $sql );
     }
 
@@ -147,7 +147,7 @@ class ODBC extends Yadal {
      * @access public
      * @author Teye Heimans
      */
-    function getFieldNames( $table  ) {
+    public function getFieldNames( $table  ) {
 
     	$sql = odbc_columns( $this->_conn );
 
@@ -176,7 +176,7 @@ class ODBC extends Yadal {
      * @param string $string
      * @return string
      */
-    function escapeString( $string ) {
+    public function escapeString( $string ) {
         return mysql_real_escape_string( $string );
     }
 
@@ -187,7 +187,7 @@ class ODBC extends Yadal {
      *
      * @return array of the keys which are found
      */
-    function fetchKeys( $table = null) {
+    public function fetchKeys( $table = null) {
         $table = is_null($table) ? $this->_table : $table;
 
         $tmp = $this->_sql;
@@ -235,7 +235,7 @@ class ODBC extends Yadal {
      * @param string $table
      * @return array
      */
-    function fetchUniqueFields( $table = null ) {
+    public function fetchUniqueFields( $table = null ) {
         $table = is_null($table) ? $this->_table : $table;
 
         $tmp = $this->_sql;

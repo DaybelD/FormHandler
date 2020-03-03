@@ -25,9 +25,9 @@ class MySQL extends Yadal
      * @param string $db: The database which should be used
      * @author Teye Heimans
      */
-    function MySQL( $db )
+	public function __construct( $db )
     {
-        $this->Yadal( $db );
+        parent::__construct( $db );
         $this->_quoteNumbers = true;
         $this->_nameQuote = '`';
     }
@@ -45,7 +45,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function connect( $host = 'localhost', $username = '', $password = '' )
+    public function connect( $host = 'localhost', $username = '', $password = '' )
     {
     	// connect with the mysql database
     	$this->_conn = mysql_connect( $host, $username, $password );
@@ -76,7 +76,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function close()
+    public function close()
     {
         if( $this->_isConnected )
         {
@@ -97,7 +97,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function query( $query )
+    public function query( $query )
     {
     	$this->_lastQuery = $query;
 
@@ -113,7 +113,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getInsertId()
+    public function getInsertId()
     {
         return mysql_insert_id();
     }
@@ -130,7 +130,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function result( $sql, $row = 0, $field = null )
+    public function result( $sql, $row = 0, $field = null )
     {
     	return mysql_result( $sql, $row, $field );
     }
@@ -144,7 +144,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getError()
+    public function getError()
     {
         return mysql_error();
     }
@@ -158,7 +158,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getErrorNo()
+    public function getErrorNo()
     {
         return mysql_errno();
     }
@@ -173,7 +173,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function recordCount( $sql )
+    public function recordCount( $sql )
     {
         return mysql_num_rows( $sql );
     }
@@ -203,7 +203,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getFieldNames( $table )
+    public function getFieldNames( $table )
     {
         $t = strtolower($table);
 
@@ -316,7 +316,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getNotNullFields ( $table )
+    public function getNotNullFields ( $table )
     {
         $t = strtolower($table);
 
@@ -366,7 +366,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getFieldTypes( $table )
+    public function getFieldTypes( $table )
     {
         $t = strtolower($table);
 
@@ -429,7 +429,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function escapeString( $string )
+    public function escapeString( $string )
     {
         return mysql_real_escape_string( $string );
     }
@@ -444,7 +444,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getPrKeys( $table )
+    public function getPrKeys( $table )
     {
         $t = strtolower($table);
 
@@ -480,7 +480,7 @@ class MySQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getUniqueFields( $table )
+    public function getUniqueFields( $table )
     {
         $t = strtolower( $table );
 

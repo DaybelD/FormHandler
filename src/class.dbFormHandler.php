@@ -16,19 +16,19 @@
  */
 class dbFormHandler extends FormHandler
 {
-	var $_onSaved;          // string: the callback function when the form is saved
-	var $_sql;              // array: contains the names of the added values which are sql functions
-	var $_dontSave;         // array: dont save these fields
-	var $_db;               // object: contains the database object if the option is used
-	var $_id;               // array: the id(s) which we are editing
-	var $_dbData;           // array: the database data
-	var $_table;			// string: the table name where we should save the data in
-	var $_editName;			// name of the primary key to edit
+	private $_onSaved;      // string: the callback function when the form is saved
+	protected $_sql;        // array: contains the names of the added values which are sql functions
+	public $_dontSave;      // array: dont save these fields
+	protected $_db;         // object: contains the database object if the option is used
+	protected $_id;         // array: the id(s) which we are editing
+	public $_dbData;        // array: the database data
+	protected $_table;      // string: the table name where we should save the data in
+	private $_editName;     // name of the primary key to edit
 
 	// public
-	var $insert;            // boolean: if the form is an insert-form
-	var $edit;              // boolean: if the form is an edit-form
-	var $dieOnQuery;        // boolean: debugging option... show query which is going to be executed
+	protected $insert;            // boolean: if the form is an insert-form
+	public $edit;              // boolean: if the form is an edit-form
+	private $dieOnQuery;        // boolean: debugging option... show query which is going to be executed
 
 	protected $_tableConfig = array();
 
@@ -43,7 +43,7 @@ class dbFormHandler extends FormHandler
      * @author Teye Heimans
      * @return dbFormHandler
      */
-	function dbFormHandler( $name = null, $action = null, $extra = null )
+	public function __construct( $name = null, $action = null, $extra = null )
 	{
 		$this->_sql           = array();
 		$this->_dbData        = array();
@@ -51,7 +51,7 @@ class dbFormHandler extends FormHandler
 		$this->_id            = array();
 		$this->dieOnQuery     = false;
 
-		parent::FormHandler( $name, $action, $extra );
+		parent::__construct( $name, $action, $extra );
 
 		$this->setEditName( FH_EDIT_NAME );
 		$this->initFHEditName();
@@ -61,7 +61,7 @@ class dbFormHandler extends FormHandler
 	 * Initialize the editName
 	 *
 	 */
-	function initFHEditName()
+	private function initFHEditName()
 	{
 		// initialisation
 		$this->insert = !isset($_GET[$this->_editName]);
@@ -86,7 +86,7 @@ class dbFormHandler extends FormHandler
 	 * @author Remco van Arkelen & Johan Wiegel
 	 * @since 01-03-2010
 	 */
-	function setEditName( $sEditName )
+	public function setEditName( $sEditName )
 	{
 		if( isset( $this->_table ) )
 		{
@@ -121,7 +121,7 @@ class dbFormHandler extends FormHandler
      * @author Johan Wiegel
      * @since 11-04-2008
      */
-	function dbCheckBox(
+	public function dbCheckBox(
 	$title,
 	$name,
 	$table,
@@ -172,7 +172,7 @@ class dbFormHandler extends FormHandler
      * @author Johan Wiegel
      * @since 22-10-2008
      */
-	function dbTextSelectField(
+	public function dbTextSelectField(
 	$title,
 	$name,
 	$table,
@@ -225,7 +225,7 @@ class dbFormHandler extends FormHandler
      * @author Johan Wiegel
      * @since 11-04-2008
      */
-	function dbRadioButton(
+	public function dbRadioButton(
 	$title,
 	$name,
 	$table,
@@ -278,7 +278,7 @@ class dbFormHandler extends FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function dbSelectField(
+	public function dbSelectField(
 	$title,
 	$name,
 	$table,
@@ -345,7 +345,7 @@ class dbFormHandler extends FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function dbListField(
+	public function dbListField(
 	$title,
 	$name,
 	$table,
@@ -407,7 +407,7 @@ class dbFormHandler extends FormHandler
 	 * @since 17-02-2010
 	 * @author Winus van Heumen
 	 */
-	function getDBValue( $sField )
+	public function getDBValue( $sField )
 	{
 		if( array_key_exists( $sField, $this->_dbData ) )
 		{
@@ -433,7 +433,7 @@ class dbFormHandler extends FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function value( $field )
+	public function value( $field )
 	{
 		if(!_global) global $_POST;
 
@@ -513,7 +513,7 @@ class dbFormHandler extends FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function setValue( $sField, $sValue, $bOverwriteCurrentValue = false )
+	public function setValue( $sField, $sValue, $bOverwriteCurrentValue = false )
 	{
 		if( is_array( $sValue ) )
 		{
@@ -597,7 +597,7 @@ class dbFormHandler extends FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function dbInfo( $db, $table, $type = null )
+	public function dbInfo( $db, $table, $type = null )
 	{
 		require_once( FH_YADAL_DIR . 'class.Yadal.php' );
 
@@ -631,7 +631,7 @@ class dbFormHandler extends FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function dbConnect($host = null, $username = '', $password = '')
+	public function dbConnect($host = null, $username = '', $password = '')
 	{
 		// check if the database info is set
 		if( is_object( $this->_db ) )
@@ -687,7 +687,7 @@ class dbFormHandler extends FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function setConnectionResource( $conn, $table = null, $type = null )
+	public function setConnectionResource( $conn, $table = null, $type = null )
 	{
 		require_once( FH_YADAL_DIR.'class.Yadal.php' );
 
@@ -734,7 +734,7 @@ class dbFormHandler extends FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function onSaved( $callback )
+	public function onSaved( $callback )
 	{
 		// is the given value a string ?
 		if(!is_array($callback))
@@ -787,7 +787,7 @@ class dbFormHandler extends FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function isCorrect()
+	public function isCorrect()
 	{
 		$result = parent::isCorrect();
 
@@ -809,7 +809,7 @@ class dbFormHandler extends FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function flush( $return = false )
+	public function flush( $return = false )
 	{
 		if( $this->_ajaxValidator === true )
 		{
@@ -983,7 +983,7 @@ class dbFormHandler extends FormHandler
      * @access private
      * @author Teye Heimans
      */
-	function _checkUniqueFields()
+	private function _checkUniqueFields()
 	{
 		// only check for unique fields if the rest of the field is correct and
 		// the database option is used...
@@ -1213,7 +1213,7 @@ class dbFormHandler extends FormHandler
 	 * @author Remco van Arkelen
 	 * @since 01-03-2010
 	 */
-	function deleteJunctionData( $tableName, $keyField, $keyValue )
+	private function deleteJunctionData( $tableName, $keyField, $keyValue )
 	{
 		$query = "DELETE FROM " . $tableName . " WHERE " . $keyField . " = '" . $keyValue . "';";
 		return $this->_db->query( $query );
@@ -1231,7 +1231,7 @@ class dbFormHandler extends FormHandler
      * @since 01-03-2010
      */
 
-	function insertJunctionData( $tableName, $keyField, $destinationField, $keyValue )
+	private function insertJunctionData( $tableName, $keyField, $destinationField, $keyValue )
 	{
 		/*@var $field Field*/
 		$field = $this->_fields[ $keyField ][1];
@@ -1256,7 +1256,7 @@ class dbFormHandler extends FormHandler
      * @access private
      * @author Teye Heimans
      */
-	function _loadDbData()
+	protected function _loadDbData()
 	{
 		// get the data from the database
 		$sql = $this->_db->query(
@@ -1340,7 +1340,7 @@ class dbFormHandler extends FormHandler
      * @access private
      * @author Teye Heimans
      */
-	function _saveDbData( $data )
+	protected function _saveDbData( $data )
 	{
 		// get the not-null fields from the table
 		$notNullFields = $this->_db->getNotNullFields( $this->_table );
@@ -1545,7 +1545,7 @@ class dbFormHandler extends FormHandler
      * @access private
      * @author Teye Heimans
      */
-	function _getQuery( $table, $data, $sqlFields, $edit, $keys = null )
+	private function _getQuery( $table, $data, $sqlFields, $edit, $keys = null )
 	{
 		// get the field names from the table
 		$fieldNames = $this->_db->getFieldNames( $this->_table );
@@ -1661,7 +1661,7 @@ class dbFormHandler extends FormHandler
      * @access public
      * @author Teye Heimans
      */
-	function _getWhereClause( $operator = '=', $extra = array(), $extraOperator = '=' )
+	private function _getWhereClause( $operator = '=', $extra = array(), $extraOperator = '=' )
 	{
 		// get the primary key fields from the table
 		$keys = $this->_db->getPrKeys( $this->_table );

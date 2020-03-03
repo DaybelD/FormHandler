@@ -11,11 +11,11 @@
 
 class CheckBox extends Field
 {
-	var $_aOptions;              // array: contains all the options!
+	private $_aOptions;              // array: contains all the options!
 	// $this->_mValue contains the values which are selected!
-	var $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values
-	var $_sMask;                 // string: what kind of "glue" should be used to merge the checkboxes
-	var $_oLoader;               // object: The maskLoader
+	private $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values
+	private $_sMask;                 // string: what kind of "glue" should be used to merge the checkboxes
+	private $_oLoader;               // object: The maskLoader
 
 	/**
      * CheckBox::CheckBox()
@@ -29,7 +29,7 @@ class CheckBox extends Field
      * @access public
      * @author Teye Heimans
      */
-	function CheckBox( &$oForm, $sName, $aOptions )
+	public function __construct( &$oForm, $sName, $aOptions )
 	{
 		$this->_mValue = '';
 		$sName = str_replace('[]','', $sName);
@@ -37,7 +37,7 @@ class CheckBox extends Field
 		$this->_aOptions = $aOptions;
 
 		// call the constructor of the Field class
-		parent::Field( $oForm, $sName );
+		parent::__construct( $oForm, $sName );
 
 		$this->setMask 			 ( FH_DEFAULT_GLUE_MASK );
 		$this->useArrayKeyAsValue( FH_DEFAULT_USEARRAYKEY );
@@ -53,7 +53,7 @@ class CheckBox extends Field
      * @access public
      * @author Teye Heimans
      */
-	function setValue( $aValue )
+	public function setValue( $aValue )
 	{
 		// make an array from the value
 		if( !is_array($aValue) && is_array($this->_aOptions) )
@@ -95,7 +95,7 @@ class CheckBox extends Field
      * @access public
      * @author Teye Heimans
      */
-	function useArrayKeyAsValue( $bMode )
+	public function useArrayKeyAsValue( $bMode )
 	{
 		$this->_bUseArrayKeyAsValue = $bMode;
 	}
@@ -111,7 +111,7 @@ class CheckBox extends Field
      * @author Teye Heimans
      * @access Public
      */
-	function setMask( $sMask )
+	public function setMask( $sMask )
 	{
 		// when there is no %field% used, put it in front of the mask/glue
 		if( strpos( $sMask, '%field%' ) === false )
@@ -131,7 +131,7 @@ class CheckBox extends Field
      * @access Public
      * @author Teye Heimans
      */
-	function getField()
+	public function getField()
 	{
 		// view mode enabled ?
 		if( $this -> getViewMode() )
@@ -189,7 +189,7 @@ class CheckBox extends Field
      * @access private
      * @author Teye Heimans
      */
-	function _getCheckBox( $sValue, $sTitle, $bUseMask = false )
+	private function _getCheckBox( $sValue, $sTitle, $bUseMask = false )
 	{
 		static $iCounter = 1;
 

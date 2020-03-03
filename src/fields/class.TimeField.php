@@ -11,10 +11,10 @@
  */
 class TimeField extends Field
 {
-    var $_iFormat;   // integer: hour format: {12, 24}
-    var $_oHour;     // SelectField: object of the hour selectfield
-    var $_oMinute;   // SelectField: object of the minute selectfield
-    var $_bRequired; // boolean: if the field is required or if we have to give the option to leave this field empty
+    private $_iFormat;   // integer: hour format: {12, 24}
+    public $_oHour;     // SelectField: object of the hour selectfield
+    public $_oMinute;   // SelectField: object of the minute selectfield
+    public $_bRequired; // boolean: if the field is required or if we have to give the option to leave this field empty
 
     /**
      * TimeField::TimeField()
@@ -26,7 +26,7 @@ class TimeField extends Field
      * @return TimeField
      * @author Teye Heimans
      */
-    function TimeField( &$oForm, $sName )
+    public function __construct( &$oForm, $sName )
     {
         // set the default hour format
         $this->setHourFormat( FH_TIMEFIELD_DEFAULT_HOUR_FORMAT );
@@ -38,7 +38,7 @@ class TimeField extends Field
         $this->_oHour   = new SelectField($oForm, $sName.'_hour');
         $this->_oMinute = new SelectField($oForm, $sName.'_minute');
 
-        parent::Field( $oForm, $sName );
+        parent::__construct( $oForm, $sName );
 
         // posted or edit form? Then load the value of the time
         if( $oForm->isPosted() || (isset($oForm->edit) && $oForm->edit) )
@@ -57,7 +57,7 @@ class TimeField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setExtra( $sExtra )
+    public function setExtra( $sExtra )
     {
     	$this->_oHour->setExtra  ( $sExtra );
     	$this->_oMinute->setExtra( $sExtra );
@@ -73,7 +73,7 @@ class TimeField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setHourFormat( $iFormat )
+    public function setHourFormat( $iFormat )
     {
         if($iFormat == 12 || $iFormat == 24)
         {
@@ -99,7 +99,7 @@ class TimeField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function setRequired( $bStatus )
+    public function setRequired( $bStatus )
     {
         $this->_bRequired = $bStatus;
     }
@@ -115,7 +115,7 @@ class TimeField extends Field
      * @access Public
      * @author Teye Heimans
      */
-    function setValue( $sValue )
+    public function setValue( $sValue )
     {
     	if( strpos($sValue,':') !== false)
     	{
@@ -141,7 +141,7 @@ class TimeField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function getValue()
+    public function getValue()
     {
         if($this->_oHour->getValue() == '' && $this->_oMinute->getValue() == '')
         {
@@ -164,7 +164,7 @@ class TimeField extends Field
      * @access public
      * @author Teye Heimans
      */
-    function getField()
+    public function getField()
     {
         // view mode enabled ?
         if( $this -> getViewMode() )
@@ -239,7 +239,7 @@ class TimeField extends Field
      * @access private
      * @author Teye Heimans
      */
-    function _getNearestMinute( &$minute )
+    private function _getNearestMinute( &$minute )
     {
         // get the nearest value at the minutes...
     	for($i = 0; $i < $minute; $i += FH_TIMEFIELD_MINUTE_STEPS);
