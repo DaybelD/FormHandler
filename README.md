@@ -61,7 +61,7 @@ function doRun($data)
 ### Documentation
 
 For an extended version of the documentation please check our manual located at
-http://www.formhandler.net/manual/manual.html
+http://www.fh3.nl/manual/manual.html
 
 ### License
 
