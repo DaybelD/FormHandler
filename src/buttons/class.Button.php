@@ -15,7 +15,7 @@ class Button
     protected $_sName;
     protected $_sExtra;
     protected $_sCaption;
-    private $_iTabIndex;
+    protected $_iTabIndex;
 
     /**
      * Button::Button()
