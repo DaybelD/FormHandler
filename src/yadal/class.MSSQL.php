@@ -115,7 +115,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function result( $result, $row = 0, $field = null )
+    public function result( $result, $row = 0, $field = null )
     {
     	return mssql_result( $result, $row, $field);
     }
@@ -130,7 +130,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getInsertId( $table )
+    public function getInsertId( $table )
     {
     	$sql = mssql_query( "SELECT IDENT_CURRENT('".$table."')" );
 
@@ -162,7 +162,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getError()
+    public function getError()
     {
     	$error = mssql_get_last_message();
 		if ($error == '')
@@ -183,7 +183,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function recordCount( $sql)
+    public function recordCount( $sql)
     {
         return mssql_num_rows( $sql );
     }
@@ -197,7 +197,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getRecord( $sql )
+    public function getRecord( $sql )
     {
         return mssql_fetch_assoc( $sql );
     }
@@ -212,7 +212,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getFieldNames( $table )
+    public function getFieldNames( $table )
     {
         $t = strtolower($table);
 
@@ -267,7 +267,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getTables($showViews = true)
+    public function getTables($showViews = true)
     {
         // return the data from the cache if it exists
         if( isset( $this->_cache['tables'] ) )
@@ -329,7 +329,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getNotNullFields ( $table )
+    public function getNotNullFields ( $table )
     {
         $t = strtolower($table);
 
@@ -387,7 +387,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getFieldTypes( $table )
+    public function getFieldTypes( $table )
     {
         $t = strtolower($table);
 
@@ -450,7 +450,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function escapeString( $string )
+    public function escapeString( $string )
     {
         return preg_replace("'","''",$string);
     }
@@ -465,7 +465,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getPrKeys( $table )
+    public function getPrKeys( $table )
     {
         $t = strtolower($table);
 
@@ -525,7 +525,7 @@ class MSSQL extends Yadal
      * @access public
      * @author Teye Heimans
      */
-    function getUniqueFields( $table )
+    public function getUniqueFields( $table )
     {
         $t = strtolower( $table );
 
