@@ -13,9 +13,9 @@ class Button
 {
     private $_oForm;
     protected $_sName;
-    private $_sExtra;
+    protected $_sExtra;
     protected $_sCaption;
-    private $_iTabIndex;
+    protected $_iTabIndex;
 
     /**
      * Button::Button()
