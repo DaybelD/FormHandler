@@ -26,7 +26,7 @@ class dbFormHandler extends FormHandler
 	private $_editName;     // name of the primary key to edit
 
 	// public
-	protected $insert;            // boolean: if the form is an insert-form
+	public $insert;            // boolean: if the form is an insert-form
 	public $edit;              // boolean: if the form is an edit-form
 	private $dieOnQuery;        // boolean: debugging option... show query which is going to be executed
 
