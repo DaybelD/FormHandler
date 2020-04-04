@@ -16,7 +16,11 @@
             "role": "Project lead"
         }
     ],
-    "require": {},
+    "require": {
+        "phpunit/phpunit": "^9.0.1",
+        "czukowski/phpunit-mock-db": "9.0",
+        "czukowski/phpunit-mock-dibi": "4.1"
+    },
     "autoload": {
         "files": [
             "src/class.FormHandler.php",
