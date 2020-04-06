@@ -43,6 +43,9 @@ abstract class dbFormhandlerTestCase extends FormhandlerTestCase
         $db->setConnectionResource($this->_localDBConnection);
         $this->setPrivateProperty($form, "_table", $table);
         $this->setPrivateProperty($form, "_db", $db);
+
+        if ($form->edit)
+            $this->executePrivateMethod($form, "_loadDbData", array());
     }
 
 	protected function getDatabaseMock() : Mock
@@ -64,14 +67,14 @@ abstract class dbFormhandlerTestCase extends FormhandlerTestCase
     protected function createMocksForTable() : void
     {
         $this->getDatabaseMock()
-                ->expects($this->exactly(2))
-                ->query($this->stringStartsWith('SHOW KEYS FROM `test`'))
+                ->expects($this->any())
+                ->query($this->stringStartsWith('SHOW KEYS FROM test'))
                 ->willReturnResultSet([
                     ['Table' => 'test', 'Non_unique' => '0', 'Key_name' => 'PRIMARY', 'Column_name' => 'id'],
                 ]);
         $this->getDatabaseMock()
                 ->expects($this->any())
-                ->query($this->stringStartsWith('DESCRIBE `test`'))
+                ->query($this->stringStartsWith('DESCRIBE test'))
                 ->willReturnResultSet([
                     ['Field' => 'id',
                         'Type' => 'int(11)',
@@ -95,6 +98,13 @@ abstract class dbFormhandlerTestCase extends FormhandlerTestCase
                         'Extra' => ''
                     ],
                     ['Field' => 'textNotNullable',
+                        'Type' => 'varchar(255)',
+                        'Null' => 'NO',
+                        'Key' => '',
+                        'Default' => null,
+                        'Extra' => ''
+                    ],
+                    ['Field' => 'secret',
                         'Type' => 'varchar(255)',
                         'Null' => 'NO',
                         'Key' => '',

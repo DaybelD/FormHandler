@@ -64,5 +64,27 @@ abstract class FormhandlerTestCase extends TestCase
 		$method->setAccessible(true);
 
 		return $method->invokeArgs($form, $params);
-    }
+	}
+	
+	/**
+	 * Check for HTML-Form output
+	 *
+	 * @param FormHandler $theForm
+	 * @param string|array $expected
+	 * @return string HTML for additional validation
+	 */
+	protected function assertFormFlushContains(FormHandler $form, $expected) : string
+	{
+		$t = $form->flush(true);
+
+		if (is_array($expected))
+		{
+			foreach($expected as $e)
+				$this->assertStringContainsString($e, $t);
+		}
+		else
+			$this->assertStringContainsString($expected, $t);
+
+		return $t;
+	}
 };

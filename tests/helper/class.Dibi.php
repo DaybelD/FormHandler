@@ -1,5 +1,8 @@
 <?php declare(strict_types=1);
 
+
+require_once(__DIR__.'/../../vendor/jdorn/sql-formatter/lib/SqlFormatter.php');
+
 use Cz\PHPUnit\MockDibi\Drivers\DriversFactory;
 use Dibi\Connection;
 use Dibi\Result;
@@ -36,7 +39,7 @@ class YadalDibi extends Yadal
 	{
 		parent::__construct();
 		$this->_quoteNumbers = true;
-		$this->_nameQuote = '`';
+		$this->_nameQuote = '';
 	}
 
 	/**
@@ -84,9 +87,21 @@ class YadalDibi extends Yadal
      */
 	public function query( $query )
 	{
-		$this->_lastQuery = $query;
 
-		return $this->_Conn()->query($query);
+		$query = SqlFormatter::compress($query);
+		
+		// $a = explode("\n", $query);
+
+		// $newQuery = "";
+		// foreach($a as $t)
+		// {
+		// 	$newQuery .= trim($t) . " ";
+		// }
+		// $newQuery = trim($newQuery);
+
+		$this->_lastQuery = $query; //$newQuery;
+
+		return $this->_Conn()->query($query);//$newQuery);
 	}
 
 	/**
@@ -155,7 +170,7 @@ class YadalDibi extends Yadal
      */
 	public function recordCount( $sql )
 	{
-		throw new Exception("not implemented");
+		return $sql->getRowCount();
 	}
 
 	/**
@@ -306,7 +321,7 @@ class YadalDibi extends Yadal
 		}
 
 		// Get the default values for the fields
-		$sql = $this->query("DESCRIBE ".$this->quote($table));
+		$sql = $this->query("DESCRIBE " . $this->quote($table));
 
 		if (!$sql)
 			throw new Exception("query not successfull");
@@ -371,7 +386,7 @@ class YadalDibi extends Yadal
 			return $this->_cache['keys'][$t];
 		}
 
-		$sql = $this->query("SHOW KEYS FROM `".$table."`");
+		$sql = $this->query("SHOW KEYS FROM {$table}");
 
 		if (!$sql)
 			throw new Exception("query not successfull");
@@ -410,7 +425,7 @@ class YadalDibi extends Yadal
 		}
 
 		// get the keys
-		$sql = $this->query("SHOW KEYS FROM ". $this->quote($table) );
+		$sql = $this->query("SHOW KEYS FROM " . $this->quote($table) );
 
 		$unique = array();
 
