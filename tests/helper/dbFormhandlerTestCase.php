@@ -12,7 +12,33 @@ abstract class dbFormhandlerTestCase extends FormhandlerTestCase
     use Cz\PHPUnit\MockDibi\MockTrait;
 
 	private ?Dibi\Connection $_localDBConnection = null;
-	private ?Mock $_mock = null;
+    private ?Mock $_mock = null;
+    
+    private $_expectedResult;
+
+    protected function assertSavedId(int $expected) : void
+    {
+        $this->assertTrue(is_array($this->_expectedResult), "function 'dbFormhandlerTestCase::setCallbackOnSaved' not called");
+        $this->assertTrue(sizeof($this->_expectedResult) > 0, "formhandler don't call callback function");
+
+        $this->assertEquals($expected, $this->_expectedResult['id']);
+    }
+    protected function assertSavedValue($expected, string $field) : void
+    {
+        $this->assertTrue(is_array($this->_expectedResult), "function 'dbFormhandlerTestCase::setCallbackOnSaved' not called");
+        $this->assertTrue(sizeof($this->_expectedResult) > 0, "formhandler don't call callback function");
+
+        $this->assertTrue(array_key_exists($field, $this->_expectedResult['values']), "field not saved");
+        $this->assertEquals($expected, $this->_expectedResult['values'][$field]);
+    }
+    protected function assertSavedValueEmtpy(string $field) : void
+    {
+        $this->assertTrue(is_array($this->_expectedResult), "function 'dbFormhandlerTestCase::setCallbackOnSaved' not called");
+        $this->assertTrue(sizeof($this->_expectedResult) > 0, "formhandler don't call callback function");
+
+        $this->assertTrue(array_key_exists($field, $this->_expectedResult['values']), "field not saved");
+        $this->assertEmpty($this->_expectedResult['values'][$field]);
+    }
 
     protected function setUp(): void
     {
@@ -25,6 +51,7 @@ abstract class dbFormhandlerTestCase extends FormhandlerTestCase
        $this->_localDBConnection = new Dibi\Connection ([
            'driver' => $factory->createMySqliDriver()  // or whatever other driver you may be needing.
        ]);
+       $this->_expectedResult = null;
     }
 
     final protected function getFormhandlerType(): string
@@ -90,6 +117,13 @@ abstract class dbFormhandlerTestCase extends FormhandlerTestCase
                         'Default' => null,
                         'Extra' => ''
                     ],
+                    ['Field' => 'saveInFieldString',
+                        'Type' => 'varchar(10)',
+                        'Null' => 'YES',
+                        'Key' => '',
+                        'Default' => null,
+                        'Extra' => ''
+                    ],
                     ['Field' => 'textNullable',
                         'Type' => 'varchar(255)',
                         'Null' => 'YES',
@@ -104,7 +138,7 @@ abstract class dbFormhandlerTestCase extends FormhandlerTestCase
                         'Default' => null,
                         'Extra' => ''
                     ],
-                    ['Field' => 'secret',
+                    ['Field' => 'pass',
                         'Type' => 'varchar(255)',
                         'Null' => 'NO',
                         'Key' => '',
@@ -114,4 +148,30 @@ abstract class dbFormhandlerTestCase extends FormhandlerTestCase
                 ]);
     }
 
+
+    /**
+     * set callback for validation
+     *
+     * @param dbFormHandler $form
+     * @return void
+     */
+    protected function setCallbackOnSaved(dbFormHandler $form) : void
+    {
+        $this->_expectedResult = array();
+        $form->onSaved(array($this, "callback_onSaved"));        
+    }
+    
+    /**
+     * Function for callback after save
+     *
+     * @param integer $id
+     * @param array $values
+     * @param dbFormHandler $form
+     * @return void
+     */
+    final public function callback_onSaved(int $id, array $values, dbFormHandler $form) : void
+    {
+        $this->_expectedResult['id'] = $id;
+        $this->_expectedResult['values'] = $values;
+    }
 };

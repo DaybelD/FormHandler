@@ -61,6 +61,8 @@ final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
 
     public function test_insert_noValues(): void
     {
+        $this->createMocksForTable();
+
         $_POST['FormHandler_submit'] = "1";
 
         $form = new dbFormHandler();
@@ -69,7 +71,6 @@ final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
         $this->assertFalse($form->edit);
 
         $this->setConnectedTable($form, "test");
-        $this->createMocksForTable();
 
         $form->textField("TextNullable", "textNullable");
         $form->textField("TextNotNullable", "textNotNullable");
@@ -80,18 +81,20 @@ final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
                 ->willSetAffectedRows(1)
                 ->willSetLastInsertId(4712);
 
-        $form->onSaved(array($this, "callback_onSaved"));
+        $this->setCallbackOnSaved($form);
         
         $r = $form->flush(true);
 
         $this->assertEmpty($r);
-        $this->assertEquals(4712, $this->_expectedResult['id']);
-        $this->assertEmpty($this->_expectedResult['values']['textNullable']);
-        $this->assertEmpty($this->_expectedResult['values']['textNotNullable']);
+        $this->assertSavedId(4712);
+        $this->assertSavedValueEmtpy('textNullable');
+        $this->assertSavedValueEmtpy('textNotNullable');
     }
  
     public function test_insert(): void
     {
+        $this->createMocksForTable();
+
         $_POST['FormHandler_submit'] = "1";
         $_POST['textNullable'] = "thetext";
         $_POST['textNotNullable'] = "anothertext";
@@ -102,7 +105,6 @@ final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
         $this->assertFalse($form->edit);
 
         $this->setConnectedTable($form, "test");
-        $this->createMocksForTable();
 
         $form->textField("TextNullable", "textNullable");
         $form->textField("TextNotNullable", "textNotNullable");
@@ -113,18 +115,20 @@ final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
                 ->willSetAffectedRows(1)
                 ->willSetLastInsertId(4713);
 
-        $form->onSaved(array($this, "callback_onSaved"));
+        $this->setCallbackOnSaved($form);
         
         $r = $form->flush(true);
 
         $this->assertEmpty($r);
-        $this->assertEquals(4713, $this->_expectedResult['id']);
-        $this->assertEquals('thetext', $this->_expectedResult['values']['textNullable']);
-        $this->assertEquals('anothertext', $this->_expectedResult['values']['textNotNullable']);
+        $this->assertSavedId(4713);
+        $this->assertSavedValue('thetext', 'textNullable');
+        $this->assertSavedValue('anothertext', 'textNotNullable');
     }
     
     public function test_update_noValues(): void
     {
+        $this->createMocksForTable();
+
         $_POST['FormHandler_submit'] = "1";
         $_GET['id'] = "4714";
 
@@ -133,7 +137,6 @@ final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
         $this->assertFalse($form->insert);
         $this->assertTrue($form->edit);
 
-        $this->createMocksForTable();
         $this->getDatabaseMock()
                 ->expects($this->exactly(1))
                 ->query($this->matches("SELECT * FROM test WHERE id = '4714'"))
@@ -150,18 +153,20 @@ final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
                 ->expects($this->once())
                 ->query("UPDATE test SET textNullable = NULL, textNotNullable = '' WHERE id = '4714'");
 
-        $form->onSaved(array($this, "callback_onSaved"));
+        $this->setCallbackOnSaved($form);
         
         $r = $form->flush(true);
 
         $this->assertEmpty($r);
-        $this->assertEquals(4714, $this->_expectedResult['id']);
-        $this->assertEmpty($this->_expectedResult['values']['textNullable']);
-        $this->assertEmpty($this->_expectedResult['values']['textNotNullable']);
+        $this->assertSavedId(4714);
+        $this->assertSavedValueEmtpy('textNullable');
+        $this->assertSavedValueEmtpy('textNotNullable');
     }
  
     public function test_update(): void
     {
+        $this->createMocksForTable();
+
         $_POST['FormHandler_submit'] = "1";
         $_GET['id'] = "4715";
         $_POST['textNullable'] = "thetext";
@@ -172,7 +177,6 @@ final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
         $this->assertFalse($form->insert);
         $this->assertTrue($form->edit);
 
-        $this->createMocksForTable();
         $this->getDatabaseMock()
                 ->expects($this->exactly(1))
                 ->query($this->matches("SELECT * FROM test WHERE id = '4715'"))
@@ -188,19 +192,13 @@ final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
                 ->expects($this->once())
                 ->query("UPDATE test SET textNullable = 'thetext', textNotNullable = 'anothertext' WHERE id = '4715'");
 
-        $form->onSaved(array($this, "callback_onSaved"));
+        $this->setCallbackOnSaved($form);
         
         $r = $form->flush(true);
 
         $this->assertEmpty($r);
-        $this->assertEquals(4715, $this->_expectedResult['id']);
-        $this->assertEquals('thetext', $this->_expectedResult['values']['textNullable']);
-        $this->assertEquals('anothertext', $this->_expectedResult['values']['textNotNullable']);
-    }
-
-    public function callback_onSaved(int $id, array $values, dbFormHandler $form) : void
-    {
-        $this->_expectedResult['id'] = $id;
-        $this->_expectedResult['values'] = $values;
+        $this->assertSavedId(4715);
+        $this->assertSavedValue('thetext', 'textNullable');
+        $this->assertSavedValue('anothertext', 'textNotNullable');
     }
 };

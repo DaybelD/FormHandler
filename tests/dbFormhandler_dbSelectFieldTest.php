@@ -5,8 +5,6 @@ require_once 'helper/dbFormhandlerTestCase.php';
 
 final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
 {
-    private array $_expectedResult;
-
     public function test_show(): void
     {
         $form = new dbFormHandler();
@@ -123,13 +121,14 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
                 ->willSetLastInsertId(4711);
 
 
-        $form->onSaved(array($this, "callback_onSaved"));
+        $this->setCallbackOnSaved($form);
 
         $r = $form->flush(true);
 
         $this->assertEquals("", $r);
-        $this->assertEquals(4711, $this->_expectedResult['id']);
-        $this->assertEquals('2', $this->_expectedResult['values']['saveInField']);
+        $this->assertSavedId(4711);
+        $this->assertSavedValue('2', 'saveInField');
+
     }
 
     public function test_insert_wrongValue(): void
@@ -161,23 +160,77 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
 
         $e = $form->catchErrors();
 
-        // $this->getDatabaseMock()
-        //         ->expects($this->once())
-        //         ->query("INSERT INTO `test` (
-        //             `saveInField`) VALUES (
-        //             '2'
-        //           );")
-        //         ->willSetAffectedRows(1)
-        //         ->willSetLastInsertId(4711);
+        $this->getDatabaseMock()
+                ->expects($this->once())
+                ->query("INSERT INTO test ( saveInField) VALUES ( '3' );")
+                ->willSetAffectedRows(1)
+                ->willSetLastInsertId(4711);
 
 
-        // $form->onSaved(array($this, "callback_onSaved"));
+        $this->setCallbackOnSaved($form);
 
         $r = $form->flush(true);
 
-        // $this->assertEquals("", $r);
-        // $this->assertEquals(4711, $this->_expectedResult['id']);
-        // $this->assertEquals('2', $this->_expectedResult['values']['saveInField']);
+        $this->assertEquals("", $r);
+        $this->assertSavedId(4711);
+        $this->assertSavedValue('3', 'saveInField');
+
+        $this->fail("forced failure: wrong value will be saved. 3 is not in list.");
+    }
+
+    public function test_update(): void
+    {
+        $this->createMocksForTable();
+ 
+        $_POST['FormHandler_submit'] = "1";
+        $_GET['id'] = "123";
+        $_POST['saveInField'] = "2";
+        
+        $form = new dbFormHandler();
+
+        $this->assertFalse($form->insert);
+        $this->assertTrue($form->edit);
+
+        $this->getDatabaseMock()
+                ->expects($this->exactly(1))
+                ->query($this->matches("SELECT * FROM test WHERE id = '123'"))
+                ->willReturnResultSet([
+                    ['id' => '123', 'saveInField' => '1'],
+                ]);
+
+        $this->setConnectedTable($form, "test");
+ 
+        $this->getDatabaseMock()
+                ->expects($this->once())
+                ->query($this->stringStartsWith('SELECT keyField, valueField FROM loadFromTable'))
+                ->willReturnResultSet([
+                    ['keyField' => 1, 'valueField' => 'foo'],
+                    ['keyField' => 2, 'valueField' => 'bar'],
+                ]);
+    
+        $form->dbSelectField(
+            'Options from a table',
+            'saveInField',
+            'loadFromTable',
+            array('keyField', 'valueField'),
+            'ORDER BY valueField',
+            FH_NOT_EMPTY
+        );
+
+        $this->getDatabaseMock()
+                ->expects($this->once())
+                ->query("UPDATE test SET saveInField = '2' WHERE id = '123'")
+                ->willSetAffectedRows(1)
+                ->willSetLastInsertId(4711);
+
+
+        $this->setCallbackOnSaved($form);
+
+        $r = $form->flush(true);
+
+        $this->assertEquals("", $r);
+        $this->assertSavedId(123);
+        $this->assertSavedValue('2', 'saveInField');
     }
 
     public function test_multiple_show(): void
@@ -196,7 +249,7 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
     
         $form->dbSelectField(
             'Options from a table',
-            'saveInField',
+            'saveInFieldString',
             'loadFromTable',
             array('keyField', 'valueField'),
             'ORDER BY valueField',
@@ -206,7 +259,7 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
 
         $aExpected = [
             "<td valign='top' align='right'>Options from a table</td>",
-            '<select name="saveInField[]" id="saveInField" size="4" multiple="multiple">',
+            '<select name="saveInFieldString[]" id="saveInFieldString" size="4" multiple="multiple">',
             '<option  value="1" >foo</option>',
             '<option  value="2" >bar</option>'
         ];
@@ -229,7 +282,7 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
                 ->expects($this->exactly(1))
                 ->query($this->matches("SELECT * FROM test WHERE id = '123'"))
                 ->willReturnResultSet([
-                    ['id' => '123', 'saveInField' => '2'],
+                    ['id' => '123', 'saveInFieldString' => '2, 1'],
                 ]);
 
         $this->setConnectedTable($form, "test");
@@ -244,29 +297,32 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
     
         $form->dbSelectField(
             'Options from a table',
-            'saveInField',
+            'saveInFieldString',
             'loadFromTable',
             array('keyField', 'valueField'),
             'ORDER BY valueField',
-            FH_NOT_EMPTY
+            FH_NOT_EMPTY,
+            true
         );
 
-        $this->assertEquals("2", $form->getValue("saveInField"));
+        $this->assertEquals(['0' => "2", '1' => " 1"], $form->getValue("saveInFieldString"));
 
         $aExpected = [
             "<td valign='top' align='right'>Options from a table</td>",
-            '<select name="saveInField" id="saveInField" size="1">',
-            '<option  value="1" >foo</option>',
+            '<select name="saveInFieldString[]" id="saveInFieldString" size="4" multiple="multiple">',
+            '<option  value="1"  selected="selected">foo</option>',
             '<option  value="2"  selected="selected">bar</option>'
         ];
 
         $a = $this->assertFormFlushContains($form, $aExpected);
+
+        $this->fail("forced failure: getValue has to deliver trimmed values, not ' 1'");
     }
 
     public function test_multiple_insert(): void
     {
         $_POST['FormHandler_submit'] = "1";
-        $_POST['saveInField'] = ['0' => "2", '1' => "1"];
+        $_POST['saveInFieldString'] = ['0' => "2", '1' => "1"];
         
         $form = new dbFormHandler();
 
@@ -283,7 +339,7 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
     
         $form->dbSelectField(
             'Options from a table',
-            'saveInField',
+            'saveInFieldString',
             'loadFromTable',
             array('keyField', 'valueField'),
             'ORDER BY valueField',
@@ -292,23 +348,68 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
 
         $this->getDatabaseMock()
                 ->expects($this->once())
-                ->query("INSERT INTO test (saveInField) VALUES ( '2, 1' );")
+                ->query("INSERT INTO test (saveInFieldString) VALUES ( '2, 1' );")
                 ->willSetAffectedRows(1)
                 ->willSetLastInsertId(4711);
 
 
-        $form->onSaved(array($this, "callback_onSaved"));
+        $this->setCallbackOnSaved($form);
 
         $r = $form->flush(true);
 
         $this->assertEquals("", $r);
-        $this->assertEquals(4711, $this->_expectedResult['id']);
-        $this->assertEquals('2, 1', $this->_expectedResult['values']['saveInField']);
+        $this->assertSavedId(4711);
+        $this->assertSavedValue(['0' => "2", '1' => "1"], 'saveInFieldString');
     }
 
-    public function callback_onSaved(int $id, array $values, dbFormHandler $form) : void
+    public function test_multiple_update(): void
     {
-        $this->_expectedResult['id'] = $id;
-        $this->_expectedResult['values'] = $values;
+        $this->createMocksForTable();
+        $_POST['FormHandler_submit'] = "1";
+        $_POST['saveInFieldString'] = ['0' => "2"];
+        $_GET['id'] = "123";
+        
+        $form = new dbFormHandler();
+
+        $this->getDatabaseMock()
+                ->expects($this->exactly(1))
+                ->query($this->matches("SELECT * FROM test WHERE id = '123'"))
+                ->willReturnResultSet([
+                    ['id' => '123', 'saveInFieldString' => '2, 1'],
+                ]);
+
+        $this->setConnectedTable($form, "test");
+
+        $this->getDatabaseMock()
+                ->expects($this->once())
+                ->query($this->stringStartsWith('SELECT keyField, valueField FROM loadFromTable'))
+                ->willReturnResultSet([
+                    ['keyField' => 1, 'valueField' => 'foo'],
+                    ['keyField' => 2, 'valueField' => 'bar'],
+                ]);
+    
+        $form->dbSelectField(
+            'Options from a table',
+            'saveInFieldString',
+            'loadFromTable',
+            array('keyField', 'valueField'),
+            'ORDER BY valueField',
+            FH_NOT_EMPTY
+        );
+
+        $this->getDatabaseMock()
+                ->expects($this->once())
+                ->query("UPDATE test SET saveInFieldString = '2' WHERE id = '123'")
+                ->willSetAffectedRows(1)
+                ->willSetLastInsertId(4711);
+
+
+        $this->setCallbackOnSaved($form);
+
+        $r = $form->flush(true);
+
+        $this->assertEquals("", $r);
+        $this->assertSavedId(123);
+        $this->assertSavedValue(['0' => "2"], 'saveInFieldString');
     }
 };
