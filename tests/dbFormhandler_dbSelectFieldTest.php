@@ -5,7 +5,7 @@ require_once 'helper/dbFormhandlerTestCase.php';
 
 final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
 {
-    public function test_show(): void
+    public function test_new(): void
     {
         $form = new dbFormHandler();
 
@@ -233,7 +233,7 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
         $this->assertSavedValue('2', 'saveInField');
     }
 
-    public function test_multiple_show(): void
+    public function test_multiple_new(): void
     {
         $form = new dbFormHandler();
 

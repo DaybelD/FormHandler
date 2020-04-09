@@ -7,6 +7,26 @@ require_once 'helper/dbFormhandlerTestCase.php';
 
 final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
 {
+    public function test_new(): void
+    {
+        $this->createMocksForTable();
+
+        $form = new dbFormHandler();
+
+        $this->assertTrue($form->insert);
+        $this->assertFalse($form->edit);
+
+        $this->setConnectedTable($form, "test");
+
+        $form->textField("TextNullable", "textNullable");
+        $form->textField("TextNotNullable", "textNotNullable");
+
+        $this->assertEmpty($form->getValue("textNullable"));
+        $this->assertEmpty($form->getValue("textNotNullable"));
+
+        $this->assertFormFlushContains($form, ['id="textNullable" value=""', 'id="textNotNullable" value=""']);
+    }
+
     public function test_edit_noDataset(): void
     {
         $this->createMocksForTable();
