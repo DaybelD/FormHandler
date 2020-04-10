@@ -6,12 +6,17 @@ $_SERVER['REQUEST_METHOD'] = 'POST';
 
 // for testen trigger_error
 define('FH_DISPLAY_ERRORS', false);
+define('FH_DEFAULT_ROW_MASK',"%title%%seperator%%field%%help%%error_id%%error%");
+
 
 abstract class FormhandlerTestCase extends TestCase
 {
     private ?ReflectionClass $_Reflector = null;
 
-    abstract protected function getFormhandlerType() : string;
+    protected function getFormhandlerType(): string
+    {
+        return "Formhandler";
+	}
 
     private function getReflector() : ReflectionClass
     {
@@ -85,6 +90,17 @@ abstract class FormhandlerTestCase extends TestCase
 		else
 			$this->assertStringContainsString($expected, $t);
 
-		return $t;
+		return (string)$t;
+	}
+
+	/**
+	 * Flush after post is correct
+	 *
+	 * @param FormHandler $form
+	 * @return void
+	 */
+	protected function assertFlush(FormHandler $form) : void
+	{
+		$this->assertEquals("", $form->flush(true));
 	}
 };

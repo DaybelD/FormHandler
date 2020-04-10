@@ -12,6 +12,8 @@ final class dbFormhandler_PassFieldTest extends dbFormhandlerTestCase
         $this->createMocksForTable();
 
         $form = new dbFormHandler();
+        
+        
 
         $this->assertTrue($form->insert);
         $this->assertFalse($form->edit);
@@ -24,8 +26,8 @@ final class dbFormhandler_PassFieldTest extends dbFormhandlerTestCase
         $this->assertEmpty($form->getValue("textNullable"));
         $this->assertEmpty($form->getValue("textNotNullable"));
 
-        $this->assertFormFlushContains($form, ['<input type="text" name="textNullable" id="textNullable" value="" size="20" />',
-                                                 '<input type="password" name="pass" id="pass" size="20" />']);
+        $this->assertFormFlushContains($form, ['Your password:<input type="password" name="pass" id="pass" size="20" />error_pass',
+                                                 'TextNullable:<input type="text" name="textNullable" id="textNullable" value="" size="20" />error_textNullable']);
     }
 
     public function test_edit(): void
@@ -54,8 +56,8 @@ final class dbFormhandler_PassFieldTest extends dbFormhandlerTestCase
         $this->assertEquals("text1", $form->getValue("textNullable"));
         $this->assertEquals("secret", $form->getValue("pass"));
 
-        $this->assertFormFlushContains($form, ['<input type="text" name="textNullable" id="textNullable" value="text1" size="20" />',
-                                                 '<input type="password" name="pass" id="pass" size="20" />']);
+        $this->assertFormFlushContains($form, ['Your password:<input type="password" name="pass" id="pass" size="20" />error_pass',
+                                                 'TextNullable:<input type="text" name="textNullable" id="textNullable" value="text1" size="20" />error_textNullable']);
     }
 
     public function test_insert_noValues(): void

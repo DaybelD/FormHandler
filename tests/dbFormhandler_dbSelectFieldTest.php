@@ -29,10 +29,10 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
         );
 
         $aExpected = [
-            "<td valign='top' align='right'>Options from a table</td>",
-            '<select name="saveInField" id="saveInField" size="1">',
+            'Options from a table:<select name="saveInField" id="saveInField" size="1">',
             '<option  value="1" >foo</option>',
-            '<option  value="2" >bar</option>'
+            '<option  value="2" >bar</option>',
+            '</select>error_saveInField'
         ];
 
         $this->assertFormFlushContains($form, $aExpected);
@@ -78,10 +78,10 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
         $this->assertEquals("2", $form->getValue("saveInField"));
 
         $aExpected = [
-            "<td valign='top' align='right'>Options from a table</td>",
-            '<select name="saveInField" id="saveInField" size="1">',
+            'Options from a table:<select name="saveInField" id="saveInField" size="1">',
             '<option  value="1" >foo</option>',
-            '<option  value="2"  selected="selected">bar</option>'
+            '<option  value="2"  selected="selected">bar</option>',
+            '</select>error_saveInField'
         ];
 
         $a = $this->assertFormFlushContains($form, $aExpected);
@@ -162,7 +162,7 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
 
         $this->getDatabaseMock()
                 ->expects($this->once())
-                ->query("INSERT INTO test ( saveInField) VALUES ( '3' );")
+                ->query("INSERT INTO test (saveInField) VALUES ('3');")
                 ->willSetAffectedRows(1)
                 ->willSetLastInsertId(4711);
 
@@ -258,10 +258,10 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
         );
 
         $aExpected = [
-            "<td valign='top' align='right'>Options from a table</td>",
-            '<select name="saveInFieldString[]" id="saveInFieldString" size="4" multiple="multiple">',
+            'Options from a table:<select name="saveInFieldString[]" id="saveInFieldString" size="4" multiple="multiple">',
             '<option  value="1" >foo</option>',
-            '<option  value="2" >bar</option>'
+            '<option  value="2" >bar</option>',
+            '</select>error_saveInFieldString'
         ];
 
         $this->assertFormFlushContains($form, $aExpected);
@@ -308,10 +308,10 @@ final class dbFormhandler_dbSelectFieldTest extends dbFormhandlerTestCase
         $this->assertEquals(['0' => "2", '1' => " 1"], $form->getValue("saveInFieldString"));
 
         $aExpected = [
-            "<td valign='top' align='right'>Options from a table</td>",
-            '<select name="saveInFieldString[]" id="saveInFieldString" size="4" multiple="multiple">',
+            'Options from a table:<select name="saveInFieldString[]" id="saveInFieldString" size="4" multiple="multiple">',
             '<option  value="1"  selected="selected">foo</option>',
-            '<option  value="2"  selected="selected">bar</option>'
+            '<option  value="2"  selected="selected">bar</option>',
+            '</select>error_saveInFieldString'
         ];
 
         $a = $this->assertFormFlushContains($form, $aExpected);

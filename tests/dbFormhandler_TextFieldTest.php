@@ -5,7 +5,7 @@ declare(strict_types=1);
 require_once 'helper/dbFormhandlerTestCase.php';
 
 
-final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
+final class dbFormhandler_TextFieldTest extends dbFormhandlerTestCase
 {
     public function test_new(): void
     {
@@ -24,7 +24,8 @@ final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
         $this->assertEmpty($form->getValue("textNullable"));
         $this->assertEmpty($form->getValue("textNotNullable"));
 
-        $this->assertFormFlushContains($form, ['id="textNullable" value=""', 'id="textNotNullable" value=""']);
+        $this->assertFormFlushContains($form, ['input type="text" name="textNullable" id="textNullable" value=""',
+                                                 'input type="text" name="textNotNullable" id="textNotNullable" value=""']);
     }
 
     public function test_edit_noDataset(): void
@@ -76,7 +77,8 @@ final class dbFormhandler_EditFieldTest extends dbFormhandlerTestCase
         $this->assertEquals("text1", $form->getValue("textNullable"));
         $this->assertEquals("text2", $form->getValue("textNotNullable"));
 
-        $this->assertFormFlushContains($form, ['id="textNullable" value="text1"', 'id="textNotNullable" value="text2"']);
+        $this->assertFormFlushContains($form, ['input type="text" name="textNullable" id="textNullable" value="text1"',
+                                                'input type="text" name="textNotNullable" id="textNotNullable" value="text2"']);
     }
 
     public function test_insert_noValues(): void
