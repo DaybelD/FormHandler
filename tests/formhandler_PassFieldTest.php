@@ -81,7 +81,7 @@ final class formhandler_PassFieldTest extends FormhandlerTestCase
 
         $this->assertEmpty($form->getValue("passfield"));
 
-        $this->assertFormFlushContains($form, ['Passfield:<input type="text" name="passfield" id="passfield" value="" size="123" />error_passfield']);
+        $this->assertFormFlushContains($form, ['Passfield:<input type="password" name="passfield" id="passfield" size="123" />error_passfield']);
     }
 
     public function test_new_maxlength(): void
@@ -94,7 +94,7 @@ final class formhandler_PassFieldTest extends FormhandlerTestCase
 
         $this->assertEmpty($form->getValue("passfield"));
 
-        $this->assertFormFlushContains($form, ['Passfield:<input type="text" name="passfield" id="passfield" value="" size="20" maxlength="123" />error_passfield']);
+        $this->assertFormFlushContains($form, ['Passfield:<input type="password" name="passfield" id="passfield" size="20" maxlength="123" />error_passfield']);
     }
 
     public function test_new_extra(): void
@@ -107,7 +107,7 @@ final class formhandler_PassFieldTest extends FormhandlerTestCase
 
         $this->assertEmpty($form->getValue("passfield"));
 
-        $this->assertFormFlushContains($form, ['Passfield:<input type="text" name="passfield" id="passfield" value="" size="20"  data-old="123"']);
+        $this->assertFormFlushContains($form, ['Passfield:<input type="password" name="passfield" id="passfield" size="20" data-old="123" />error_passfield']);
     }
 
 };

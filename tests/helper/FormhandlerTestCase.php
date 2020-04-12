@@ -7,7 +7,7 @@ $_SERVER['REQUEST_METHOD'] = 'POST';
 // for testen trigger_error
 define('FH_DISPLAY_ERRORS', false);
 define('FH_DEFAULT_ROW_MASK',"%title%%seperator%%field%%help%%error_id%%error%");
-
+define('FH_DEFAULT_GLUE_MASK',"%field%");
 
 abstract class FormhandlerTestCase extends TestCase
 {

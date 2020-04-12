@@ -22,9 +22,9 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
     public function test_new_array(): void
     {
         $aChecks = array (
-            "Check1",
-            "Check2",
-            "Check3"
+            "c1" => "Check1",
+            "c2" => "Check2",
+            "c3" => "Check3"
         );
         
         $form = new FormHandler();
@@ -35,9 +35,75 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
 
         $this->assertEmpty($form->getValue("checkbox"));
 
-        $this->assertFormFlushContains($form, ['Checkbox:<input type="checkbox" name="checkbox[]" id="checkbox_1" value="0" /><label for="checkbox_1" class="noStyle">Check1</label><br />',
-                                                '<input type="checkbox" name="checkbox[]" id="checkbox_2" value="1" /><label for="checkbox_2" class="noStyle">Check2</label><br />',
-                                                '<input type="checkbox" name="checkbox[]" id="checkbox_3" value="2" /><label for="checkbox_3" class="noStyle">Check3</label><br />',
+        $this->assertFormFlushContains($form, ['Checkbox:<input type="checkbox" name="checkbox[]" id="checkbox_1" value="c1" /><label for="checkbox_1" class="noStyle">Check1</label>',
+                                                '<input type="checkbox" name="checkbox[]" id="checkbox_2" value="c2" /><label for="checkbox_2" class="noStyle">Check2</label>',
+                                                '<input type="checkbox" name="checkbox[]" id="checkbox_3" value="c3" /><label for="checkbox_3" class="noStyle">Check3</label>',
+                                                'error_checkbox']);
+    }
+
+    public function test_new_array_useArrayKeyAsValueFalse(): void
+    {
+        $aChecks = array (
+            "c1" => "Check1",
+            "c2" => "Check2",
+            "c3" => "Check3"
+        );
+        
+        $form = new FormHandler();
+
+        $this->assertFalse($form->isPosted());
+
+        $form->checkBox("Checkbox", "checkbox", $aChecks, null, false);
+
+        $this->assertEmpty($form->getValue("checkbox"));
+
+        $this->assertFormFlushContains($form, ['Checkbox:<input type="checkbox" name="checkbox[]" id="checkbox_1" value="Check1" /><label for="checkbox_1" class="noStyle">Check1</label>',
+                                                '<input type="checkbox" name="checkbox[]" id="checkbox_2" value="Check2" /><label for="checkbox_2" class="noStyle">Check2</label>',
+                                                '<input type="checkbox" name="checkbox[]" id="checkbox_3" value="Check3" /><label for="checkbox_3" class="noStyle">Check3</label>',
+                                                'error_checkbox']);
+    }
+
+    public function test_new_array_extra(): void
+    {
+        $aChecks = array (
+            "c1" => "Check1",
+            "c2" => "Check2",
+            "c3" => "Check3"
+        );
+        
+        $form = new FormHandler();
+
+        $this->assertFalse($form->isPosted());
+
+        $form->checkBox("Checkbox", "checkbox", $aChecks, null, null, 'data-extra="true"');
+
+        $this->assertEmpty($form->getValue("checkbox"));
+
+        $this->assertFormFlushContains($form, ['Checkbox:<input type="checkbox" name="checkbox[]" id="checkbox_1" value="c1" data-extra="true" /><label for="checkbox_1" class="noStyle">Check1</label>',
+                                                '<input type="checkbox" name="checkbox[]" id="checkbox_2" value="c2" data-extra="true" /><label for="checkbox_2" class="noStyle">Check2</label>',
+                                                '<input type="checkbox" name="checkbox[]" id="checkbox_3" value="c3" data-extra="true" /><label for="checkbox_3" class="noStyle">Check3</label>',
+                                                'error_checkbox']);
+    }
+
+    public function test_new_array_mask(): void
+    {
+        $aChecks = array (
+            "c1" => "Check1",
+            "c2" => "Check2",
+            "c3" => "Check3"
+        );
+        
+        $form = new FormHandler();
+
+        $this->assertFalse($form->isPosted());
+
+        $form->checkBox("Checkbox", "checkbox", $aChecks, null, null, null, "%field%ABC");
+
+        $this->assertEmpty($form->getValue("checkbox"));
+
+        $this->assertFormFlushContains($form, ['Checkbox:<input type="checkbox" name="checkbox[]" id="checkbox_1" value="c1" /><label for="checkbox_1" class="noStyle">Check1</label>ABC',
+                                                '<input type="checkbox" name="checkbox[]" id="checkbox_2" value="c2" /><label for="checkbox_2" class="noStyle">Check2</label>ABC',
+                                                '<input type="checkbox" name="checkbox[]" id="checkbox_3" value="c3" /><label for="checkbox_3" class="noStyle">Check3</label>ABC',
                                                 'error_checkbox']);
     }
 
@@ -58,9 +124,9 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
     public function test_posted_array(): void
     {
         $aChecks = array (
-            "Check1",
-            "Check2",
-            "Check3"
+            "c1" => "Check1",
+            "c2" => "Check2",
+            "c3" => "Check3"
         );
 
         $_POST['FormHandler_submit'] = "1";
@@ -78,7 +144,7 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
     public function test_posted_single_fillvalue_byinvalid(): void
     {
         $_POST['FormHandler_submit'] = "1";
-        $_POST['checkbox'] = "ona";
+        $_POST['checkbox'] = "on";
 
         $form = new FormHandler();
 
@@ -86,7 +152,7 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
 
         $form->checkBox("Checkbox", "checkbox");
 
-        $this->assertEquals("ona", $form->getValue("checkbox"));
+        $this->assertEquals("on", $form->getValue("checkbox"));
 
         $form->setError("checkbox", "forcedError");
         $this->assertFormFlushContains($form, ['Checkbox:<input type="checkbox" name="checkbox" id="checkbox_1" value="on" checked="checked" class="error" />error_checkbox',
