@@ -6,7 +6,13 @@ require_once 'helper/formhandlerTestCase.php';
 
 final class formhandler_CheckboxTest extends FormhandlerTestCase
 {
-    public function test_new_single(): void
+    private $aChecks = [
+        "c1" => "Check1",
+        "c2" => "Check2",
+        "c3" => "Check3"
+    ];
+    
+public function test_new_single(): void
     {
         $form = new FormHandler();
 
@@ -21,17 +27,11 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
 
     public function test_new_array(): void
     {
-        $aChecks = array (
-            "c1" => "Check1",
-            "c2" => "Check2",
-            "c3" => "Check3"
-        );
-        
         $form = new FormHandler();
 
         $this->assertFalse($form->isPosted());
 
-        $form->checkBox("Checkbox", "checkbox", $aChecks);
+        $form->checkBox("Checkbox", "checkbox", $this->aChecks);
 
         $this->assertEmpty($form->getValue("checkbox"));
 
@@ -43,17 +43,11 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
 
     public function test_new_array_useArrayKeyAsValueFalse(): void
     {
-        $aChecks = array (
-            "c1" => "Check1",
-            "c2" => "Check2",
-            "c3" => "Check3"
-        );
-        
         $form = new FormHandler();
 
         $this->assertFalse($form->isPosted());
 
-        $form->checkBox("Checkbox", "checkbox", $aChecks, null, false);
+        $form->checkBox("Checkbox", "checkbox", $this->aChecks, null, false);
 
         $this->assertEmpty($form->getValue("checkbox"));
 
@@ -65,17 +59,11 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
 
     public function test_new_array_extra(): void
     {
-        $aChecks = array (
-            "c1" => "Check1",
-            "c2" => "Check2",
-            "c3" => "Check3"
-        );
-        
         $form = new FormHandler();
 
         $this->assertFalse($form->isPosted());
 
-        $form->checkBox("Checkbox", "checkbox", $aChecks, null, null, 'data-extra="true"');
+        $form->checkBox("Checkbox", "checkbox", $this->aChecks, null, null, 'data-extra="true"');
 
         $this->assertEmpty($form->getValue("checkbox"));
 
@@ -87,17 +75,11 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
 
     public function test_new_array_mask(): void
     {
-        $aChecks = array (
-            "c1" => "Check1",
-            "c2" => "Check2",
-            "c3" => "Check3"
-        );
-        
         $form = new FormHandler();
 
         $this->assertFalse($form->isPosted());
 
-        $form->checkBox("Checkbox", "checkbox", $aChecks, null, null, null, "%field%ABC");
+        $form->checkBox("Checkbox", "checkbox", $this->aChecks, null, null, null, "%field%ABC");
 
         $this->assertEmpty($form->getValue("checkbox"));
 
@@ -123,12 +105,6 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
 
     public function test_posted_array(): void
     {
-        $aChecks = array (
-            "c1" => "Check1",
-            "c2" => "Check2",
-            "c3" => "Check3"
-        );
-
         $_POST['FormHandler_submit'] = "1";
         $_POST['checkbox'] = ["Check1", "Check2"];
 
@@ -136,7 +112,7 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
 
         $this->assertTrue($form->isPosted());
 
-        $form->checkBox("Checkbox", "checkbox", $aChecks);
+        $form->checkBox("Checkbox", "checkbox", $this->aChecks);
 
         $this->assertEquals(["Check1", "Check2"], $form->getValue("checkbox"));
     }
@@ -161,12 +137,6 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
 
     public function test_posted_array_fillvalue_byinvalid(): void
     {
-        $aChecks = array (
-            "Check1",
-            "Check2",
-            "Check3"
-        );
-
         $_POST['FormHandler_submit'] = "1";
         $_POST['checkbox'] = ["Check1", "Check2"];
 
@@ -174,7 +144,7 @@ final class formhandler_CheckboxTest extends FormhandlerTestCase
 
         $this->assertTrue($form->isPosted());
 
-        $form->checkBox("Checkbox", "checkbox", $aChecks);
+        $form->checkBox("Checkbox", "checkbox", $this->aChecks);
 
         $this->assertEquals(["Check1", "Check2"], $form->getValue("checkbox"));
     }

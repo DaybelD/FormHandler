@@ -6,6 +6,7 @@ $_SERVER['REQUEST_METHOD'] = 'POST';
 
 // for testen trigger_error
 define('FH_DISPLAY_ERRORS', false);
+// for fewer text in unittests
 define('FH_DEFAULT_ROW_MASK',"%title%%seperator%%field%%help%%error_id%%error%");
 define('FH_DEFAULT_GLUE_MASK',"%field%");
 
@@ -80,12 +81,20 @@ abstract class FormhandlerTestCase extends TestCase
 	 */
 	protected function assertFormFlushContains(FormHandler $form, $expected) : string
 	{
-		$t = $form->flush(true);
+		$t = (string)$form->flush(true);
 
 		if (is_array($expected))
 		{
+			// ordercheck
+			$lastPos = -1;
 			foreach($expected as $e)
+			{
 				$this->assertStringContainsString($e, $t);
+				$p = strpos($t, $e);
+
+				$this->assertGreaterThan($lastPos, $p, 'wrong order of strings');
+				$lastPos = $p;
+			}
 		}
 		else
 			$this->assertStringContainsString($expected, $t);
@@ -101,6 +110,7 @@ abstract class FormhandlerTestCase extends TestCase
 	 */
 	protected function assertFlush(FormHandler $form) : void
 	{
-		$this->assertEquals("", $form->flush(true));
+		$t = $form->flush(true);
+		$this->assertEquals("", $t);
 	}
 };
