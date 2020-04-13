@@ -59,7 +59,7 @@ class jsDateTextField extends DateTextField
      * @author Thomas Branius
      * @since 16-03-2010
      */
-	function setMask( $sMask )
+	public function setMask( $sMask )
 	{
 		parent::setMask($sMask);
 
@@ -81,7 +81,7 @@ class jsDateTextField extends DateTextField
      * @access public
      * @since 16-03-2010
      */
-	function getField()
+	public function getField()
 	{
 		// view mode enabled ?
 		if( $this -> getViewMode() )

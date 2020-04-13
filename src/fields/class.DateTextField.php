@@ -32,7 +32,7 @@ class DateTextField extends TextField
      * @author Thomas Branius
      * @since 16-03-2010
      */
-	public function __construct( &$oForm, $sName, $sMask = null)
+	public function __construct( &$oForm, $sName, $sMask = null, $bParseOtherPresentations = false)
 	{
 		// set the default date display
 		$this->setMask( !is_null( $sMask ) ? $sMask : FH_DATETEXTFIELD_DEFAULT_DISPLAY );

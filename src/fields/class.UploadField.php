@@ -145,7 +145,7 @@ class UploadField extends Field
 			// posted value known? (when using multiple pages)
 			elseif ( isset( $_POST[$sName] ) )
 			{
-				$this->setValue( get_magic_quotes_gpc() ? stripslashes($_POST[$sName]) : $_POST[$sName] );
+				$this->setValue( $_POST[$sName] );
 			}
 			// edit form?
 			elseif( (isset($oForm->edit) && $oForm->edit) )
