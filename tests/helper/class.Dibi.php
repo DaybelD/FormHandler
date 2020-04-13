@@ -1,11 +1,7 @@
 <?php declare(strict_types=1);
 
 
-require_once(__DIR__.'/../../vendor/jdorn/sql-formatter/lib/SqlFormatter.php');
-
-use Cz\PHPUnit\MockDibi\Drivers\DriversFactory;
 use Dibi\Connection;
-use Dibi\Result;
 
 /**
  * Yadal interface for the Dibi database type
@@ -90,18 +86,9 @@ class YadalDibi extends Yadal
 
 		$query = SqlFormatter::compress($query);
 		
-		// $a = explode("\n", $query);
+		$this->_lastQuery = $query;
 
-		// $newQuery = "";
-		// foreach($a as $t)
-		// {
-		// 	$newQuery .= trim($t) . " ";
-		// }
-		// $newQuery = trim($newQuery);
-
-		$this->_lastQuery = $query; //$newQuery;
-
-		return $this->_Conn()->query($query);//$newQuery);
+		return $this->_Conn()->query($query);
 	}
 
 	/**
