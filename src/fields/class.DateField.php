@@ -54,7 +54,7 @@ class DateField extends Field
 
         for( $x = 0; $x < $len; $x++ )
         {
-            $c = $fields{$x};
+            $c = $fields[$x];
 
             switch ( $c ) {
                 // year selectfield
@@ -513,7 +513,7 @@ class DateField extends Field
     	    // save the results in the vars $d, $m and $y
     	    for( $i = 0; $i < $len; $i++ )
     	    {
-    	        $c  = $str{$i};
+    	        $c  = $str[$i];
     	        $$c = $match[$i+1];
     	    }
     	}
@@ -581,7 +581,7 @@ class DateField extends Field
 	    for( $i = 0; $i < $len; $i++ )
 	    {
 	        // get the character
-	        $c = $mask{ $i };
+	        $c = $mask[ $i ];
 
 	        // day, month or year ?
     	    if( in_array( $c, $placeholders ) )
@@ -590,7 +590,7 @@ class DateField extends Field
 	           if( $i != 0 )
 	           {
 	               // was the char not escaped?
-	               if( $mask{ $i - 1 } != '\\' )
+	               if( $mask[ $i - 1 ] != '\\' )
 	               {
 	                   $str .= $c;
 	               }
@@ -635,7 +635,7 @@ class DateField extends Field
         $str = '';
         for( $i = 0; $i < $len; $i++ )
         {
-            $c = $mask{$i};
+            $c = $mask[$i];
 
             // field char ?
             if( in_array( $c, $placeholders))
@@ -648,7 +648,7 @@ class DateField extends Field
                 else
                 {
                     // check if the char is escaped.
-                    if( $mask{$i - 1} == '\\' )
+                    if( $mask[$i - 1] == '\\' )
                     {
                         // the char is escaped, display the char without slash
                         $str = substr($str, 0, -1).$c;

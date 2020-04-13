@@ -205,7 +205,7 @@ class Editor extends TextArea
 		}
 
 		// dir starting with a /? Then start at the root...
-		if( $sDir{0} == '/' )
+		if( $sDir[0] == '/' )
 		{
 			return $sDir;
 		}
@@ -217,7 +217,7 @@ class Editor extends TextArea
 		// if we are at the root of the server, return the dir..
 		else if( $sServerPath == '/' || $sServerPath == '')
 		{
-			if( $sDir{0} != '.' && $sDir{0} != '/' )
+			if( $sDir[0] != '.' && $sDir[0] != '/' )
 			{
 				 $sDir = '/'.$sDir;
 			}
@@ -233,7 +233,7 @@ class Editor extends TextArea
     	// none of the above, then return the dir!
     	else
     	{
-    		if( $sDir{0} == '/' )
+    		if( $sDir[0] == '/' )
     		{
     			$sDir = substr( $sDir, 1);
     		}
