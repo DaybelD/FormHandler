@@ -439,7 +439,7 @@ class Field
 	public function getViewMode()
 	{
 		return (isset( $this -> _viewMode) && $this -> _viewMode) ||
-		(isset( $this -> _oForm -> _viewMode ) && $this -> _oForm -> _viewMode);
+		$this -> _oForm -> isViewMode();
 	}
 
 	/**
