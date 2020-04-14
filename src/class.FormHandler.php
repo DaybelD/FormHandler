@@ -254,6 +254,16 @@ class FormHandler
 		$this->setTableSettings();
 	}
 
+	/**
+	 * Get Name Form
+	 *
+	 * @return string
+	 */
+	public function getName() : string
+	{
+		return $this->_name;
+	}
+
 	/********************************************************/
 	/************* FIELDS ***********************************/
 	/********************************************************/

@@ -12,7 +12,6 @@
 class TextSelectField extends TextField
 {
 	protected $_iSize;         // int: the size of the field
-	private $_iMaxlength;    // int: the maxlength of the field
 	private $_sOptions;
 	
 	/**

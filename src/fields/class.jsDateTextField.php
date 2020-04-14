@@ -59,7 +59,7 @@ class jsDateTextField extends DateTextField
      * @author Thomas Branius
      * @since 16-03-2010
      */
-	function setMask( $sMask )
+	public function setMask( $sMask )
 	{
 		parent::setMask($sMask);
 
@@ -81,7 +81,7 @@ class jsDateTextField extends DateTextField
      * @access public
      * @since 16-03-2010
      */
-	function getField()
+	public function getField()
 	{
 		// view mode enabled ?
 		if( $this -> getViewMode() )
@@ -110,7 +110,7 @@ class jsDateTextField extends DateTextField
 
 		$html .=
 		"<a href='javascript:;' ".
-		"onclick=\"if( cal_".$this->_sName." ) cal_".$this->_sName.".select(document.forms['".$this -> _oForm->_name."'].elements['".$this->_sName."'], 'anchor_".$this->_sName."', '".$this->_sJsMask."'); return false;\" ".
+		"onclick=\"if( cal_".$this->_sName." ) cal_".$this->_sName.".select(document.forms['".$this -> _oForm->getName()."'].elements['".$this->_sName."'], 'anchor_".$this->_sName."', '".$this->_sJsMask."'); return false;\" ".
 		" name='anchor_".$this->_sName."' id='anchor_".$this->_sName."'>".
 		"<img src='".FH_FHTML_DIR."images/calendar.gif' border='0' alt='Select Date' ". FH_XHTML_CLOSE ."></a>\n".
 		"<span id='".$this->_sName."_span' ".
