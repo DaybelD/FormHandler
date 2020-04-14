@@ -266,6 +266,16 @@ class FormHandler
 		return $this->_unittestmode;
 	}
 	
+	/**
+	 * Get Name Form
+	 *
+	 * @return string
+	 */
+	public function getName() : string
+	{
+		return $this->_name;
+	}
+
 	/********************************************************/
 	/************* FIELDS ***********************************/
 	/********************************************************/
