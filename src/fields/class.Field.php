@@ -458,6 +458,19 @@ class Field
 	}
 
 	/**
+     * Field::setInvalid()
+     *
+     * Invalids this field
+     *
+     * @return void
+     * @access public
+     */
+	public function setInvalid()
+	{
+		$this ->_isValid = false;
+	}
+
+	/**
 	 * Field::_getViewValue()
 	 *
 	 * Return the value of the field
