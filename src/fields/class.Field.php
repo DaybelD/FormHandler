@@ -21,6 +21,7 @@ class Field
 	protected $_iTabIndex;     // int: tabindex or null when no tabindex is set
 	protected $_sExtraAfter;   // string: extra data which should be added AFTER the HTML tag
 	public $_viewMode;      // boolean: should we only display the value instead of the field ?
+	private $_isValid;      // boolean: field is valid 
 
 
 	/**
@@ -39,6 +40,7 @@ class Field
 		// save the form and nome of the field
 		$this->_oForm = &$oForm;
 		$this->_sName = $sName;
+		$this->_isValid = null;
 
 		// check if there are spaces in the fieldname
 		if(strpos($sName,' ') !== false)
@@ -397,6 +399,18 @@ class Field
 	}
 
 	/**
+	 * Field::getExtra()
+	 * 
+	 * Get extra of the Field
+	 *
+	 * @return string|null
+	 */
+	public function getExtra() : ?string
+	{
+		return $this->_sExtra;
+	}
+
+	/**
      * Field::setExtra()
      *
      * Set some extra CSS, JS or something like that (to use in the html tag)
@@ -439,7 +453,7 @@ class Field
 	public function getViewMode()
 	{
 		return (isset( $this -> _viewMode) && $this -> _viewMode) ||
-		(isset( $this -> _oForm -> _viewMode ) && $this -> _oForm -> _viewMode);
+		$this -> _oForm -> isViewMode();
 	}
 
 	/**
@@ -455,6 +469,19 @@ class Field
 	public function setViewMode( $mode = true )
 	{
 		$this -> _viewMode = (bool) $mode;
+	}
+
+	/**
+     * Field::setInvalid()
+     *
+     * Invalids this field
+     *
+     * @return void
+     * @access public
+     */
+	public function setInvalid()
+	{
+		$this ->_isValid = false;
 	}
 
 	/**

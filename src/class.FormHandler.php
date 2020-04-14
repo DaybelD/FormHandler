@@ -1781,7 +1781,9 @@ class FormHandler
 		$this->_setJS( substr($js, 0, -2)."];\n" );
 
 		// add the javascript to the fields "extra" argument
-		$this->_fields[$field][1]->_sExtra .= " onkeypress='return FH_autocomplete(this, event, ".$field."_values);' ";
+		$tmpExtra = $this->_fields[$field][1]->getExtra();
+		$tmpExtra .= " onkeypress='return FH_autocomplete(this, event, ".$field."_values);' ";
+		$this->_fields[$field][1]->setExtra($tmpExtra);
 	}
 
 	/**
@@ -1836,7 +1838,9 @@ class FormHandler
 		$this->_setJS( substr($js, 0, -2)."];\n" );
 
 		// add the javascript to the fields "extra" argument
-		$this->_fields[$field][1]->_sExtra .= " onkeypress='return autocompleteafter(this, event,\"".$after."\", ".$field."_values);' ";
+		$tmpExtra = $this->_fields[$field][1]->getExtra();
+		$tmpExtra .= " onkeypress='return autocompleteafter(this, event,\"".$after."\", ".$field."_values);' ";
+		$this->_fields[$field][1]->setExtra($tmpExtra);
 	}
 	/***/
 
@@ -3631,7 +3635,7 @@ class FormHandler
 		}
 
 		// set the focus to the first (tab index) field if no focus is set yet
-		if( is_null($this->_focus) )
+		if( $this->_focus === true )
 		{
 			// are there tab indexes set ?
 			if( sizeof( $this->_tabindexes) > 0 )
@@ -3643,7 +3647,7 @@ class FormHandler
 			}
 
 			// no focus set yet. Set the focus to the first field
-			if( is_null($this->_focus))
+			if( $this->_focus === true)
 			{
 				// is it a object (only fields + buttons are objects)
 				foreach( $this->_fields as $name => $data )
