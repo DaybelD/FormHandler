@@ -397,6 +397,18 @@ class Field
 	}
 
 	/**
+	 * Field::getExtra()
+	 * 
+	 * Get extra of the Field
+	 *
+	 * @return string|null
+	 */
+	public function getExtra() : ?string
+	{
+		return $this->_sExtra;
+	}
+
+	/**
      * Field::setExtra()
      *
      * Set some extra CSS, JS or something like that (to use in the html tag)

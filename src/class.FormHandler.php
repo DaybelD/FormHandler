@@ -1769,7 +1769,9 @@ class FormHandler
 		$this->_setJS( substr($js, 0, -2)."];\n" );
 
 		// add the javascript to the fields "extra" argument
-		$this->_fields[$field][1]->_sExtra .= " onkeypress='return FH_autocomplete(this, event, ".$field."_values);' ";
+		$tmpExtra = $this->_fields[$field][1]->getExtra();
+		$tmpExtra .= " onkeypress='return FH_autocomplete(this, event, ".$field."_values);' ";
+		$this->_fields[$field][1]->setExtra($tmpExtra);
 	}
 
 	/**
@@ -1824,7 +1826,9 @@ class FormHandler
 		$this->_setJS( substr($js, 0, -2)."];\n" );
 
 		// add the javascript to the fields "extra" argument
-		$this->_fields[$field][1]->_sExtra .= " onkeypress='return autocompleteafter(this, event,\"".$after."\", ".$field."_values);' ";
+		$tmpExtra = $this->_fields[$field][1]->getExtra();
+		$tmpExtra .= " onkeypress='return autocompleteafter(this, event,\"".$after."\", ".$field."_values);' ";
+		$this->_fields[$field][1]->setExtra($tmpExtra);
 	}
 	/***/
 
