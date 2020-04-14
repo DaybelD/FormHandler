@@ -3623,7 +3623,7 @@ class FormHandler
 		}
 
 		// set the focus to the first (tab index) field if no focus is set yet
-		if( is_null($this->_focus) )
+		if( $this->_focus === true )
 		{
 			// are there tab indexes set ?
 			if( sizeof( $this->_tabindexes) > 0 )
@@ -3635,7 +3635,7 @@ class FormHandler
 			}
 
 			// no focus set yet. Set the focus to the first field
-			if( is_null($this->_focus))
+			if( $this->_focus === true)
 			{
 				// is it a object (only fields + buttons are objects)
 				foreach( $this->_fields as $name => $data )
