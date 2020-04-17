@@ -92,7 +92,7 @@ abstract class FormhandlerTestCase extends TestCase
 				$this->assertStringContainsString($e, $t);
 				$p = strpos($t, $e);
 
-				$this->assertGreaterThan($lastPos, $p, 'wrong order of strings');
+				$this->assertGreaterThan($lastPos, $p, "wrong order of strings '{$e}'");
 				$lastPos = $p;
 			}
 		}
