@@ -168,6 +168,11 @@ final class formhandler_DateFieldTest extends FormhandlerTestCase
         $this->assertEquals("03.04.2018", $form->getValue("datefield2"));
         $this->assertEquals("2018/04/03", $form->getValue("datefield3"));
         $this->assertEquals("03-04-2018", $form->getValue("datefield4"));
+
+        $this->assertEquals([2018, 4, 3], $form->getAsArray("datefield"));
+        $this->assertEquals([2018, 4, 3], $form->getAsArray("datefield2"));
+        $this->assertEquals([2018, 4, 3], $form->getAsArray("datefield3"));
+        $this->assertEquals([2018, 4, 3], $form->getAsArray("datefield4"));
     }
 
     public function test_new_mask1(): void
