@@ -9,6 +9,7 @@ define('FH_DISPLAY_ERRORS', false);
 // for fewer text in unittests
 define('FH_DEFAULT_ROW_MASK',"%title%%seperator%%field%%help%%error_id%%error%");
 define('FH_DEFAULT_GLUE_MASK',"%field%");
+define('FH_FIELDSET_MASK',"BEGIN%name%%extra%%caption%%content%END");
 
 abstract class FormhandlerTestCase extends TestCase
 {

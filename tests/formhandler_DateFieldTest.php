@@ -221,6 +221,7 @@ final class formhandler_DateFieldTest extends FormhandlerTestCase
 
     public function test_new_editfields(): void
     {
+        define('FH_DATEFIELD_SET_CUR_DATE', false);
         $form = new FormHandler();
 
         $this->assertFalse($form->isPosted());
@@ -229,7 +230,7 @@ final class formhandler_DateFieldTest extends FormhandlerTestCase
         $form->dateField("Datefield2", "datefield2", null, null, "Y.M-D");
 
         $this->assertFormFlushContains($form, ['Datefield: <input type="text" name="datefield_day" id="datefield_day" value="" size="2" maxlength="2" /> - <input type="text" name="datefield_month" id="datefield_month" value="" size="2" maxlength="2" /> - <input type="text" name="datefield_year" id="datefield_year" value="" size="4" maxlength="4" /> error_datefield',
-                                                'Datefield2: <input type="text" name="datefield2_year" id="datefield2_year" value="2020" size="4" maxlength="4" /> . <input type="text" name="datefield2_month" id="datefield2_month" value="04" size="2" maxlength="2" /> - <input type="text" name="datefield2_day" id="datefield2_day" value="17" size="2" maxlength="2" /> error_datefield2']);
+                                                'Datefield2: <input type="text" name="datefield2_year" id="datefield2_year" value="" size="4" maxlength="4" /> . <input type="text" name="datefield2_month" id="datefield2_month" value="" size="2" maxlength="2" /> - <input type="text" name="datefield2_day" id="datefield2_day" value="" size="2" maxlength="2" /> error_datefield2']);
     }
 
     public function test_posted_editfields_fillvalue_byinvalid(): void
