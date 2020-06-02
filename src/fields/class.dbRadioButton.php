@@ -32,6 +32,12 @@ class dbRadioButton extends RadioButton
 	    // call the constructor of the selectfield
 		parent::__construct( $oForm, $sName, '' );
 
+		// convert _aOptions to array as we cannot add elements to a string 
+		if (is_string($this->_aOptions))
+        	{
+            		$this->_aOptions = array();			
+        	}		
+		
 		// make sure that the fields are set in an array
 		$aFields = !is_array($mFields) ? array( $mFields ) : $mFields;
 		$this -> useArrayKeyAsValue( sizeof( $aFields) == 2 );
