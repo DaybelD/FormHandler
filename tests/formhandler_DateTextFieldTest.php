@@ -105,4 +105,87 @@ final class formhandler_DateTextFieldTest extends FormhandlerTestCase
         $this->assertFormFlushContains($form, ['DateTextField:<input type="text" name="datetextfield" id="datetextfield" value="" size="20"  data-old="123"']);
     }
 
+    public function dataTestGetAsArray() : array
+    {
+        // The default display of the date fields useage:
+        // d = day (2 digits with leading zeros)
+        // D = day
+        // m = month (2 digits with leading zeros)
+        // M = month
+        // y = year (two digits)
+        // Y = year (four digits)
+        return [
+            [ ["mask" => 'd-m-Y', "value" => "",           "result" => ['day' => "",   'month' => "",   'year' => ""]] ],
+            [ ["mask" => 'd-m-Y', "value" => "31-03-2020", "result" => ['day' => "31", 'month' => "03", 'year' => "2020"]] ],
+            [ ["mask" => 'D-M-Y', "value" => "1-3-2020",   "result" => ['day' => "1",  'month' => "3",  'year' => "2020"]] ],
+            [ ["mask" => 'Y-m-d', "value" => "2020-03-31", "result" => ['day' => "31", 'month' => "03", 'year' => "2020"]] ],
+            [ ["mask" => 'Y-M-D', "value" => "2020-3-1",   "result" => ['day' => "1",  'month' => "3",  'year' => "2020"]] ],
+            [ ["mask" => 'd.m.Y', "value" => "31.03.2020", "result" => ['day' => "31", 'month' => "03", 'year' => "2020"]] ],
+            [ ["mask" => 'D.M.Y', "value" => "1.3.2020",   "result" => ['day' => "1",  'month' => "3",  'year' => "2020"]] ],
+            [ ["mask" => 'Y/m/d', "value" => "2020/03/31", "result" => ['day' => "31", 'month' => "03", 'year' => "2020"]] ],
+            [ ["mask" => 'Y/M/D', "value" => "2020/3/1",   "result" => ['day' => "1",  'month' => "3",  'year' => "2020"]] ],
+            [ ["mask" => 'd/m/Y', "value" => "31/03/2020", "result" => ['day' => "31", 'month' => "03", 'year' => "2020"]] ],
+            [ ["mask" => 'D/M/Y', "value" => "1/3/2020",   "result" => ['day' => "1",  'month' => "3",  'year' => "2020"]] ],
+            [ ["mask" => 'd-m-y', "value" => "31-03-20",   "result" => ['day' => "31", 'month' => "03", 'year' => "2020"]] ],
+            [ ["mask" => 'D-M-y', "value" => "1-3-20",     "result" => ['day' => "1",  'month' => "3",  'year' => "2020"]] ],
+            [ ["mask" => 'd.m.y', "value" => "31.03.20",   "result" => ['day' => "31", 'month' => "03", 'year' => "2020"]] ],
+            [ ["mask" => 'D.M.y', "value" => "1.3.20",     "result" => ['day' => "1",  'month' => "3",  'year' => "2020"]] ],
+            [ ["mask" => 'd/m/y', "value" => "31/03/20",   "result" => ['day' => "31", 'month' => "03", 'year' => "2020"]] ],
+            [ ["mask" => 'D/M/y', "value" => "1/3/20",     "result" => ['day' => "1",  'month' => "3",  'year' => "2020"]] ],
+        ];
+    }
+    /**
+     * @dataProvider dataTestGetAsArray
+     */
+    public function testGetAsArray($dataTestGetAsArray) : void
+    {
+        $_POST['FormHandler_submit'] = "1";
+        $_POST['datetextfield'] = $dataTestGetAsArray['value'];
+
+        $form = new FormHandler();
+
+        $form->dateTextField("DateTextField", "datetextfield", null, $dataTestGetAsArray['mask']);
+
+        $this->assertTrue($form->isPosted());
+
+        list( $year, $month, $day ) = $form->getAsArray( 'datetextfield' );
+
+        $this->assertEquals($dataTestGetAsArray['result']['year'], $year);
+        $this->assertEquals($dataTestGetAsArray['result']['month'], $month);
+        $this->assertEquals($dataTestGetAsArray['result']['day'], $day);
+    }
+
+    /**
+     * @dataProvider dataTestGetAsArray
+     */
+    public function testParseOtherRepresentaions($dataTestGetAsArray) : void
+    {
+        $_POST['FormHandler_submit'] = "1";
+        $_POST['datetextfield'] = $dataTestGetAsArray['value'];
+        $_POST['datetextfield2'] = $dataTestGetAsArray['value'];
+
+        $form = new FormHandler();
+
+        $form->dateTextField("DateTextField", "datetextfield", null, null, false);
+        $form->dateTextField("DateTextField2", "datetextfield2", null, null, true);
+
+        $this->assertTrue($form->isPosted());
+
+        if ($dataTestGetAsArray['mask'] != FH_DATETEXTFIELD_DEFAULT_DISPLAY)
+        {
+            $this->expectError();
+            $this->expectErrorMessage("Value is not a valid date [" . $dataTestGetAsArray['value'] . "]");
+        }
+        list( $year, $month, $day ) = $form->getAsArray( 'datetextfield' );
+
+        $this->assertEquals($dataTestGetAsArray['result']['year'], $year);
+        $this->assertEquals($dataTestGetAsArray['result']['month'], $month);
+        $this->assertEquals($dataTestGetAsArray['result']['day'], $day);
+
+        list( $year2, $month2, $day2 ) = $form->getAsArray( 'datetextfield2' );
+
+        $this->assertEquals($dataTestGetAsArray['result']['year'], $year2);
+        $this->assertEquals($dataTestGetAsArray['result']['month'], $month2);
+        $this->assertEquals($dataTestGetAsArray['result']['day'], $day2);
+    }
 };
