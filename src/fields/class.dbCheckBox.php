@@ -32,6 +32,11 @@ class dbCheckBox extends CheckBox
 	    // call the constructor of the selectfield
 		parent::__construct( $oForm, $sName, array() );
 
+		if (is_string($this->_aOptions))
+        	{
+            		$this->_aOptions = array();
+        	}
+		
 		// make sure that the fields are set in an array
 		$aFields = !is_array($mFields) ? array( $mFields ) : $mFields;
 		$this -> useArrayKeyAsValue( sizeof( $aFields) == 2 );
