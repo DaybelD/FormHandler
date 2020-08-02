@@ -2,7 +2,7 @@
 
 require_once 'helper/FormhandlerTestCase.php';
 
-final class ConstructorTest extends FormhandlerTestCase
+final class formhandler_ConstructorTest extends FormhandlerTestCase
 {
     final protected function getFormhandlerType() : string
     {

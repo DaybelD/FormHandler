@@ -3,7 +3,7 @@
 require_once 'helper/dbFormhandlerTestCase.php';
 
 
-final class dbFormhandlerBaseTest extends dbFormhandlerTestCase
+final class dbFormhandler_BaseTest extends dbFormhandlerTestCase
 {
     public function testConstructor(): void
     {
