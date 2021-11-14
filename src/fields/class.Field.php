@@ -152,7 +152,8 @@ class Field
 		// field in view mode?
 		if( $this -> getViewMode() )
 		{
-			return $this->_isValid = true;
+			$this->_isValid = true;
+			return $this->_isValid;
 		}
 
 		// is a validator set?
