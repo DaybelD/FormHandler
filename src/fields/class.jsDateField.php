@@ -27,7 +27,7 @@ class jsDateField extends DateField
      * @return jsDateField
      * @author Teye Heimans
      */
-	public function __construct(&$oForm, $sName, $sMask = null, $bRequired = null, $sInterval = null, $bIncludeJS )
+	public function __construct(&$oForm, $sName, $sMask = null, $bRequired = null, $sInterval = null, $bIncludeJS  = null)
 	{
 		// call the constructor of the datefield
 		parent::__construct( $oForm, $sName, $sMask, $bRequired, $sInterval );
