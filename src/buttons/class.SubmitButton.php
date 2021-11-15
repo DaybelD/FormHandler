@@ -73,7 +73,7 @@ class SubmitButton extends Button
             // no onclick event defined.. just add the js code
             else
             {
-           		$this->_sExtra = "onclick=\"this.form.submit();this.disabled=true;\" ".(isset($this->_sExtra) ? $this->_sExtra : '');
+           		$this->_sExtra = "onclick=\" if (this.form.querySelector(':invalid') == null) { this.form.submit();this.disabled=true;}\" ".(isset($this->_sExtra) ? $this->_sExtra : '');
             }
         }
 
