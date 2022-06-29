@@ -8,21 +8,17 @@ So easy that you can build a fully working form, including field validations, wi
 
 ## Installation
 
-Install the latest version with
-
-```bash
-$ composer require formhandler/formhandler
-```
+Copy the package to some site on your project.
 
 When the vendor directory is outside the root directory of your web application use a symlink on the FHTML directory to make it publicly available.
 
+
+
+
+
+
 For example: map vendor/formhandler/formhandler/src/FHTML to /FHTML/ of your website root. Then add to your application
 
-```php
-<?php
-
-fh_conf('FH_FHTML_DIR', '/FHTML/');
-```
 
 ## Basic Usage
 
@@ -31,9 +27,8 @@ fh_conf('FH_FHTML_DIR', '/FHTML/');
 
 //include the class (only needed when not using Composer)
 include "FH3/class.FormHandler.php";
+fh_conf('FH_FHTML_DIR', 'FH3/FHTML/');
 
-//when using composer include the autoloader of composer
-require __DIR__ . '/vendor/autoload.php';
 
 //create a new FormHandler object
 $form = new FormHandler();
