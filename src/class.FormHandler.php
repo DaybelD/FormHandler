@@ -1,12 +1,11 @@
 <?php
 /**
- * FormHandler v3.3
+ * FormHandler v3.9
  *
- * Look for more info at http://www.formhandler.net
  * @package FormHandler
  */
 
-/******* BUILD IN VALIDATOR FUNCTIONS *******/
+/******* FUNCIONES VALIDADORAS INTERNAS *******/
 define('FH_STRING', 'IsString'); // any string that doesn't have control characters (ASCII 0 - 31) but spaces are allowed
 define('FH_ALPHA', 'IsAlpha'); // only letters a-z and A-Z
 define('FH_DIGIT', 'IsDigit'); // only numbers 0-9
@@ -25,10 +24,6 @@ define('FH_TEXT', 'IsText'); // like FH_STRING, but newline characters are allow
 define('FH_NOT_EMPTY', 'notEmpty'); // check if the value is not empty
 define('FH_NO_HTML', 'NoHTML'); // check if the value does not contain html
 define('FH_IP', 'IsIp'); // check if the value is a valid ip adres (xxx.xxx.xxx.xxx:xxxx)
-
-// for dutch people
-define('FH_POSTCODE', 'IsPostcode'); // valid dutch postcode (eg. 9999 AA)
-define('FH_PHONE', 'IsPhone'); // valid dutch phone-number(eg. 058-2134778)
 
 // same as above, but with these the value is not required
 define('_FH_STRING', '_IsString');
