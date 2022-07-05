@@ -47,17 +47,17 @@ fh_conf('FH_DEFAULT_FORM_NAME', 'FormHandler');
 
 // The default mask used to parse the fields
 // The mask can be changed with the function setMask()
-fh_conf('FH_DEFAULT_ROW_MASK',"  <tr>\n".
-  "    <td valign='top' align='right'>%title%</td>\n".
-  "    <td valign='top'>%seperator%</td>\n".
-  "    <td valign='top'>%field% %help% <span id='%error_id%' class='error'>%error%</span></td>\n".
-  "  </tr>\n"
+fh_conf('FH_DEFAULT_ROW_MASK',
+  "<div class='fh_campo'><label for='%name%'>%title%</label>\n".
+  "%field%\n".
+  "%help%\n".
+  "<span id='%error_id%' class='error'>%error%</span></div>\n"
 );
 
 // When addLine() is used, this line is used to set the data in
 // (%s is going to be replaced with the value!)
 fh_conf('FH_LINE_MASK',
-  "  <tr><td>&nbsp;</td><td>&nbsp;</td><td>%s</td></tr>\n"
+  "  <div class='fh_line'> %s </div>\n"
 );
 
 // Default for use table, can be overwritten by useTable
@@ -92,53 +92,22 @@ fh_conf('FH_ERROR_MASK',
 
 // The mask used for the horizontal listfield
 fh_conf('FH_LISTFIELD_HORIZONTAL_MASK',
-  "  <table border='0' cellspacing='0' cellpadding='0'>\n".
-  "    <tr>\n".
-  "      <td align='center'><strong>%onlabel%</strong></td>\n".
-  "      <td align='center'></td>\n".
-  "      <td align='center'><strong>%offlabel%</strong></td>\n".
-  "    </tr>\n".
-  "    <tr>\n".
-  "      <td rowspan='2' align='right'>\n".
-  "        %onfield%\n".
-  "      </td>\n".
-  "      <td width='30' align='center' valign='bottom'>\n".
-  "        <input type='button' value=' &gt; ' onclick=\"changeValue('%name%', false)\" ondblclick=\"moveAll('%name%', false)\" title='%ontitle%' />\n".
-  "      </td>\n".
-  "      <td rowspan='2'>\n".
-  "        %offfield%\n".
-  "      </td>\n".
-  "    </tr>\n".
-  "    <tr>\n".
-  "      <td align='center' valign='top'>\n".
-  "        <input type='button' value=' &lt; ' onclick=\"changeValue('%name%', true)\" ondblclick=\"moveAll('%name%', true)\" title='%offtitle%' />\n".
-  "      </td>\n".
-  "    </tr>\n".
-  "  </table>"
+  "      <strong>%onlabel%</strong>\n".
+  "      <strong>%offlabel%</strong>\n".
+  "      %onfield%\n".
+  "      <input type='button' value=' &gt; ' onclick=\"changeValue('%name%', false)\" ondblclick=\"moveAll('%name%', false)\" title='%ontitle%' />\n".
+  "      %offfield%\n".
+  "      <input type='button' value=' &lt; ' onclick=\"changeValue('%name%', true)\" ondblclick=\"moveAll('%name%', true)\" title='%offtitle%' />\n"
 );
 
 // The mask used for the vertical listfield
 fh_conf('FH_LISTFIELD_VERTICAL_MASK',
-  "  <table border='0' cellspacing='0' cellpadding='0'>\n".
-  "    <tr>\n".
-  "      <td align='right' valign='middle'><strong>%offlabel%</strong></td>\n".
-  "      <td valign='top' align='left'>\n".
-  "        %offfield%\n".
-  "      </td>\n".
-  "    </tr>\n".
-  "    <tr>\n".
-  "      <td colspan='2' height='30' align='center' valign='middle'>\n".
-  "        <input type='button' value=' &darr; ' onclick=\"changeValue('%name%', true)\" ondblclick=\"moveAll('%name%', true)\" title='%offtitle%' />&nbsp;\n".
+  "      <strong>%offlabel%</strong>\n".
+  "      %offfield%\n".
+  "      <input type='button' value=' &darr; ' onclick=\"changeValue('%name%', true)\" ondblclick=\"moveAll('%name%', true)\" title='%offtitle%' />&nbsp;\n".
   "        &nbsp;<input type='button' value=' &uarr; ' onclick=\"changeValue('%name%', false)\" ondblclick=\"moveAll('%name%', false)\" title='%ontitle%' />\n".
-  "      </td>\n".
-  "    </tr>\n".
-  "    <tr>\n".
-  "      <td align='right' valign='middle'><strong>%onlabel%</strong></td>\n".
-  "      <td valign='top' align='left'>\n".
-  "        %onfield%\n".
-  "      </td>\n".
-  "    </tr>\n".
-  "  </table>"
+  "      <strong>%onlabel%</strong>\n".
+  "      %onfield%\n"
 ); 
 
 // Should Overlib javascript be included for help messages?

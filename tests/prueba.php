@@ -7,14 +7,14 @@ $form = new FormHandler();
 
 //some fields.. (see manual for examples)
 $form -> addLine("Campo de texto: ");
-$form->textField("Nombre", "name", FH_STRING, 20, 40);
+$form->textField("Nombre", "name", _FH_STRING, 20, 40);
 
 // set a hidden field
 $form -> hiddenField("language", "nl");
 
 // a textfield
 $form -> addLine("Campo de clave: ");
-$form -> passField("Your password", "pass", FH_PASSWORD);
+$form -> passField("Your password", "pass", _FH_PASSWORD);
 // set the help message for the field 
 $form -> setHelpText('pass', 'Ingrese la clave');
 // addHTML! 
@@ -24,7 +24,7 @@ $form -> addHTML(
 
 // textarea
 $form -> addLine("Area de texto: ");
-$form -> textArea("Descripcion", "message", FH_TEXT);
+$form -> textArea("Descripcion", "message", _FH_TEXT);
 $form -> setMaxLength("message", 30);
 
 // Opciones de navegadores
@@ -55,7 +55,7 @@ $browsers = array(
 
 // Campo de seleccion
 $form -> addLine("Campo de seleccion: ");
-$form -> selectField("Navegadores", "browser1", $browsers, FH_NOT_EMPTY, true);
+$form -> selectField("Navegadores", "browser1", $browsers);
 
 //Checkbox variable
 // Opciones for the checkbox
@@ -180,8 +180,8 @@ $form -> backButton("Atras", "Regresar");
 $star = ' <font color="red">*</font>'; 
 
 // some fields 
-$form -> textField("Name".$star, "name1", FH_STRING, 20, 50); 
-$form -> textField("Age".$star, "age", FH_INTEGER, 3, 2); 
+$form -> textField("Name".$star, "name1", _FH_STRING, 20, 50); 
+$form -> textField("Age".$star, "age", _FH_INTEGER, 3, 2); 
 
 // add a line that every field with a red * is required 
 $form -> addLine($star); 
@@ -197,43 +197,33 @@ $brow = array(
   "-1"  => "Other..." 
 );
 // start a fieldset! 
-$form -> borderStart("Browser"); 
+//$form -> borderStart("Browser"); 
 
-// set a mask for the upcoming field 
-$form -> setMask( 
-  "  <tr><td>%title%:</td></tr>\n". 
-  "  <tr><td>%field% %error%</td></tr>\n", 
-  1 # repeat it once (so for the upcoming 2 fields!!) 
-); 
+
 
 // browsers to select from 
 $form -> radioButton("Select the browser you use", "browswer", $brow); 
 // which version of the browser?  
-$form -> textField("Version", "version", FH_FLOAT, 5, 5); 
+$form -> textField("Version", "version", _FH_FLOAT, 5, 5); 
 
 // stop the border 
-$form -> borderStop();
+//$form -> borderStop();
 
-// set another type of mask 
-$form -> setMask( 
-  "  <tr><td>%title% %seperator%</td></tr>\n". 
-  "  <tr><td>%field% %error%</td></tr>\n", 
-  true  # repeat this mask! 
-); 
+
 
 // some fields 
-$form -> textField("Name", "name3", FH_STRING); 
-$form -> textField("Age", "age3", FH_INTEGER, 3, 2); 
+$form -> textField("Name", "name3", _FH_STRING); 
+$form -> textField("Age", "age3", _FH_INTEGER, 3, 2); 
 $form -> selectField("Gender", "gender3", array('M', 'F'), null, false);
 
 // a textfield + custom error message!!! 
-$form -> textField("First Name", "fname", FH_STRING); 
+$form -> textField("First Name", "fname", _FH_STRING); 
 $form -> setErrorMessage( "fname", "You have to enter a first name!");
 
 // the auto complete items 
 $colors = array ( "red", "orange", "yellow", "green", "blue", "indigo", "violet", "brown", "rood" ); 
 // the textfield used for auto completion 
-$form -> textField("Type a color", "color2", FH_STRING); 
+$form -> textField("Type a color", "color2", _FH_STRING); 
 
 // set the auto completion for the field Color 
 $form -> setAutoComplete("color2", $colors); 
@@ -241,10 +231,111 @@ $form -> setAutoComplete("color2", $colors);
 // the auto complete items 
 $providers = array ( "hotmail.com", "live.com", "php-globe.nl", "freeler.nl" ); 
 // the textfield used for auto completion after
-$form -> textField("Type your email", "email", FH_STRING); 
+$form -> textField("Type your email", "email", _FH_STRING); 
 
 // set the auto completion for the field Color 
 $form -> setAutoCompleteAfter("email", "@", $providers); 
+
+//NEW PAGE
+//Funciona, falta prueba por validaciones en el capcha y al cargar imagen
+
+//first page... 
+//$form -> textField("Question 1", "q1", _FH_STRING, 30, 50); 
+//$form -> submitButton("Next page"); 
+
+// second page 
+//$form -> newPage(); 
+//$form -> textArea("Question 2", "q2", _FH_TEXT); 
+//$form -> submitButton("Next Page"); 
+
+// third and last page 
+//$form -> newPage(); 
+//$form -> textField("Question 3", "q3", _FH_STRING);
+
+
+//TABINDEX
+
+// some fields + button
+$form -> textField("Field 1", "fld1");
+$form -> textField("Field 2", "fld2");
+$form -> textField("Field 3", "fld3");
+$form -> submitButton("Submit", "submitBtn");
+
+// the tabs!
+$tabs = array(
+  3 => "fld1",
+  1 => "fld2",
+  2 => "fld3",
+  4 => "submitBtn"
+);
+
+// set the tabs
+$form -> setTabIndex($tabs); 
+
+//No hay prueba debido a que debe crearse un archivo aparte con lenguaje y demas contenido
+// set the language to dutch
+$form -> setLanguage( 'nl' );
+
+// a textfield  + submit button
+$form -> textField    ("Your name", "name", FH_STRING);
+$form -> submitButton ("Save"); 
+
+//MENSAJE DE ERROR PRUEBA
+//Mensaje de error para campos incorrectos
+// textfield
+$form -> textField("Name", "name25", FH_STRING);
+
+// submitbutton
+$form -> submitButton("Save");
+
+// get the errors of invalid fields
+$errors = $form->catchErrors();
+
+
+
+/** handle your own errors! **/
+
+// any errors?
+if( sizeof($errors) > 0 ) 
+{
+    // create a JS message
+    $msg = "Some fields are incorrect!\\n";
+
+    foreach($errors as $field => $error) 
+    {
+        $msg .= "- ". $form -> getTitle( $field )."\\n";
+    }
+    echo
+    "<script language='javascript'>\n".
+    "alert('".$msg."');\n".
+    "</script>\n";
+}
+
+// FOCUS
+$form -> textField("Username", "username", FH_STRING);
+$form -> passField("Password", "password", FH_PASSWORD);
+
+// set the focus to the password
+$form -> setFocus("password"); 
+
+
+
+
+// set another type of mask 
+//$form -> setMask( 
+  //"  <tr><td>%title% %seperator%</td></tr>\n". 
+  //"  <tr><td>%field% %error%</td></tr>\n", 
+  //true  # repeat this mask! 
+//); 
+// set a mask for the upcoming field 
+//$form -> setMask( 
+  //"  <tr><td>%title%:</td></tr>\n". 
+  //"  <tr><td>%field% %error%</td></tr>\n", 
+  //1 # repeat it once (so for the upcoming 2 fields!!) 
+//); 
+
+
+
 
 
 
@@ -256,8 +347,7 @@ $form -> setAutoCompleteAfter("email", "@", $providers);
 //button for submitting
 $form->submitButton();
 
-//set the 'commit-after-form' function
-$form->onCorrect('doRun');
+
 
 //the 'commit-after-form' function
 function doRun($data) {
@@ -269,6 +359,7 @@ function doRun($data) {
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="prueba.css">
 	<title>Prueba Formularios</title>
 </head>
 <body>
