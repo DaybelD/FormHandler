@@ -19,51 +19,42 @@ $form -> setHelpText('name', 'Nombre completo');
 $form -> passField("Your password", "pass", FH_PASSWORD);
 $form -> setHelpText('pass', 'Por favor ingrese una clave');
 
-/*
-// a textfield
-$form -> addLine("Campo de clave: ");
-
-// set the help message for the field 
-$form -> setHelpText('pass', 'Ingrese la clave');
-// addHTML! 
-$form -> addHTML( 
-  "<hr size='1' />" 
-);
-
-// textarea
-$form -> addLine("Area de texto: ");
-$form -> textArea("Descripcion", "message", _FH_TEXT);
-$form -> setMaxLength("message", 30);
-
-// Opciones de navegadores
+$form -> textArea("Descripcion", "message", FH_TEXT);
 $browsers = array(
     ""             => "-- Select --",
     "__LABEL(IE)__" => "Microsoft Internet Explorer",
     "msie3"         => "Microsoft Internet Explorer 3",
-    "msie4"         => "Microsoft Internet Explorer 4",
-    "msie5"         => "Microsoft Internet Explorer 5",
-    "msie55"        => "Microsoft Internet Explorer 5.5",
     "msie6"         => "Microsoft Internet Explorer 6",
     "__LABEL(MO)__" => "Mozilla",
     "moz1"          => "Mozilla 1",
     "__LABEL(NN)__" => "Netscape Navigator",
     "nn3"           => "Netscape Navigator 3",
-    "nn4"           => "Netscape Navigator 4",
-    "nn6"           => "Netscape Navigator 5",
-    "nn6"           => "Netscape Navigator 6",
     "nn7"           => "Netscape Navigator 7",
     "__LABEL(OP)__" => "Opera",
     "op3"           => "Opera 3",
     "op35"          => "Opera 3.5",
-    "op4"           => "Opera 4",
-    "op5"           => "Opera 5",
-    "op6"           => "Opera 6",
-    "op7"           => "Opera 7"
+
 );
+$form -> selectField("Navegadores", "browser1", $browsers, null, "form-select-sm", null, true);$browsers = array(
+    ""             => "-- Select --",
+    "msie3"         => "Microsoft Internet Explorer 3",
+    "msie6"         => "Microsoft Internet Explorer 6",
+    "moz1"          => "Mozilla 1",
+    "nn3"           => "Netscape Navigator 3",
+    "nn7"           => "Netscape Navigator 7",
+    "op3"           => "Opera 3",
+    "op35"          => "Opera 3.5",
+
+);
+$form -> selectField("Navegadores", "browser2", $browsers, null, "form-select-lg", null);
+/*
+
+
+// Opciones de navegadores
+
 
 // Campo de seleccion
-$form -> addLine("Campo de seleccion: ");
-$form -> selectField("Navegadores", "browser1", $browsers);
+
 
 //Checkbox variable
 // Opciones for the checkbox
@@ -339,6 +330,18 @@ $form -> setFocus("password");
   //"  <tr><td>%field% %error%</td></tr>\n", 
   //1 # repeat it once (so for the upcoming 2 fields!!) 
 //); 
+// a textfield
+$form -> addLine("Campo de clave: ");
+
+// addHTML! 
+$form -> addHTML( 
+  "<hr size='1' />" 
+);
+
+// textarea
+$form -> addLine("Area de texto: ");
+
+$form -> setMaxLength("message", 30);
 */
 
 //button for submitting

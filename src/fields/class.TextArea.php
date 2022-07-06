@@ -11,9 +11,8 @@
  */
 class TextArea extends Field {
 
-    private $_iCols;        // int: number of colums which the textarea should get
     private $_iRows;        // int: number of rows which the textarea should get
-    private $_iMaxLength;   // int: the number of characters allowed
+    private $_iClass;   // string: clases
     private $_bShowMessage; // boolean: should we display the limit message
 
     /**
@@ -32,8 +31,8 @@ class TextArea extends Field {
         // call the constructor of the Field class
         parent::__construct( $oform, $sName );
 
-        $this->setCols( 40 );
-        $this->setRows( 7 );
+        $this->setClass('');
+        $this->setRows( 5 );
     }
 
     /**
@@ -46,9 +45,9 @@ class TextArea extends Field {
      * @author Teye Heimans
      * @access public
      */
-    public function setCols( $iCols )
+    public function setClass( $class )
     {
-        $this->_iCols = $iCols;
+        $this->_iClass = trim('form-control '. $class);
     }
 
     /**
@@ -179,9 +178,9 @@ class TextArea extends Field {
 
         // return the field
         return sprintf(
-          '<textarea name="%s" id="%1$s" cols="%d" rows="%d"%s>%s</textarea>%s',
+          '<textarea name="%s" id="%1$s" class="%s" rows="%d"%s>%s</textarea>%s',
           $this->_sName,
-          $this->_iCols,
+          $this->_iClass,
           $this->_iRows,
           (isset($this->_iTabIndex) ? ' tabindex="'.$this->_iTabIndex.'" ' : '').
           (isset($this->_sExtra) ? ' '.$this->_sExtra :''),

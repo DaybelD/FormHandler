@@ -20,7 +20,7 @@ class PassField extends TextField
      *
      * @param object $oForm: The form where the field is located on
      * @param string $sName: The name of the form
-     * @return PassField
+     * @return Campo de clave
      * @author Teye Heimans
      * @access public
      */
@@ -29,7 +29,7 @@ class PassField extends TextField
         // call the constructor of the Field class
         parent::__construct($oForm, $sName);
 
-        $this->_sPre = '';
+        $this->_sPre = ('');
         $this->setClass('');
     }
 

@@ -11,7 +11,7 @@
  */
 class TextSelectField extends TextField
 {
-	protected $_iSize;         // int: the size of the field
+	protected $_iClass;         // string: clases
 	private $_sOptions;
 	
 	/**
@@ -56,7 +56,7 @@ class TextSelectField extends TextField
 			$this->_sOptions .= sprintf( FH_TEXTSELECT_OPTION_MASK, $sName, $value );
 		}
 		
-		$this->setSize( 20 );
+		$this->setClass( '' );
 		$this->setMaxlength( 0 );
 	}
 
@@ -73,7 +73,7 @@ class TextSelectField extends TextField
 		FH_TEXTSELECT_MASK,
 		$this->_sName,
 		(isset($this->_mValue) ? htmlspecialchars($this->_mValue, ENT_COMPAT | ENT_HTML401, FH_HTML_ENCODING):''),
-		$this->_iSize,
+		$this->_iClass,
 		(!empty($this->_iMaxlength) ? 'maxlength="'.$this->_iMaxlength.'" ':'').
 		(isset($this->_iTabIndex) ? 'tabindex="'.$this->_iTabIndex.'" ' : '').
 		(isset($this->_sExtra) ? ' '.$this->_sExtra.' ' :''),

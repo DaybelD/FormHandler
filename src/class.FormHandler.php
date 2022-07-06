@@ -546,7 +546,7 @@ class FormHandler {
 		$title,
 		$name,
 		$validator = null,
-		$cols = null,
+		$class= null,
 		$rows = null,
 		$extra = null) {
 		require_once FH_INCLUDE_DIR . 'fields/class.TextArea.php';
@@ -556,10 +556,6 @@ class FormHandler {
 
 		if (!empty($validator)) {
 			$fld->setValidator($validator);
-		}
-
-		if (!empty($cols)) {
-			$fld->setCols($cols);
 		}
 
 		if (!empty($rows)) {
@@ -596,9 +592,10 @@ class FormHandler {
 		$name,
 		$options,
 		$validator = null,
+		$class = null,
 		$useArrayKeyAsValue = null,
 		$multiple = null,
-		$size = null,
+		$size= null,
 		$extra = null) {
 		require_once FH_INCLUDE_DIR . 'fields/class.SelectField.php';
 
@@ -619,6 +616,11 @@ class FormHandler {
 			$fld->setValidator($validator);
 		}
 
+		if (!empty($class)) {
+			$fld->setClass($class);
+
+		}
+
 		if (!is_null($useArrayKeyAsValue)) {
 			$fld->useArrayKeyAsValue($useArrayKeyAsValue);
 		}
@@ -631,10 +633,7 @@ class FormHandler {
 			$fld->setMultiple($multiple);
 		}
 
-		// if the size is given
-		if (!empty($size)) {
-			$fld->setSize($size);
-		}
+
 		// if no size is set and multiple is enabled, set the size default to 4
 		else if ($multiple) {
 			$fld->setSize(4);

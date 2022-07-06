@@ -12,7 +12,7 @@ class SelectField extends Field
 {
 	public $_aOptions;              // array: the options of the selectfield
 	public $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values
-	private $_iSize;                 // integer: set the size of the field
+	private $_iClass;                 // integer: set the size of the field
 	private $_bMultiple;             // boolean: can multiple items be selected or not?
 	private $_classOpt;
 	/**
@@ -31,7 +31,7 @@ class SelectField extends Field
 		// call the constructor of the Field class
 		parent::__construct( $oForm, $sName );
 
-		$this->setSize( 1 );
+		$this->setClass('');
 		$this->useArrayKeyAsValue( FH_DEFAULT_USEARRAYKEY );
 		$this->setMultiple( false );
 	}
@@ -164,10 +164,10 @@ class SelectField extends Field
 
 		// return the field
 		return sprintf(
-		'<select name="%s" id="%s" size="%d"%s>%s</select>%s',
+		'<select name="%s" id="%s" class="%s"%s>%s</select>%s',
 		$this->_sName. ( $this->_bMultiple ? '[]':''),
 		$this->_sName,
-		$this->_iSize,
+		$this->_iClass,
 		($this->_bMultiple ? ' multiple="multiple"' : '' ).
 		(isset($this->_iTabIndex) ? ' tabindex="'.$this->_iTabIndex.'" ' : '').
 		(isset($this->_sExtra) ? ' '.$this->_sExtra :'' ),
@@ -221,9 +221,9 @@ class SelectField extends Field
      * @access public
      * @author Teye Heimans
      */
-	public function setSize( $iSize )
+	public function setClass( $class )
 	{
-		$this->_iSize = $iSize;
+		$this->_iClass = trim('form-select '. $class);
 	}
 
 	/**
