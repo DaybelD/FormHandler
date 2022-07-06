@@ -296,24 +296,25 @@ class FormHandler {
 	/**
 	 * FormHandler::textField()
 	 *
-	 * Creates a textfield on the form
+	 * Crea campo de texto
 	 *
-	 * @param string $title: The title of the field
-	 * @param string $name: The name of the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
-	 * @param int $size: The size of the field
-	 * @param int $maxlength: The allowed max input of the field
-	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
+	 * El campo de texto trae por defecto la clase de boostrap asignada (form-control)
+	 * 
+	 * @param string $title: Titulo del campo
+	 * @param string $name: Nombre del campo
+	 * @param string $validator: Validacion del campo (o null)
+	 * @param string $class: Las clases asociadas al campo (o null)
+	 * @param string $extra: CSS, Javascript cualquier otra cosa dentro de la etiqueta HTML
 	 * @return void
 	 * @access public
 	 * @author Teye Heimans
+	 * @author Modificado por Daybel Diaz (06/07/2022)
 	 */
 	public function textField(
 		$title,
 		$name,
 		$validator = null,
-		$size = null,
-		$maxlength = null,
+		$class = null,
 		$extra = null) {
 		require_once FH_INCLUDE_DIR . 'fields/class.TextField.php';
 
@@ -323,12 +324,8 @@ class FormHandler {
 			$fld->setValidator($validator);
 		}
 
-		if (!empty($size)) {
-			$fld->setSize($size);
-		}
-
-		if (!empty($maxlength)) {
-			$fld->setMaxlength($maxlength);
+		if (!empty($class)) {
+			$fld->setClass($class);
 		}
 
 		if (!empty($extra)) {
@@ -336,7 +333,7 @@ class FormHandler {
 		}
 
 		// register the field
-		$this->_registerField($name, $fld, $title);
+		$this->_registerField($name, $fld, $title, $class);
 	}
 
 	/**
@@ -1612,28 +1609,15 @@ class FormHandler {
 	 * @access public
 	 * @author Teye Heimans
 	 */
-	public function setHelpText($field, $helpText, $helpTitle = null) {
+	public function setHelpText($field, $helpText) {
 		static $setJS = false;
-		if (!FH_USE_OVERLIB) {
-			$setJS = true;
-		}
-
-		// make sure that the overlib js file is included
-		if (!$setJS) {
-			$setJS = true;
-			$this->_setJS(FH_FHTML_DIR . 'overlib/overlib.js', true);
-			$this->_setJS(FH_FHTML_DIR . 'overlib/overlib_hideform.js', true);
-		}
 
 		// escape the values from dangerous characters
-		$helpTitle = is_null($helpTitle) ? "%title% - " . $this->_text(41) : htmlentities($helpTitle, null, FH_HTML_ENCODING);
-		$helpTitle = preg_replace("/\r?\n/", "\\n", addslashes($helpTitle));
 		$helpText = preg_replace("/\r?\n/", "\\n", addslashes($helpText));
 
 		// set the help text
 		$this->_help[$field] = array(
 			htmlentities($helpText, null, FH_HTML_ENCODING),
-			$helpTitle,
 		);
 	}
 
@@ -3751,13 +3735,11 @@ class FormHandler {
 						if (strpos(FH_HELP_MASK, '%s')) {
 							$help = sprintf(
 								FH_HELP_MASK,
-								$this->_helpIcon,
-								$this->_help[$name][0],
-								str_replace('%title%', addslashes(htmlentities($title, null, FH_HTML_ENCODING)), $this->_help[$name][1])
-							);
+								$this->_help[$name][0]
+								);
 
 						} else {
-							$help = str_replace(array('%helpicon%', '%helptext%', '%helptitle%'), array($this->_helpIcon, $this->_help[$name][0], str_replace('%title%', addslashes(htmlentities($title, null, FH_HTML_ENCODING)), $this->_help[$name][1])), FH_HELP_MASK);
+							$help = str_replace( '%helptext%',	$this->_help[$name][0] , FH_HELP_MASK);
 						}
 					}
 

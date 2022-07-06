@@ -48,7 +48,7 @@ fh_conf('FH_DEFAULT_FORM_NAME', 'FormHandler');
 // The default mask used to parse the fields
 // The mask can be changed with the function setMask()
 fh_conf('FH_DEFAULT_ROW_MASK',
-  "<div class='fh_campo'><label for='%name%'>%title%</label>\n".
+  "<div class='fh_campo'><label for='%name%' class='form-label'>%title%</label>\n".
   "%field%\n".
   "%help%\n".
   "<span id='%error_id%' class='error'>%error%</span></div>\n"
@@ -114,9 +114,7 @@ fh_conf('FH_LISTFIELD_VERTICAL_MASK',
 fh_conf('FH_USE_OVERLIB', true); 
 
 // The help mask used to surround the help messages
-fh_conf('FH_HELP_MASK',
-    '<img src="%helpicon%" border="0" onmouseover="return overlib(\'%helptext%\', DELAY, \'400\', FGCOLOR, \'#CCCCCC\', BGCOLOR, \'#666666\', TEXTCOLOR, \'#666666\', TEXTFONT, \'Verdana\', TEXTSIZE, \'12px\', CELLPAD, 8, BORDER, 1, CAPTION, \'&nbsp;%helptitle%\', CAPTIONSIZE, \'12px\');" onmouseout="return nd();" style="color:333333;cursor:help;" />'
-);
+fh_conf('FH_HELP_MASK', '<div class="form-text">%helptext%</div>');
 
 // Default table width. When "false", no width will be set
 fh_conf('FH_DEFAULT_TABLE_WIDTH', false);

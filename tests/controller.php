@@ -9,7 +9,13 @@ $form = new FormHandler();
 $form -> addLine("Campo de texto: ");
 
 $form->textField("Nombre", "name");
-
+$form->textField("Nombre", "name8");
+$form->textField("Nombre6", "name6", FH_STRING);
+$form->textField("Nombre", "name7", FH_STRING ,"form-control-sm");
+$form->textField("Nombre5", "name5", null, "form-control-sm",'onclick="alert(\'sopa de pollo\')"');
+$form->textField("Nombre5", "name9", null, null,'onclick="alert(\'sopa de pollo\')"');
+$form -> setHelpText('name', 'Nombre completo');
+/*
 // set a hidden field
 $form -> hiddenField("language", "nl");
 
@@ -178,11 +184,11 @@ $form -> cancelButton("Cancel", "../index.php");
 $form -> backButton("Atras", "Regresar");
 
 // star for required fields 
-$star = ' <font color="red">*</font>'; 
+$star = ' <font color="red">sopa</font>'; 
 
 // some fields 
-$form -> textField("Name".$star, "name1", _FH_STRING, 20, 50); 
-$form -> textField("Age".$star, "age", _FH_INTEGER, 3, 2); 
+$form -> textField("Name".$star, "name1"); 
+$form -> textField("Age".$star, "age"); 
 
 // add a line that every field with a red * is required 
 $form -> addLine($star); 
@@ -205,7 +211,7 @@ $brow = array(
 // browsers to select from 
 $form -> radioButton("Select the browser you use", "browswer", $brow); 
 // which version of the browser?  
-$form -> textField("Version", "version", _FH_FLOAT, 5, 5); 
+$form -> textField("Version", "version"); 
 
 // stop the border 
 //$form -> borderStop();
@@ -214,7 +220,7 @@ $form -> textField("Version", "version", _FH_FLOAT, 5, 5);
 
 // some fields 
 $form -> textField("Name", "name3", _FH_STRING); 
-$form -> textField("Age", "age3", _FH_INTEGER, 3, 2); 
+$form -> textField("Age", "age3", _FH_INTEGER); 
 $form -> selectField("Gender", "gender3", array('M', 'F'), null, false);
 
 // a textfield + custom error message!!! 
@@ -294,8 +300,6 @@ $errors = $form->catchErrors();
 
 
 
-/** handle your own errors! **/
-
 // any errors?
 if( sizeof($errors) > 0 ) 
 {
@@ -334,16 +338,7 @@ $form -> setFocus("password");
   //"  <tr><td>%field% %error%</td></tr>\n", 
   //1 # repeat it once (so for the upcoming 2 fields!!) 
 //); 
-
-
-
-
-
-
-
-
-
-
+*/
 
 //button for submitting
 $form->submitButton();
@@ -354,4 +349,4 @@ $form->submitButton();
 function doRun($data) {
 	echo "Hello " . $data['name'] . ", you are " . $data['age'] . " years old!";
 }
-?>
+
