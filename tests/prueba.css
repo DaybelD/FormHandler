@@ -1,0 +1,53 @@
+*{box-sizing:border-box;}
+
+form{
+	padding:20px;
+	border-radius:8px;
+	margin:auto;
+	background-color:skyblue;
+	max-width: 800px;
+}
+form label{
+	width:100%;
+}
+
+
+form input[type="submit"]{
+	width:100%;
+	padding:8px 16px;
+	margin-top:32px;
+	margin: auto;
+	border:1px solid #000;
+	border-radius:5px;
+	display:block;
+	color:#fff;
+	background-color:#1E6363;
+} 
+form input[type="submit"]:hover{
+	cursor:pointer;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea{
+  display: block;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.fh_campo{
+	margin-top: 30px;
+}
+.atribucion {
+	text-align: center;
+	color: black;
+}
+
+.fh_line{
+	font-size: x-large;
+	display: block;
+	font-weight: bolder;
+	margin-top: 30px;
+}

@@ -11,7 +11,7 @@
  */
 class TextField extends Field
 {
-	protected $_iSize;         // int: the size of the field
+	protected $_iClass;         // string: clases asociadas al campo
 	protected $_iMaxlength;    // int: the maxlength of the field
 
 	/**
@@ -30,8 +30,7 @@ class TextField extends Field
 		// call the constructor of the Field class
 		parent::__construct($oForm, $sName);
 
-		$this->setSize( 20 );
-		$this->setMaxlength( 0 );
+		$this->setClass( '' );
 	}
 
 	/**
@@ -44,9 +43,9 @@ class TextField extends Field
      * @author Teye Heimans
      * @access public
      */
-	public function setSize( $iSize )
+	public function setClass( $class )
 	{
-		$this->_iSize = $iSize;
+		$this->_iClass = trim('form-control '. $class);
 	}
 
 	/**
@@ -100,11 +99,11 @@ class TextField extends Field
      * @return void
      * @access public
      * @author Teye Heimans
-     */
 	public function setMaxlength( $iMaxlength )
 	{
 		$this->_iMaxlength = $iMaxlength;
 	}
+    */
 
 	/**
      * TextField::getField()
@@ -125,16 +124,14 @@ class TextField extends Field
 		}
 
 		return sprintf(
-		'<input type="text" name="%s" id="%1$s" value="%s" size="%d" %s'. FH_XHTML_CLOSE .'>%s',
+		'<input type="text" name="%s" id="%1$s" value="%s" class="%s" %s'. FH_XHTML_CLOSE .'>%s',
+
 		$this->_sName,
 		(isset($this->_mValue) ? htmlspecialchars($this->_mValue, ENT_COMPAT | ENT_HTML401, FH_HTML_ENCODING):''),
-		$this->_iSize,
-		(!empty($this->_iMaxlength) ? 'maxlength="'.$this->_iMaxlength.'" ':'').
+		$this->_iClass,
 		(isset($this->_iTabIndex) ? 'tabindex="'.$this->_iTabIndex.'" ' : '').
 		(isset($this->_sExtra) ? ' '.$this->_sExtra.' ' :''),
 		(isset($this->_sExtraAfter) ? $this->_sExtraAfter :'')
 		);
 	}
 }
-
-?>

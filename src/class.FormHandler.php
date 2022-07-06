@@ -1,12 +1,11 @@
 <?php
 /**
- * FormHandler v3.3
+ * FormHandler v3.9
  *
- * Look for more info at http://www.formhandler.net
  * @package FormHandler
  */
 
-/******* BUILD IN VALIDATOR FUNCTIONS *******/
+/******* FUNCIONES VALIDADORAS INTERNAS *******/
 define('FH_STRING', 'IsString'); // any string that doesn't have control characters (ASCII 0 - 31) but spaces are allowed
 define('FH_ALPHA', 'IsAlpha'); // only letters a-z and A-Z
 define('FH_DIGIT', 'IsDigit'); // only numbers 0-9
@@ -25,10 +24,6 @@ define('FH_TEXT', 'IsText'); // like FH_STRING, but newline characters are allow
 define('FH_NOT_EMPTY', 'notEmpty'); // check if the value is not empty
 define('FH_NO_HTML', 'NoHTML'); // check if the value does not contain html
 define('FH_IP', 'IsIp'); // check if the value is a valid ip adres (xxx.xxx.xxx.xxx:xxxx)
-
-// for dutch people
-define('FH_POSTCODE', 'IsPostcode'); // valid dutch postcode (eg. 9999 AA)
-define('FH_PHONE', 'IsPhone'); // valid dutch phone-number(eg. 058-2134778)
 
 // same as above, but with these the value is not required
 define('_FH_STRING', '_IsString');
@@ -54,12 +49,12 @@ define('_FH_IP', '_IsIp');
 // Mask for titles above the fields..
 // This is not used by default but can be handy for the users
 define('FH_TITLE_ABOVE_FIELD_MASK',
-	"  <tr>\n" .
-	"    <td>%title% %seperator%</td>\n" .
-	"  </tr>\n" .
-	"  <tr>\n" .
-	"    <td>%field% %help% %error%</td>\n" .
-	"  </tr>\n"
+
+	"  %title% \n" .
+	"  %seperator% \n" .
+	"  %field%\n" .
+	"  %error%\n" .
+	"  %help%\n"
 );
 
 // make some variables global when the version < 4.1.0
@@ -301,24 +296,25 @@ class FormHandler {
 	/**
 	 * FormHandler::textField()
 	 *
-	 * Creates a textfield on the form
+	 * Crea campo de texto
 	 *
-	 * @param string $title: The title of the field
-	 * @param string $name: The name of the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
-	 * @param int $size: The size of the field
-	 * @param int $maxlength: The allowed max input of the field
-	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
+	 * El campo de texto trae por defecto la clase de boostrap asignada (form-control)
+	 * 
+	 * @param string $title: Titulo del campo
+	 * @param string $name: Nombre del campo
+	 * @param string $validator: Validacion del campo (o null)
+	 * @param string $class: Las clases asociadas al campo (o null)
+	 * @param string $extra: CSS, Javascript cualquier otra cosa dentro de la etiqueta HTML
 	 * @return void
 	 * @access public
 	 * @author Teye Heimans
+	 * @author Modificado por Daybel Diaz (06/07/2022)
 	 */
 	public function textField(
 		$title,
 		$name,
 		$validator = null,
-		$size = null,
-		$maxlength = null,
+		$class = null,
 		$extra = null) {
 		require_once FH_INCLUDE_DIR . 'fields/class.TextField.php';
 
@@ -328,12 +324,8 @@ class FormHandler {
 			$fld->setValidator($validator);
 		}
 
-		if (!empty($size)) {
-			$fld->setSize($size);
-		}
-
-		if (!empty($maxlength)) {
-			$fld->setMaxlength($maxlength);
+		if (!empty($class)) {
+			$fld->setClass($class);
 		}
 
 		if (!empty($extra)) {
@@ -341,7 +333,7 @@ class FormHandler {
 		}
 
 		// register the field
-		$this->_registerField($name, $fld, $title);
+		$this->_registerField($name, $fld, $title, $class);
 	}
 
 	/**
@@ -1617,28 +1609,15 @@ class FormHandler {
 	 * @access public
 	 * @author Teye Heimans
 	 */
-	public function setHelpText($field, $helpText, $helpTitle = null) {
+	public function setHelpText($field, $helpText) {
 		static $setJS = false;
-		if (!FH_USE_OVERLIB) {
-			$setJS = true;
-		}
-
-		// make sure that the overlib js file is included
-		if (!$setJS) {
-			$setJS = true;
-			$this->_setJS(FH_FHTML_DIR . 'overlib/overlib.js', true);
-			$this->_setJS(FH_FHTML_DIR . 'overlib/overlib_hideform.js', true);
-		}
 
 		// escape the values from dangerous characters
-		$helpTitle = is_null($helpTitle) ? "%title% - " . $this->_text(41) : htmlentities($helpTitle, null, FH_HTML_ENCODING);
-		$helpTitle = preg_replace("/\r?\n/", "\\n", addslashes($helpTitle));
 		$helpText = preg_replace("/\r?\n/", "\\n", addslashes($helpText));
 
 		// set the help text
 		$this->_help[$field] = array(
 			htmlentities($helpText, null, FH_HTML_ENCODING),
-			$helpTitle,
 		);
 	}
 
@@ -3756,13 +3735,11 @@ class FormHandler {
 						if (strpos(FH_HELP_MASK, '%s')) {
 							$help = sprintf(
 								FH_HELP_MASK,
-								$this->_helpIcon,
-								$this->_help[$name][0],
-								str_replace('%title%', addslashes(htmlentities($title, null, FH_HTML_ENCODING)), $this->_help[$name][1])
-							);
+								$this->_help[$name][0]
+								);
 
 						} else {
-							$help = str_replace(array('%helpicon%', '%helptext%', '%helptitle%'), array($this->_helpIcon, $this->_help[$name][0], str_replace('%title%', addslashes(htmlentities($title, null, FH_HTML_ENCODING)), $this->_help[$name][1])), FH_HELP_MASK);
+							$help = str_replace( '%helptext%',	$this->_help[$name][0] , FH_HELP_MASK);
 						}
 					}
 
@@ -3873,27 +3850,16 @@ class FormHandler {
 		'<form id="' . $this->_name . '" method="post" action="' . htmlentities($this->_action, null, FH_HTML_ENCODING) . '"' .
 			(sizeof($this->_upload) > 0 ? ' enctype="multipart/form-data"' : '') .
 			(!empty($this->_extra) ? " " . $this->_extra : "") . ">\n" .
-			'<ins>' . $hidden . '</ins>' .
-			($this->_setTable ?
-			sprintf(
-				"<table border='%d' cellspacing='%d' cellpadding='%d'%s>\n",
-				$this->_tableSettings['border'],
-				$this->_tableSettings['cellspacing'],
-				$this->_tableSettings['cellpadding'],
-				(!empty($this->_tableSettings['width']) ? " width='" . $this->_tableSettings['width'] . "'" : "") .
-				' ' . $this->_tableSettings['extra']
-			) : ''
-		);
-		$sFooter = ($this->_setTable ? "\n</table>\n" : '') .
-		(FH_EXPOSE ?
-			"<p><span style='font-family:tahoma;font-size:10px;color:#B5B5B5;font-weight:normal;'>" .
-			'This form is generated by </span><a href="http://www.formhandler.net" >' .
-			'<span style="font-family:Tahoma;font-size:10px;color:#B5B5B5;"><strong>FormHandler</strong></span></a></p>' . "\n" : ''
+			'<ins>' . $hidden . '</ins>' ;
+		$sFooter = (FH_EXPOSE ?
+			"<p class='atribucion'><span>" .
+			'This form is generated by </span><a href="https://www.fh3.nl/news.html" >' .
+			'<span><strong>FormHandler</strong></span></a></p>' . "\n" : ''
 		) .
 		"</form>\n" .
 		"<!--\n" .
 		"  This form is automaticly being generated by FormHandler v3.\n" .
-		"  See for more info: http://www.formhandler.net\n" .
+		"  See for more info: https://www.fh3.nl/news.html\n" .
 		"-->" . $this->getJavascriptCode(false);
 
 		$search = array('%header%', '%footer%');

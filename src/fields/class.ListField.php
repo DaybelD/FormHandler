@@ -269,4 +269,3 @@ class ListField extends Field
         $this->_oOff->useArrayKeyAsValue ( $bMode );
     }
 }
-?>
