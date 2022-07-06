@@ -7,7 +7,8 @@ $form = new FormHandler();
 
 //some fields.. (see manual for examples)
 $form -> addLine("Campo de texto: ");
-$form->textField("Nombre", "name", _FH_STRING, 20, 40);
+
+$form->textField("Nombre", "name");
 
 // set a hidden field
 $form -> hiddenField("language", "nl");
@@ -354,20 +355,3 @@ function doRun($data) {
 	echo "Hello " . $data['name'] . ", you are " . $data['age'] . " years old!";
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="prueba.css">
-	<title>Prueba Formularios</title>
-</head>
-<body>
-<?php
-//display the form
-$form->flush();
-
-?>
-
-</body>
-</html>
