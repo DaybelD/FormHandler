@@ -30,8 +30,7 @@ class PassField extends TextField
         parent::__construct($oForm, $sName);
 
         $this->_sPre = '';
-        $this->setSize( 20 );
-        $this->setMaxlength( 0 );
+        $this->setClass('');
     }
 
     /**
@@ -53,11 +52,10 @@ class PassField extends TextField
         }
 
         return sprintf(
-          '%s<input type="password" name="%s" id="%2$s" size="%d" %s'. FH_XHTML_CLOSE .'>%s',
+          '%s<input type="password" name="%s" id="%2$s" class="%s" %s'. FH_XHTML_CLOSE .'>%s',
           $this->_sPre,
           $this->_sName,
-          $this->_iSize,
-          (!empty($this->_iMaxlength) ? 'maxlength="'.$this->_iMaxlength.'" ':'').
+          $this->_iClass,
           (isset($this->_iTabIndex) ? ' tabindex="'.$this->_iTabIndex.'" ' : '').
           (isset($this->_sExtra) ? $this->_sExtra.' ' :''),
           (isset($this->_sExtraAfter) ? $this->_sExtraAfter :'')

@@ -15,13 +15,14 @@ $form->textField("Nombre", "name7", FH_STRING ,"form-control-sm");
 $form->textField("Nombre5", "name5", null, "form-control-sm",'onclick="alert(\'sopa de pollo\')"');
 $form->textField("Nombre5", "name9", null, null,'onclick="alert(\'sopa de pollo\')"');
 $form -> setHelpText('name', 'Nombre completo');
-/*
-// set a hidden field
-$form -> hiddenField("language", "nl");
 
+$form -> passField("Your password", "pass", FH_PASSWORD);
+$form -> setHelpText('pass', 'Por favor ingrese una clave');
+
+/*
 // a textfield
 $form -> addLine("Campo de clave: ");
-$form -> passField("Your password", "pass", _FH_PASSWORD);
+
 // set the help message for the field 
 $form -> setHelpText('pass', 'Ingrese la clave');
 // addHTML! 
