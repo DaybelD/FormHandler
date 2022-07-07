@@ -12,6 +12,7 @@
 class RadioButton extends Field
 {
     public $_aOptions;              // string: the value with is selected
+    private $_iClass;                // clase check (radio)
     private $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values
     private $_sMask;                 // string: what kind of "glue" should be used to merge the fields
     private $_oLoader;               // object: a maskloader object
@@ -37,6 +38,14 @@ class RadioButton extends Field
         $this->setMask           ( FH_DEFAULT_GLUE_MASK );
         $this->useArrayKeyAsValue( FH_DEFAULT_USEARRAYKEY );
     }
+
+    //public function setClass( $class )
+    //{
+    //    $this->_iClass = 'form-check-label '. $class;
+    //}
+    //Nota: al colocar la funcion no muestra los nombres de las opciones
+    //No hace falta la funcion de class para el radiobutton 
+
 
     /**
      * RadioButton::useArrayKeyAsValue()
@@ -154,7 +163,7 @@ class RadioButton extends Field
         }
 
         $sField = sprintf(
-          '<input type="radio" name="%s" id="%1$s_%d" value="%s" %s'. FH_XHTML_CLOSE .'><label for="%1$s_%2$d" class="noStyle">%s</label>',
+          '<input type="radio" name="%s" id="%1$s_%d" class="form-check-input" value="%s" %s'. FH_XHTML_CLOSE .'><label for="%1$s_%2$d" class="form-check-label">%s</label>',
           $this->_sName,
           $counter++,
           htmlspecialchars($sValue, ENT_COMPAT | ENT_HTML401, FH_HTML_ENCODING),

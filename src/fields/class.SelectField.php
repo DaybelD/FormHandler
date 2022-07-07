@@ -12,7 +12,7 @@ class SelectField extends Field
 {
 	public $_aOptions;              // array: the options of the selectfield
 	public $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values
-	private $_iClass;                 // integer: set the size of the field
+	private $_iClass;                 // string: clase asociada al campo
 	private $_bMultiple;             // boolean: can multiple items be selected or not?
 	private $_classOpt;
 	/**

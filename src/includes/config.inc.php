@@ -299,7 +299,9 @@ fh_conf('FH_DEFAULT_LISTFIELD_SIZE', 4);
 
 // The default glue which should be used to merge multiple
 // checkboxes or radiobuttons
-fh_conf('FH_DEFAULT_GLUE_MASK', "%field%<br />\n");
+fh_conf('FH_DEFAULT_GLUE_MASK', 
+   "<div class='form-check'> %field%<br /></div>\n"
+);
 
 // The chmod which is used when a dir is created
 fh_conf('FH_DEFAULT_CHMOD', 0777);

@@ -13,6 +13,7 @@ class CheckBox extends Field
 {
 	private $_aOptions;              // array: contains all the options!
 	// $this->_mValue contains the values which are selected!
+	private $_iClass;				 // clase checkbox
 	private $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values
 	private $_sMask;                 // string: what kind of "glue" should be used to merge the checkboxes
 	private $_oLoader;               // object: The maskLoader
@@ -39,6 +40,7 @@ class CheckBox extends Field
 		// call the constructor of the Field class
 		parent::__construct( $oForm, $sName );
 
+		$this->setClass('');
 		$this->setMask 			 ( FH_DEFAULT_GLUE_MASK );
 		$this->useArrayKeyAsValue( FH_DEFAULT_USEARRAYKEY );
 	}
@@ -84,6 +86,12 @@ class CheckBox extends Field
 
 		$this->_mValue = $aValue;
 	}
+
+	public function setClass( $class )
+	{
+		$this->_iClass = trim('form-check '. $class);
+	}
+
 
 	/**
      * CheckBox::useArrayKeyAsValue()
@@ -206,12 +214,13 @@ class CheckBox extends Field
 		$sTitle = trim( $sTitle );
 
 		// get the field HTML
-		if( $sTitle == '' )
+		if( $sTitle == '' ) 
 		{
 			$sField = sprintf(
-			'<input type="checkbox" name="%s" id="%s_%d" value="%s" %s'. FH_XHTML_CLOSE .'>',
+			'<input type="checkbox" name="%s" class="%s" id="%s_%d" value="%s" %s'. FH_XHTML_CLOSE .'>',
 			$this->_sName.(is_array($this->_aOptions)?'[]':''),
 			$this->_sName,
+			$this->_iClass,
 			$iCounter++,
 			htmlspecialchars($sValue, ENT_COMPAT | ENT_HTML401, FH_HTML_ENCODING),
 			(isset($this->_iTabIndex) ? 'tabindex="'.$this->_iTabIndex.'" ' : '').
@@ -224,7 +233,7 @@ class CheckBox extends Field
 		else
 		{
 			$sField = sprintf(
-			'<input type="checkbox" name="%s" id="%s_%d" value="%s" %s'. FH_XHTML_CLOSE .'><label for="%2$s_%3$d" class="noStyle">%s</label>',
+			'<input type="checkbox" name="%s" id="%s_%d" class="form-check-input" value="%s" %s'. FH_XHTML_CLOSE .'><label for="%2$s_%3$d" class="form-check-label">%s</label>',
 			$this->_sName.(is_array($this->_aOptions)?'[]':''),
 			$this->_sName,
 			$iCounter++,

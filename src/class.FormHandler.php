@@ -530,17 +530,18 @@ class FormHandler {
 	/**
 	 * FormHandler::textArea()
 	 *
-	 * Create a textarea on the form
+	 * Crea un campo de area de texto 
 	 *
-	 * @param string $title: The title of the field
-	 * @param string $name: The name of the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
-	 * @param int $cols: How many cols (the width of the field)
-	 * @param int $rows: How many rows (the height of the field)
-	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
+	 * @param string $title: Titulo del campo
+	 * @param string $name: Nombre del campo
+	 * @param string $validator: Validacion del campo
+	 * @param string $class: clases asociadas al campo
+	 * @param int $rows: Altura del campo
+	 * @param string $extra: CSS, Javascript o cualquier cosa dentro de la etiqueta HTML
 	 * @return void
 	 * @access public
 	 * @author Teye Heimans
+	 * @author Modificado por Daybel Diaz 06/07/2022
 	 */
 	public function textArea(
 		$title,
@@ -573,19 +574,20 @@ class FormHandler {
 	/**
 	 * FormHandler::selectField()
 	 *
-	 * Create a selectField on the form
+	 * Crea un campo de seleccion
 	 *
-	 * @param string $title: The title of the field
-	 * @param string $name: The name of the field
-	 * @param array $options: The options used for the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
-	 * @param boolean $useArrayKeyAsValue: If the array key's are the values for the options in the field
-	 * @param boolean $multiple: Should it be possible to select multiple options ? (Default: false)
-	 * @param int $size: The size of the field (how many options are displayed)
-	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
+	 * @param string $title: Titulo del campo
+	 * @param string $name: Nombre del campo
+	 * @param array $options: Opciones usadas por el campo
+	 * @param string $validator: Validacion del campo
+	 * @param boolean $useArrayKeyAsValue: Valores para las opciones
+	 * @param boolean $multiple: Sera posible la seleccion multiple ? (Default: false)
+	 * @param int $size: Tamaño del campo (Cuantas opciones se muestran)
+	 * @param string $extra: CSS, Javascript o cualquier cosa dentro de la etiqueta HTML
 	 * @return void
 	 * @access public
 	 * @author Teye Heimans
+	 * @author Modificado por Daybel Diaz 06/07/2022
 	 */
 	public function selectField(
 		$title,
@@ -646,24 +648,27 @@ class FormHandler {
 	/**
 	 * FormHandler::checkBox()
 	 *
-	 * Create a checkBox on the form
+	 * Crea un Checkbox
 	 *
-	 * @param string $title: The title of the field
-	 * @param string $name: The name of the field
-	 * @param array|string $value: The option(s) used for the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
-	 * @param boolean $useArrayKeyAsValue: If the array key's are the values for the options in the field
-	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
-	 * @param string $mask: if more the 1 options are given, glue the fields together with this mask
+	 * @param string $title: Titulo del campo
+	 * @param string $name: Nombre del campo
+	 * @param array|string $value: Opciones a utilizar
+	 * @param string $validator: Validacion del campo
+	 * @param string $class: clase general para el campo
+	 * @param boolean $useArrayKeyAsValue: Valores de las opciones
+	 * @param string $extra: CSS, Javascript o cualquier cosa dentro de la etiqueta HTML
+	 * @param string $mask: Si hay mas de una opcion, pegue el campo a la mascara
 	 * @return void
 	 * @access public
 	 * @author Teye Heimans
+	 * @author Modificado por Daybel Diaz 07/07/2022
 	 */
 	public function checkBox(
 		$title,
 		$name,
 		$value = 'on',
 		$validator = null,
+		$class= null,
 		$useArrayKeyAsValue = null,
 		$extra = null,
 		$mask = null) {
@@ -675,6 +680,11 @@ class FormHandler {
 		if (!empty($validator)) {
 			$fld->setValidator($validator);
 		}
+
+		if (!empty($class)) {
+			$fld->setClass($class);
+		}
+		
 
 		if (!is_null($useArrayKeyAsValue)) {
 			$fld->useArrayKeyAsValue($useArrayKeyAsValue);
@@ -820,6 +830,7 @@ class FormHandler {
 		$name,
 		$options,
 		$validator = null,
+		$class = null,
 		$useArrayKeyAsValue = null,
 		$onTitle = null,
 		$offTitle = null,
@@ -843,6 +854,11 @@ class FormHandler {
 
 		if (!empty($validator)) {
 			$fld->setValidator($validator);
+		}
+
+		if (!empty($class)) {
+			$fld->setClass($class);
+
 		}
 
 		if (!is_null($useArrayKeyAsValue)) {

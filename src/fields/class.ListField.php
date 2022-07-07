@@ -13,6 +13,7 @@ class ListField extends Field
 {
     private $_aOptions;             // Array: the options of the selectfield
     private $_oHidden;              // HiddenField: the fielf where the value is saved in
+    private $_iClass;               // Clase asociada al campo
     private $_oOn;                  // SelectField: the field where the items are displayed which are "on"
     private $_oOff;                 // SelectField: the field where the items are displayed which are "off"
     private $_sOnTitle;             // String: the title used for the on section
@@ -49,6 +50,7 @@ class ListField extends Field
         parent::__construct( $oForm, $sName, $aOptions );
 
         // make the fields of the listfield
+
         $this->_oHidden = new HiddenField($oForm, $sName);
         $this->_oOn     = new SelectField($oForm, $sName.'_ListOn');
         $this->_oOff    = new SelectField($oForm, $sName.'_ListOff');
@@ -56,8 +58,8 @@ class ListField extends Field
         $this->_oOff->setMultiple( true );
 
         // set some default values
+        $this->setClass('');
         $this->useArrayKeyAsValue ( FH_DEFAULT_USEARRAYKEY );
-        $this->setSize	   		  ( FH_DEFAULT_LISTFIELD_SIZE );
         $this->setOffTitle 		  ( $oForm->_text( 29 ) );
         $this->setOnTitle  		  ( $oForm->_text( 30 ) );
     }
@@ -228,6 +230,7 @@ class ListField extends Field
             $this->_oOn->getField(),
             $this->_oOff->getField(),
             $this->_sName,
+            $this->_iClass,
             sprintf( $this->_oForm->_text( 34 ), htmlentities( strip_tags($this->_sOffTitle), null, FH_HTML_ENCODING) ),
             sprintf( $this->_oForm->_text( 34 ), htmlentities( strip_tags($this->_sOnTitle), null, FH_HTML_ENCODING) )
           ),
@@ -236,20 +239,9 @@ class ListField extends Field
         (isset($this->_sExtraAfter) ? $this->_sExtraAfter :''); 
     }
 
-    /**
-     * ListField::setSize()
-     *
-     * Set the size (height) of the field (default 4)
-     *
-     * @param integer $iSize: The size
-     * @return void
-     * @access public
-     * @author Teye Heimans
-     */
-    public function setSize( $iSize )
+    public function setClass( $class )
     {
-        $this->_oOn->setSize ( $iSize );
-        $this->_oOff->setSize( $iSize );
+        $this->_iClass = trim('form-control '. $class);
     }
 
     /**

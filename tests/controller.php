@@ -47,55 +47,34 @@ $form -> selectField("Navegadores", "browser1", $browsers, null, "form-select-sm
 
 );
 $form -> selectField("Navegadores", "browser2", $browsers, null, "form-select-lg", null);
-/*
-
-
-// Opciones de navegadores
-
-
-// Campo de seleccion
-
 
 //Checkbox variable
 // Opciones for the checkbox
 $animals = array(
-  "Dog",
-  "Cat",
-  "Cow"
+  "Perro",
+  "Gato",
+  "Vaca",
+  "Cocodrilo",
 ); 
 
 // Checkbox
-$form -> addLine("Seleccione: ");
-$form -> checkBox("Animal Favorito", "animal", $animals, null, false); 
+$form -> checkBox("Animal Favorito ", "animal", $animals, null); 
 
-// opcione radiobutton
 $gender = array(
-  "m" => "Male",
-  "f" => "Female"
+  "M" => "Male",
+  "F" => "Female",
+  "O" => "Other"
 ); 
 
-
-//Genero
-$form -> addLine("Genero: ");
 // make the radiobutton
-$form -> radioButton("Gender", "gender", $gender);
+$form -> radioButton("Genero", "gender", $gender);
 
-//PRUEBA DE CARGA DE IMAGENES
-// The upload configuration
-// NOTE: You dont have to set every value!
-// Like below, we have not set the "size", so the default configuration
-// value is used (max size which is possible).
-$cfg = array(
-  "path"       => $_SERVER['DOCUMENT_ROOT'].dirname($_SERVER['PHP_SELF']).'/uploads/images',  
-  "type"       => "jpg jpeg",
-  "name"       => "", // <-- keep the original name
-  "required"   => true,
-  "exists"     => "rename"
-);
+$gender2 = array(
+  "M" => "Male",
+  "F" => "Female"
+);  
 
-// upload field
-$form -> addLine("Cargue su imagen: ");
-$form -> uploadField("Image", "image", $cfg);
+$form -> radioButton("Genero2", "gender2", $gender2, null);
 
 // the values for the listfield
 $values = array(
@@ -109,9 +88,27 @@ $values = array(
 ); 
 
 // the listfield
-$form -> addLine("Listas: ");
-$form->ListField("Products", "products", $values);
+$form->ListField("Productos", "products", $values);
 
+
+/*
+
+//PRUEBA DE CARGA DE IMAGENES
+// The upload configuration
+// NOTE: You dont have to set every value!
+// Like below, we have not set the "size", so the default configuration
+// value is used (max size which is possible).
+// NOTA, OJO: FALTA PRUEBA DE ESTA PARTE
+$cfg = array(
+  "path"       => $_SERVER['DOCUMENT_ROOT'].dirname($_SERVER['PHP_SELF']).'/uploads/images',  
+  "type"       => "jpg jpeg",
+  "name"       => "", // <-- keep the original name
+  "required"   => true,
+  "exists"     => "rename"
+);
+
+// upload field
+$form -> uploadField("Image", "image", $cfg);
 
 // make the editor  
  $config = array(
@@ -122,19 +119,15 @@ $form -> addLine("Editor de texto: ");
 $form -> editor("Message", "message2", null, "images/uploads/");
 
 // make the datefield 
-$form -> addLine("Fecha de nacimiento: ");
 $form -> dateField("Birthdate", "birthdate1");
 
 // Datefield con calendario js
-$form -> addLine("Fecha con JS: ");
 $form -> jsdateField("Birthdate", "birthdate2");
 
 // make the datefield
-$form -> addLine("Fecha en texto: ");  
 $form -> dateTextField("Birthdate", "birthdate3");
 
 // make the datefield con js
-$form -> addLine("Fecha en texto con JS: "); 
 $form -> jsDateTextField("Birthdate", "birthdate4"); 
 
 // a timefield 
