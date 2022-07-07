@@ -11,15 +11,15 @@
  */
 class ListField extends Field
 {
-    private $_aOptions;             // Array: the options of the selectfield
-    private $_oHidden;              // HiddenField: the fielf where the value is saved in
-    private $_iClass;               // Clase asociada al campo
+    private $_aOptions;             // Array: Opciones para seleccion
+    private $_oHidden;              // HiddenField: El campo cuando el valor esta guardado
+    private $_iClass;               // String: Clase asociada al campo
     private $_oOn;                  // SelectField: the field where the items are displayed which are "on"
     private $_oOff;                 // SelectField: the field where the items are displayed which are "off"
-    private $_sOnTitle;             // String: the title used for the on section
-    private $_sOffTitle;            // String: the title used for the off section
+    private $_sOnTitle;             // String: Titulo se la seccion activada
+    private $_sOffTitle;            // String: Titulo se la seccion activada
     private $_bUseArrayKeyAsValue;  // Boolean: if the keys of the array should be used as values
-	private $_bVerticalMode; 		// Boolean: if field is stacked horizontal or vertical
+	private $_bVerticalMode; 		// Boolean: Direccion vertical u horizontal del campo
     /**
      * ListField::ListField()
      *

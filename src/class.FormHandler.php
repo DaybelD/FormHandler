@@ -765,11 +765,11 @@ class FormHandler {
 	 *
 	 * Create a uploadField on the form
 	 *
-	 * @param string $title: The title of the field
-	 * @param string $name: The name of the field
-	 * @param array $config: The configuration used for the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
-	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
+	 * @param string $title: Titulo del campo
+	 * @param string $name: Nombre del campo
+	 * @param array $config: Configuracion usada en el campo
+	 * @param string $validator: Validacion del campo
+	 * @param string $extra: CSS, Javascript o cualquier cosa agregada a la etiqueta HTML
 	 * @param string $alertOverwrite: Do we have to alert the user when he/she is going to overwrite a file?
 	 * @return void
 	 * @access public
