@@ -76,19 +76,8 @@ $gender2 = array(
 
 $form -> radioButton("Genero2", "gender2", $gender2, null);
 
-// the values for the listfield
-$values = array(
-  1 => "PHP",
-  2 => "MySQL database",
-  3 => "Frontpage extensions",
-  4 => "ASP",
-  5 => "10 MB extra webspace",
-  6 => "Webmail",
-  7 => "Cronjobs"
-); 
-
-// the listfield
-$form->ListField("Productos", "products", $values);
+// a ColorPicker 
+$form->colorPicker("Color", "colorselect"); 
 
 
 /*
@@ -107,8 +96,23 @@ $cfg = array(
   "exists"     => "rename"
 );
 
+NOTA: FALTA PRUEBA DE ESTA SECCION 
 // upload field
 $form -> uploadField("Image", "image", $cfg);
+
+// the values for the listfield
+$values = array(
+  1 => "PHP",
+  2 => "MySQL database",
+  3 => "Frontpage extensions",
+  4 => "ASP",
+  5 => "10 MB extra webspace",
+  6 => "Webmail",
+  7 => "Cronjobs"
+); 
+
+// the listfield
+$form->ListField("Productos", "products", $values);
 
 // make the editor  
  $config = array(
@@ -136,9 +140,6 @@ $form -> timeField("Time", "time");
 
 // make the browser field
 $form->BrowserField('Image','image1', "/uploads/Image");
-
-// a ColorPicker 
-$form->colorpicker("Color", "colorselect"); 
 
 // set the options array
 $aOptions = array( 'Red', 'Green' );

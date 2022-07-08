@@ -92,8 +92,8 @@ fh_conf('FH_ERROR_MASK',
 
 // The mask used for the horizontal listfield
 fh_conf('FH_LISTFIELD_HORIZONTAL_MASK',
-  "      <strong>%onlabel%</strong>\n".
-  "      <strong>%offlabel%</strong>\n".
+  "      %onlabel%\n".
+  "      %offlabel%\n".
   "      %onfield%\n".
   "      <input type='button' value=' &gt; ' onclick=\"changeValue('%name%', false)\" ondblclick=\"moveAll('%name%', false)\" title='%ontitle%' />\n".
   "      %offfield%\n".
@@ -102,12 +102,12 @@ fh_conf('FH_LISTFIELD_HORIZONTAL_MASK',
 
 // The mask used for the vertical listfield
 fh_conf('FH_LISTFIELD_VERTICAL_MASK',
-  "      <strong>%offlabel%</strong>\n".
+  "     <div class='form-select'>%offlabel%\n".
   "      %offfield%\n".
   "      <input type='button' value=' &darr; ' onclick=\"changeValue('%name%', true)\" ondblclick=\"moveAll('%name%', true)\" title='%offtitle%' />&nbsp;\n".
   "        &nbsp;<input type='button' value=' &uarr; ' onclick=\"changeValue('%name%', false)\" ondblclick=\"moveAll('%name%', false)\" title='%ontitle%' />\n".
-  "      <strong>%onlabel%</strong>\n".
-  "      %onfield%\n"
+  "      %onlabel%\n".
+  "      %onfield%\n</div/>"
 ); 
 
 // Should Overlib javascript be included for help messages?

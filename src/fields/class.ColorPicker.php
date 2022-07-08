@@ -30,6 +30,7 @@ class ColorPicker extends TextField
 	{
 		parent::__construct($oForm, $sName);
 
+		$this->setClass('');
 		static $bSetJS = false;
 
 		// needed javascript included yet ?
@@ -40,6 +41,10 @@ class ColorPicker extends TextField
 			$oForm->_setJS(FH_FHTML_DIR."js/jscolor/jscolor.js", true);
 		}
 
+	}
+	public function setClass( $class )
+	{
+		$this->_iClass ='form-control form-control-color'. $class;
 	}
 	/**
      * ColorPicker::getField()
@@ -71,11 +76,10 @@ class ColorPicker extends TextField
 		}
 
 		return sprintf(
-		'<input type="text" name="%s" id="%1$s" value="%s" size="%d" %s'. FH_XHTML_CLOSE .'>%s',
+		'<input type="color" name="%s" id="%1$s" value="%s" class="%s" %s'. FH_XHTML_CLOSE .'>%s',
 		$this->_sName,
 		(isset($this->_mValue) ? htmlspecialchars($this->_mValue, ENT_COMPAT | ENT_HTML401, FH_HTML_ENCODING):''),
-		$this->_iSize,
-		(!empty($this->_iMaxlength) ? 'maxlength="'.$this->_iMaxlength.'" ':'').
+		$this->_iClass,
 		(isset($this->_iTabIndex) ? 'tabindex="'.$this->_iTabIndex.'" ' : '').
 		(isset($this->_sExtra) ? ' '.$this->_sExtra.' ' :''),
 		(isset($this->_sExtraAfter) ? $this->_sExtraAfter :'')

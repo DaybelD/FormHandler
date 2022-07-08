@@ -241,7 +241,7 @@ class ListField extends Field
 
     public function setClass( $class )
     {
-        $this->_iClass = trim('form-control '. $class);
+        $this->_iClass = trim('form-select '. $class);
     }
 
     /**

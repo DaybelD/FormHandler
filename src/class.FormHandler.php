@@ -1125,8 +1125,7 @@ class FormHandler {
 		$title,
 		$name,
 		$validator = null,
-		$size = null,
-		$maxlength = null,
+		$class = null,
 		$extra = null) {
 		require_once FH_INCLUDE_DIR . 'fields/class.ColorPicker.php';
 
@@ -1136,12 +1135,8 @@ class FormHandler {
 			$fld->setValidator($validator);
 		}
 
-		if (!empty($size)) {
-			$fld->setSize($size);
-		}
-
-		if (!empty($maxlength)) {
-			$fld->setMaxlength($maxlength);
+		if (!empty($class)) {
+			$fld->setclass($class);
 		}
 
 		if (!empty($extra)) {
