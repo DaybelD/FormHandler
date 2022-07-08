@@ -30,6 +30,7 @@ class TextSelectField extends TextField
 	{
 		parent::__construct($oForm, $sName);
 		
+		$this->setClass('');
 		static $bSetJS = false;
 
     	// needed javascript included yet ?
@@ -57,7 +58,12 @@ class TextSelectField extends TextField
 		}
 		
 		$this->setClass( '' );
-		$this->setMaxlength( 0 );
+		
+	}
+
+	public function setClass( $class )
+	{
+		$this->_iClass ='form-control '. $class;
 	}
 
 	public function getField()
@@ -72,14 +78,15 @@ class TextSelectField extends TextField
 		return sprintf(
 		FH_TEXTSELECT_MASK,
 		$this->_sName,
-		(isset($this->_mValue) ? htmlspecialchars($this->_mValue, ENT_COMPAT | ENT_HTML401, FH_HTML_ENCODING):''),
 		$this->_iClass,
-		(!empty($this->_iMaxlength) ? 'maxlength="'.$this->_iMaxlength.'" ':'').
+		(isset($this->_mValue) ? htmlspecialchars($this->_mValue, ENT_COMPAT | ENT_HTML401, FH_HTML_ENCODING):''),
 		(isset($this->_iTabIndex) ? 'tabindex="'.$this->_iTabIndex.'" ' : '').
 		(isset($this->_sExtra) ? ' '.$this->_sExtra.' ' :''),
 		(isset($this->_sExtraAfter) ? $this->_sExtraAfter :''),
 		$this->_sOptions
 		);
+
+
 	}
 }
 

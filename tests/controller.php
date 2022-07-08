@@ -104,6 +104,12 @@ $form -> uploadField("Imagen sm", "image2", $cfg, null, "form-control-sm", "disa
 
 $form -> uploadField("Imagen lg", "image3", $cfg, null, "form-control-lg");
 
+// set the options array
+$aOptions = array( 'Red', 'Green');
+
+// new TextSelect field
+$form->TextSelectField( 'Color', 'color', $aOptions );
+
 /*
 
 NOTA: FALTA PRUEBA DE ESTA SECCION 
@@ -148,11 +154,6 @@ $form -> timeField("Time", "time");
 // make the browser field
 $form->BrowserField('Image','image1', "/uploads/Image");
 
-// set the options array
-$aOptions = array( 'Red', 'Green' );
-
-// new TextSelect field
-$form->TextSelectField( 'Color', 'color', $aOptions );
 
 
 // a textfield

@@ -160,7 +160,7 @@ fh_conf('FH_FHTML_INCLUDE_DIR', FH_INCLUDE_DIR . 'FHTML/');
 
 // mask for a TextSelectField
 fh_conf( 'FH_TEXTSELECT_MASK',
-  '<input type="text" name="%s" id="%1$s" value="%s" size="%d" %s onblur="FH_CLOSE_TEXTSELECT(\'FHSpan_%1$s\');" onkeyup="FH_CLOSE_TEXTSELECT(\'FHSpan_%1$s\');" onclick="document.getElementById(\'FHSpan_%1$s\').style.display=\'block\';" style="background: #FFF url('.$__fh_root . 'FHTML/images/arrow_down.gif) no-repeat right;" />%s<br /><div style="position:absolute;height:70px;overflow-y:scroll; width:150px; display:none; background-color:#FFF;" id="FHSpan_%1$s">%s</div>'."\n"
+  '<input type="text" name="%s" id="%1$s" value="%s" class="form-control" %s onblur="FH_CLOSE_TEXTSELECT(\'FHSpan_%1$s\');" onkeyup="FH_CLOSE_TEXTSELECT(\'FHSpan_%1$s\');" onclick="document.getElementById(\'FHSpan_%1$s\').style.display=\'block\';" style="background: #FFF url('.$__fh_root . 'FHTML/images/arrow_down.gif) no-repeat right;" />%s<br /><div style="position:absolute;height:70px;overflow-y:scroll; width:150px; display:none; background-color:#FFF;" id="FHSpan_%1$s">%s</div>'."\n"
 );
 
 // mask for the TextSelectField options
