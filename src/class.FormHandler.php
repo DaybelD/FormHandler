@@ -763,14 +763,14 @@ class FormHandler {
 	/**
 	 * FormHandler::uploadField()
 	 *
-	 * Create a uploadField on the form
+	 * Crea un campo de carga de imagenes
 	 *
 	 * @param string $title: Titulo del campo
 	 * @param string $name: Nombre del campo
 	 * @param array $config: Configuracion usada en el campo
 	 * @param string $validator: Validacion del campo
 	 * @param string $extra: CSS, Javascript o cualquier cosa agregada a la etiqueta HTML
-	 * @param string $alertOverwrite: Do we have to alert the user when he/she is going to overwrite a file?
+	 * @param string $alertOverwrite: Alerta de sobreescritura
 	 * @return void
 	 * @access public
 	 * @author Teye Heimans
@@ -780,6 +780,7 @@ class FormHandler {
 		$name,
 		$config = array(),
 		$validator = null,
+		$class = null,
 		$extra = null,
 		$alertOverwrite = null) {
 		require_once FH_INCLUDE_DIR . 'fields/class.UploadField.php';
@@ -789,6 +790,10 @@ class FormHandler {
 
 		if (!empty($validator)) {
 			$fld->setValidator($validator);
+		}
+
+		if (!empty($class)) {
+			$fld->setClass($class);
 		}
 
 		if (!empty($extra)) {

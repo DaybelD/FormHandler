@@ -74,13 +74,14 @@ $gender2 = array(
   "F" => "Female"
 );  
 
-$form -> radioButton("Genero2", "gender2", $gender2, null);
+$form -> radioButton("Genero2", "gender2", $gender2, null, null, "disabled");
 
 // a ColorPicker 
-$form->colorPicker("Color", "colorselect"); 
+$form->colorPicker("Escoja un color", "colorselect", null); 
+// a ColorPicker 
+$form->colorPicker("Escoja un color", "colorselect2", null, "form-control-sm"); 
 
-
-/*
+$form->colorPicker("Escoja un color", "colorselect3", null, "form-control-sm", "disabled"); 
 
 //PRUEBA DE CARGA DE IMAGENES
 // The upload configuration
@@ -96,10 +97,16 @@ $cfg = array(
   "exists"     => "rename"
 );
 
-NOTA: FALTA PRUEBA DE ESTA SECCION 
 // upload field
-$form -> uploadField("Image", "image", $cfg);
+$form -> uploadField("Imagen normal", "image1", $cfg, null);
 
+$form -> uploadField("Imagen sm", "image2", $cfg, null, "form-control-sm", "disabled");
+
+$form -> uploadField("Imagen lg", "image3", $cfg, null, "form-control-lg");
+
+/*
+
+NOTA: FALTA PRUEBA DE ESTA SECCION 
 // the values for the listfield
 $values = array(
   1 => "PHP",

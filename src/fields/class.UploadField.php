@@ -40,7 +40,8 @@ class UploadField extends Field
 			$bSetJS = true;
 			$oForm->_setJS(FH_FHTML_DIR."js/extension_check.js", true);
 		}
-
+		
+		$this->setClass('');
 		$this->_bAlertOverwrite = true;
 
 		// check if there are spaces in the fieldname
@@ -355,8 +356,9 @@ class UploadField extends Field
 
 		// return the field
 		return sprintf(
-		'<input type="file" name="%s" id="%1$s" %s'. FH_XHTML_CLOSE .'>%s',
+		'<input type="file" name="%s" id="%1$s" class="%s" %s'. FH_XHTML_CLOSE .'>%s',
 		$this->_sName,
+		$this->_iClass,
 		(isset($this->_iTabIndex) ? 'tabindex="'.$this->_iTabIndex.'" ' : '').
 		(isset($this->_sExtra) ? $this->_sExtra.' ':''),
 		(isset($this->_sExtraAfter) ? $this->_sExtraAfter :'')
@@ -376,6 +378,12 @@ class UploadField extends Field
 	public function setAlertOverwrite( $bStatus )
 	{
 		$this->_bAlertOverwrite = $bStatus;
+	}
+
+
+	public function setClass( $class )
+	{
+		$this->_iClass ='form-control '. $class;
 	}
 
 	/**
