@@ -61,9 +61,10 @@ class TextSelectField extends TextField
 		
 	}
 
+	//No muestra todas las opciones que se agregan en controller.php
 	public function setClass( $class )
 	{
-		$this->_iClass ='form-control '. $class;
+		$this->_iClass ='form-control form-select '. $class;
 	}
 
 	public function getField()

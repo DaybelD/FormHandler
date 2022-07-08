@@ -10,7 +10,6 @@
  */
 class BrowserField extends Field
 {
-    private $_iSize;         // int: the size of the field
     private $_form;    		 // object: form
 
     /**
@@ -31,7 +30,7 @@ class BrowserField extends Field
         parent::__construct($oForm, $sName);
         $this->_path = $sPath;
 		$this->_form = $oForm;
-        $this->setSize( 20 );
+        $this->setClass( '' );
 		$bSetJS = true;
         $oForm->_setJS( 'function SetUrl( sUrl, sName ){document.getElementById( sName ).value=sUrl}', $isFile = false, $before = true);
     }
@@ -46,9 +45,9 @@ class BrowserField extends Field
      * @author Teye Heimans
      * @access public
      */
-    public function setSize( $iSize )
+    public function setClass( $class )
     {
-        $this->_iSize = $iSize;
+        $this->_iClass ='form-control '. $class;
     }
   
     /**
@@ -71,16 +70,16 @@ class BrowserField extends Field
 		
         //$this->_form->_setJS( '<script>function SetUrl( sUrl ){document.getElementById(\'bestand\').value=sUrl}</script>', $isFile = false, $before = true);
         
-        $oButton = new Button( $this->_form, 'Bladeren' );
-        $oButton->setCaption( 'Bladeren' );
+        $oButton = new Button( $this->_form, 'Seleccione' );
+        $oButton->setCaption( 'Seleccione' );
         $oButton->setExtra( "onclick=\"window.open( '".FH_FHTML_DIR."filemanager/browser/default/browser.html?Type=File&naam=".$this->_sName."&Connector=../../connectors/php/connector.php?ServerPath=".$this->_path."','','modal=yes,width=650,height=400');\"" );
 		$sButton = $oButton->getButton();        
         
         return sprintf(
-          '<input type="text" name="%s" id="%1$s" value="%s" size="%d" %s'. FH_XHTML_CLOSE .'>%s %s ',
+          '<input type="text" name="%s" id="%1$s" value="%s" class="%s" %s'. FH_XHTML_CLOSE .'>%s %s ',
           $this->_sName,
           (isset($this->_mValue) ? htmlspecialchars($this->_mValue, ENT_COMPAT | ENT_HTML401, FH_HTML_ENCODING):''),
-          $this->_iSize,
+          $this->_iClass,
           (isset($this->_iTabIndex) ? 'tabindex="'.$this->_iTabIndex.'" ' : '').
           (isset($this->_sExtra) ? ' '.$this->_sExtra.' ' :''),
           (isset($this->_sExtraAfter) ? $this->_sExtraAfter :''),

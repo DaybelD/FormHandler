@@ -6,26 +6,26 @@
  */
 
 /******* FUNCIONES VALIDADORAS INTERNAS *******/
-define('FH_STRING', 'IsString'); // any string that doesn't have control characters (ASCII 0 - 31) but spaces are allowed
-define('FH_ALPHA', 'IsAlpha'); // only letters a-z and A-Z
-define('FH_DIGIT', 'IsDigit'); // only numbers 0-9
-define('FH_ALPHA_NUM', 'IsAlphaNum'); // letters and numbers
-define('FH_INTEGER', 'IsInteger'); // only numbers 0-9 and an optional - (minus) sign (in the beginning only)
-define('FH_FLOAT', 'IsFloat'); // like FH_INTEGER, only with , (comma)
-define('FH_FILENAME', 'IsFilename'); // a valid file name (including dots but no slashes and other forbidden characters)
-define('FH_BOOL', 'IsBool'); // a boolean (TRUE is either a case-insensitive "true" or "1". Everything else is FALSE)
-define('FH_VARIABLE', 'IsVariabele'); // a valid variable name (letters, digits, underscore)
-define('FH_PASSWORD', 'IsPassword'); // a valid password (alphanumberic + some other characters but no spaces. Only allow ASCII 33 - 126)
-define('FH_URL', 'IsURL'); // a valid URL
-define('FH_URL_HOST', 'IsURLHost'); // a valid URL (http connection is used to check if url exists!)
-define('FH_EMAIL', 'IsEmail'); // a valid email address (only checks for valid format: xxx@xxx.xxx)
-define('FH_EMAIL_HOST', 'IsEmailHost'); // like FH_EMAIL only with host check
-define('FH_TEXT', 'IsText'); // like FH_STRING, but newline characters are allowed
-define('FH_NOT_EMPTY', 'notEmpty'); // check if the value is not empty
-define('FH_NO_HTML', 'NoHTML'); // check if the value does not contain html
-define('FH_IP', 'IsIp'); // check if the value is a valid ip adres (xxx.xxx.xxx.xxx:xxxx)
+define('FH_STRING', 'IsString'); // Cualquier cadena que no tenga datos de control (ASCII 0 - 31) pero los espacios estan permitidos 
+define('FH_ALPHA', 'IsAlpha'); // Solo letras a-z y A-Z
+define('FH_DIGIT', 'IsDigit'); // solo numeros 0-9
+define('FH_ALPHA_NUM', 'IsAlphaNum'); // Letras y numeros
+define('FH_INTEGER', 'IsInteger'); // solo numeros 0-9 y como opcional - (menos) signo (solo al comienzo)
+define('FH_FLOAT', 'IsFloat'); // FH_INTEGER, solo con , (coma)
+define('FH_FILENAME', 'IsFilename'); // Nombre de archivo válido (que incluya puntos pero no barras ni otros caracteres no permitidos)
+define('FH_BOOL', 'IsBool'); // a boolean (TRUE "true" or "1" No distingue entre minusculas y mayuculas. Todo lo demas es FALSE)
+define('FH_VARIABLE', 'IsVariabele'); // Nombre valido de variable (letras, digitos, guion bajo)
+define('FH_PASSWORD', 'IsPassword'); // Clave valida (alfanumerica + algun otro caracter pero sin espacion. Solo permitido ASCII 33 - 126)
+define('FH_URL', 'IsURL'); // un URL valido
+define('FH_URL_HOST', 'IsURLHost'); // una URL válida (¡la conexión http se usa para verificar si existe una URL!)
+define('FH_EMAIL', 'IsEmail'); // Direccion de correo electronico valida (Solo comprueba el formato valido: xxx@xxx.xxx)
+define('FH_EMAIL_HOST', 'IsEmailHost'); // FH_EMAIL solo con verificacion de host
+define('FH_TEXT', 'IsText'); // FH_STRING, pero caracteres de nuevas lineas estan permitidos
+define('FH_NOT_EMPTY', 'notEmpty'); // Comprueba que el valor no este vacio
+define('FH_NO_HTML', 'NoHTML'); // comprueba si el valor no contiene html
+define('FH_IP', 'IsIp'); // comprueba si el valor es una direccion IP valida (xxx.xxx.xxx.xxx:xxxx)
 
-// same as above, but with these the value is not required
+// Igual al superior, pero el valor no es requerido
 define('_FH_STRING', '_IsString');
 define('_FH_ALPHA', '_IsAlpha');
 define('_FH_DIGIT', '_IsDigit');
@@ -46,8 +46,8 @@ define('_FH_PHONE', '_IsPhone');
 define('_FH_NO_HTML', '_NoHTML');
 define('_FH_IP', '_IsIp');
 
-// Mask for titles above the fields..
-// This is not used by default but can be handy for the users
+// Mascara para títulos sobre los campos
+// No es usada por defecto, pero puede ser util para los usuarios
 define('FH_TITLE_ABOVE_FIELD_MASK',
 
 	"  %title% \n" .
@@ -57,7 +57,7 @@ define('FH_TITLE_ABOVE_FIELD_MASK',
 	"  %help%\n"
 );
 
-// make some variables global when the version < 4.1.0
+// Realiza algunas variables globales cuando la version  < 4.1.0
 if (intval(str_replace('.', '', phpversion())) < 410) {
 	define('_global', false);
 	$_GET = $HTTP_GET_VARS;
@@ -65,12 +65,12 @@ if (intval(str_replace('.', '', phpversion())) < 410) {
 	$_FILES = $HTTP_POST_FILES;
 	$_SERVER = $HTTP_SERVER_VARS;
 }
-// set the var so that we dont have to make the $_GET arrays global
+// Configurar var si no tendremos que hacer que las matrices $_GET sean globales
 else {
 	define('_global', true);
 }
 
-// include needed files
+// Incluye archivos necesarios
 define('FH_INCLUDE_DIR', str_replace('\\', '/', dirname(__FILE__)) . '/');
 require_once FH_INCLUDE_DIR . 'fields/class.Field.php';
 require_once FH_INCLUDE_DIR . 'buttons/class.Button.php';
@@ -82,49 +82,49 @@ require_once FH_INCLUDE_DIR . 'includes/class.MaskLoader.php';
 /**
  * class FormHandler
  *
- * FormHandler without DB options
+ * FormHandler sin opciones de DB
  *
  * @author Teye Heimans
  * @link http://www.formhandler.net
  */
 class FormHandler {
 	// protected !!
-	protected $_fields; // array: contains all the fields
-	protected $_posted; // boolean: if the form is posted or not
-	protected $_name; // string: the name of the form
-	protected $_action; // string: the action of the form
-	protected $_displayErrors; // boolean: if we have to display the errors in the form
-	protected $_mask; // string: the mask which should be used
-	protected $_upload; // array: contains the names of the uploadfields
-	protected $_date; // array: contains the names of the datefields
-	protected $_onCorrect; // string: the callback function when the form is correct
-	protected $_add; // array: contains the data which was added by the user
-	protected $_focus; // string: the field which should get the focus
-	protected $_convert; // array: fields which should be converted (eg. resizeimage or mergeimage)
-	protected $_buffer; // array: buffer of set values (used when the field does not exists yet)
-	protected $_text; // array: the language array we are using to display the messages etc
-	protected $_lang; // string: the language used
-	protected $_setTable; // boolean: set a html table arround the fields or has the user done that in the mask ?
-	protected $_extra; // string: extra tag information for the <form> tag (like CSS or javascript)
-	protected $_pageCounter; // int: how many pages has this form
-	protected $_curPage; // int: current page
-	protected $_mail; // array: contains the mailing data
-	protected $_tabindexes; // array: tab indexes of the fields...
-	protected $_js; // array: contains all the needed javascript for the form
-	protected $_help; // array: contains the help text for the fields
-	protected $_helpIcon; // string: the path to the help image
-	protected $_cache; // array: save the values of the field in this array after the flush is called (then the objects are deleted!)
-	protected $_viewMode; // boolean: is view mode enabled or not
-	protected $_tableSettings; // array: array with all table settings
-	protected $_ajaxValidator; // boolean: if Ajax validation must be used or not.
-	protected $_ajaxValidatorScript; // boolean: if Ajax validation must include library or not.
+	protected $_fields; // array: Contiene todos los campos
+	protected $_posted; // boolean: Si el formulario esta publicado o no 
+	protected $_name; // string: Nombre del formulario
+	protected $_action; // string: La accion del formulario
+	protected $_displayErrors; // boolean: si tenemos que mostrar los errores en el formulario
+	protected $_mask; // string: La mascara que se debe usar
+	protected $_upload; // array: Contiene los nombres de los campos de carga
+	protected $_date; // array: contiene los nombres de los campos de fecha
+	protected $_onCorrect; // string: la función de devolución de llamada cuando el formulario es correcto
+	protected $_add; // array: Contiene los datos que fueron agregados por el usuario
+	protected $_focus; // string: El campo que debe tener el foco
+	protected $_convert; // array: Campos que se deben convertir (eg. Redimensionar o fusionar imagen)
+	protected $_buffer; // array: buffer valores establecidos (usados cuando el campo aun no existe)
+	protected $_text; // array: Lenguaje de matriz que usaremos para mostrar mensajes, etc
+	protected $_lang; // string: Lenguaje usado
+	protected $_setTable; // boolean: establece una tabla html alrededor de los campos o lo hizo el usuario en la mascara?
+	protected $_extra; // string: Etiquetas adicionales para la etiqueta <form> (como CSS or javascript)
+	protected $_pageCounter; // int: Cuantas paginas contiene el formulario
+	protected $_curPage; // int: pagina actual
+	protected $_mail; // array: contiene los datos de envio
+	protected $_tabindexes; // array: Indice de pestañas de los campos
+	protected $_js; // array: contiene todo el javascript necesario para el formulario
+	protected $_help; // array: contiene texto de ayuda para los campos
+	protected $_helpIcon; // string: Ruta a la imagen de ayuda
+	protected $_cache; // array: Guarde los valores de este array despues de llamar al flush (entonces los objetos son borrados!)
+	protected $_viewMode; // boolean: el modo vista esta habilitado o no
+	protected $_tableSettings; // array: Matriz con toda la configuracion de las tablas
+	protected $_ajaxValidator; // boolean: si la validacion de Ajax debe ser usada o no
+	protected $_ajaxValidatorScript; // boolean: si la validacion de Ajax debe incluir la libreria o no.
 
 	/**
 	 * FormHandler::FormHandler()
 	 *
-	 * constructor: initialisation of some vars
+	 * constructor: inicializacion de algunas vars
 	 *
-	 * @param string $name: the name for the form (used in the <form> tag
+	 * @param string $name: Nombre del fomulario (usado en la etiqueta <form>
 	 * @param string $action: the action for the form (used in <form action="xxx">)
 	 * @param string $extra: extra css or js which is included in the <form> tag
 	 * @author Teye Heimans

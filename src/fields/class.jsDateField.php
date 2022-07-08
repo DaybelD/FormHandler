@@ -154,4 +154,3 @@ class jsDateField extends DateField
 		return $html;
 	}
 }
-?>

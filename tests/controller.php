@@ -104,13 +104,19 @@ $form -> uploadField("Imagen sm", "image2", $cfg, null, "form-control-sm", "disa
 
 $form -> uploadField("Imagen lg", "image3", $cfg, null, "form-control-lg");
 
-// set the options array
-$aOptions = array( 'Red', 'Green');
+// make the browser field
+$form->BrowserField('Image','image4', "/uploads/Image");
+
+// set the tabs
+$form -> setTabIndex($tabs); 
+
+
+/*
+// set the options array (no muestra todas las opcines, solo muestra 3)
+$aOptions = array( 'Red', 'Green', 'Pink', 'Orange');
 
 // new TextSelect field
 $form->TextSelectField( 'Color', 'color', $aOptions );
-
-/*
 
 NOTA: FALTA PRUEBA DE ESTA SECCION 
 // the values for the listfield
@@ -151,8 +157,7 @@ $form -> jsDateTextField("Birthdate", "birthdate4");
 $form -> timeField("Time", "time"); 
 
 
-// make the browser field
-$form->BrowserField('Image','image1', "/uploads/Image");
+
 
 
 
@@ -270,8 +275,7 @@ $tabs = array(
   4 => "submitBtn"
 );
 
-// set the tabs
-$form -> setTabIndex($tabs); 
+
 
 //No hay prueba debido a que debe crearse un archivo aparte con lenguaje y demas contenido
 // set the language to dutch
