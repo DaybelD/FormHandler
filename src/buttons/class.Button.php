@@ -33,6 +33,7 @@ class Button
         // set the button name and caption
         $this->_oForm    = $oForm;
         $this->_sName    = $sName;
+        $this->setClass('');
     }
 
     /**
@@ -45,6 +46,12 @@ class Button
      * @access public
      * @author Teye Heimans
      */
+
+    public function setClass( $class )
+    {
+        $this->_iClass ='btn btn-primary '. $class;
+    }
+
     public function setTabIndex( $iIndex )
     {
         $this->_iTabIndex = $iIndex;
@@ -78,9 +85,10 @@ class Button
     public function getButton()
     {
         return sprintf(
-          '<input type="button" name="%s" id="%1$s" value="%s"%s '. FH_XHTML_CLOSE .'>',
+          '<input type="button" name="%s" id="%1$s" value="%s" class="%s" %s '. FH_XHTML_CLOSE .'>',
           $this->_sName,
           $this->_sCaption,
+          $this->_iClass,
           (isset($this->_sExtra) ? ' '.$this->_sExtra:'').
           (isset($this->_iTabIndex) ? ' tabindex="'.$this->_iTabIndex.'"' : '')
         );

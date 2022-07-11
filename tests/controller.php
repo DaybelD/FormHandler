@@ -87,8 +87,7 @@ $form->colorPicker("Escoja un color", "colorselect3", null, "form-control-sm", "
 // The upload configuration
 // NOTE: You dont have to set every value!
 // Like below, we have not set the "size", so the default configuration
-// value is used (max size which is possible).
-// NOTA, OJO: FALTA PRUEBA DE ESTA PARTE
+
 $cfg = array(
   "path"       => $_SERVER['DOCUMENT_ROOT'].dirname($_SERVER['PHP_SELF']).'/uploads/images',  
   "type"       => "jpg jpeg",
@@ -107,45 +106,26 @@ $form -> uploadField("Imagen lg", "image3", $cfg, null, "form-control-lg");
 // make the browser field
 $form->BrowserField('Image','image4', "/uploads/Image");
 
-// set the tabs
-$form -> setTabIndex($tabs); 
-
-
-/*
 // set the options array (no muestra todas las opcines, solo muestra 3)
-$aOptions = array( 'Red', 'Green', 'Pink', 'Orange');
-
+$aOptions = array( 'Sopa', 'Green', 'Pink', 'Orange');
 // new TextSelect field
 $form->TextSelectField( 'Color', 'color', $aOptions );
 
-NOTA: FALTA PRUEBA DE ESTA SECCION 
-// the values for the listfield
-$values = array(
-  1 => "PHP",
-  2 => "MySQL database",
-  3 => "Frontpage extensions",
-  4 => "ASP",
-  5 => "10 MB extra webspace",
-  6 => "Webmail",
-  7 => "Cronjobs"
-); 
-
-// the listfield
-$form->ListField("Productos", "products", $values);
+$form->setValue('color', 'Pink');
 
 // make the editor  
  $config = array(
   "contentsCss" => "cms.css"
 );
  
-$form -> addLine("Editor de texto: ");
-$form -> editor("Message", "message2", null, "images/uploads/");
+ //Sin cambios
+$form -> editor("Editor de texto", "message2", null, "images/uploads/");
 
 // make the datefield 
-$form -> dateField("Birthdate", "birthdate1");
+$form -> dateField("Birthdate", "birthdate1", null, null, null, null);
 
 // Datefield con calendario js
-$form -> jsdateField("Birthdate", "birthdate2");
+$form -> jsDateField("Birthdate", "birthdate2");
 
 // make the datefield
 $form -> dateTextField("Birthdate", "birthdate3");
@@ -156,11 +136,21 @@ $form -> jsDateTextField("Birthdate", "birthdate4");
 // a timefield 
 $form -> timeField("Time", "time"); 
 
+// the button 
+$form -> button("Test", "btnTest", "onclick='alert(this.name)'");
 
+// image button! 
+$form -> imageButton("images/boton.png");
 
+ // the reset button 
+$form -> resetButton(); 
 
+// go to ../index.php when the button is pressed 
+$form -> cancelButton("Cancel", "../index.php");
 
+/*
 
+//NO MUESTRA LA IMAGEN DE CAPTCHA
 // a textfield
 $form -> addLine("No muestra la imagen error");
 $form->CaptchaField("Verify the code", "code");
@@ -168,16 +158,7 @@ $form->CaptchaField("Verify the code", "code");
 
 //BOTONES
 
-// the button 
-$form -> button("Test", "btnTest", "onclick='alert(this.name)'"); 
 
-// image button! 
-$form -> imageButton("images/boton.png");
-
-// the reset button 
-$form -> resetButton(); 
-// go to ../index.php when the button is pressed 
-$form -> cancelButton("Cancel", "../index.php");
 
 //back button
 $form -> backButton("Atras", "Regresar");
@@ -192,7 +173,6 @@ $form -> textField("Age".$star, "age");
 // add a line that every field with a red * is required 
 $form -> addLine($star); 
 
-
 // some options used in the form 
 $brow = array( 
   "IE"  => "Microsoft Internet Explorer", 
@@ -205,8 +185,6 @@ $brow = array(
 // start a fieldset! 
 //$form -> borderStart("Browser"); 
 
-
-
 // browsers to select from 
 $form -> radioButton("Select the browser you use", "browswer", $brow); 
 // which version of the browser?  
@@ -214,8 +192,6 @@ $form -> textField("Version", "version");
 
 // stop the border 
 //$form -> borderStop();
-
-
 
 // some fields 
 $form -> textField("Name", "name3", _FH_STRING); 
@@ -258,9 +234,10 @@ $form -> setAutoCompleteAfter("email", "@", $providers);
 //$form -> newPage(); 
 //$form -> textField("Question 3", "q3", _FH_STRING);
 
-
 //TABINDEX
-
+//NOTA: Campo para navegar en diversas paginas del mismo
+// set the tabs
+$form -> setTabIndex($tabs); 
 // some fields + button
 $form -> textField("Field 1", "fld1");
 $form -> textField("Field 2", "fld2");
@@ -274,8 +251,6 @@ $tabs = array(
   2 => "fld3",
   4 => "submitBtn"
 );
-
-
 
 //No hay prueba debido a que debe crearse un archivo aparte con lenguaje y demas contenido
 // set the language to dutch
@@ -295,8 +270,6 @@ $form -> submitButton("Save");
 
 // get the errors of invalid fields
 $errors = $form->catchErrors();
-
-
 
 // any errors?
 if( sizeof($errors) > 0 ) 
@@ -321,9 +294,6 @@ $form -> passField("Password", "password", FH_PASSWORD);
 // set the focus to the password
 $form -> setFocus("password"); 
 
-
-
-
 // set another type of mask 
 //$form -> setMask( 
   //"  <tr><td>%title% %seperator%</td></tr>\n". 
@@ -336,24 +306,17 @@ $form -> setFocus("password");
   //"  <tr><td>%field% %error%</td></tr>\n", 
   //1 # repeat it once (so for the upcoming 2 fields!!) 
 //); 
-// a textfield
-$form -> addLine("Campo de clave: ");
 
 // addHTML! 
 $form -> addHTML( 
   "<hr size='1' />" 
 );
 
-// textarea
-$form -> addLine("Area de texto: ");
-
 $form -> setMaxLength("message", 30);
 */
 
 //button for submitting
 $form->submitButton();
-
-
 
 //the 'commit-after-form' function
 function doRun($data) {

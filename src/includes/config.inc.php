@@ -160,12 +160,14 @@ fh_conf('FH_FHTML_INCLUDE_DIR', FH_INCLUDE_DIR . 'FHTML/');
 
 // mask for a TextSelectField
 fh_conf( 'FH_TEXTSELECT_MASK',
-  '<input type="text" name="%s" id="%1$s" value="%s" class="form-select" %s onblur="FH_CLOSE_TEXTSELECT(\'FHSpan_%1$s\');" onkeyup="FH_CLOSE_TEXTSELECT(\'FHSpan_%1$s\');" onclick="document.getElementById(\'FHSpan_%1$s\').style.display=\'block\';" style="background: #FFF url('.$__fh_root . 'FHTML/images/arrow_down.gif) no-repeat right;" />%s<br /><div style="position:absolute;height:70px;overflow-y:scroll; width:150px; display:none; background-color:#FFF;" id="FHSpan_%1$s">%s</div>'."\n"
+  '<input type="text" name="%s" id="%1$s" list="list_%1$s" value="%s" 
+  class="form-select" %s>%s
+  <datalist id="list_%1$s">%s</datalist>'."\n"
 );
 
 // mask for the TextSelectField options
 fh_conf( 'FH_TEXTSELECT_OPTION_MASK',
-  '<a href="#" onmouseover="this.style.background=\'#C0C0C0\';" onmouseout="this.style.background=\'#FFFFFF\';" onblur="FH_CLOSE_TEXTSELECT(\'FHSpan_%s\')" onfocus="FH_SET_TEXTSELECT( \'%1$s\', this.innerHTML );" onclick="FH_SET_TEXTSELECT( \'%1$s\',this.innerHTML );" >%s</a>'."\n"
+  '<option value="%s">'
 );
 
 // This config var has to point to the YADAL directory.

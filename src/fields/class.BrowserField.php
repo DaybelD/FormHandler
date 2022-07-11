@@ -87,4 +87,3 @@ class BrowserField extends Field
         );
     }
 }
-?>

@@ -30,42 +30,19 @@ class TextSelectField extends TextField
 	{
 		parent::__construct($oForm, $sName);
 		
-		$this->setClass('');
+		parent::setClass('');
 		static $bSetJS = false;
 
-    	// needed javascript included yet ?
-        if(!$bSetJS)
-        {
-            $bSetJS = true;
-
-            // add the needed javascript
-            $oForm->_setJS(
-             "function FH_CLOSE_TEXTSELECT( id )"."\n".
-             "{"."\n".
-             "  setTimeout( 'document.getElementById(\"'+id+'\").style.display=\"none\"', 110 );"."\n".
-             "}"."\n\n".
-             "function FH_SET_TEXTSELECT( id, waarde )"."\n".
-             "{"."\n".
-             "  document.getElementById(id).value=waarde;"."\n".
-             "  FH_CLOSE_TEXTSELECT( 'FHSpan_'+id );return false;"."\n".
-             "}"."\n\n"             
-            );
-        }
    
 		foreach( $aOptions as $key => $value )
 		{	
-			$this->_sOptions .= sprintf( FH_TEXTSELECT_OPTION_MASK, $sName, $value );
+			$this->_sOptions .= sprintf( FH_TEXTSELECT_OPTION_MASK, $value );
 		}
 		
 		$this->setClass( '' );
 		
 	}
 
-	//No muestra todas las opciones que se agregan en controller.php
-	public function setClass( $class )
-	{
-		$this->_iClass ='form-control form-select '. $class;
-	}
 
 	public function getField()
 	{
@@ -79,7 +56,6 @@ class TextSelectField extends TextField
 		return sprintf(
 		FH_TEXTSELECT_MASK,
 		$this->_sName,
-		$this->_iClass,
 		(isset($this->_mValue) ? htmlspecialchars($this->_mValue, ENT_COMPAT | ENT_HTML401, FH_HTML_ENCODING):''),
 		(isset($this->_iTabIndex) ? 'tabindex="'.$this->_iTabIndex.'" ' : '').
 		(isset($this->_sExtra) ? ' '.$this->_sExtra.' ' :''),
@@ -90,5 +66,3 @@ class TextSelectField extends TextField
 
 	}
 }
-
-?>

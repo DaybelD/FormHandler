@@ -293,4 +293,3 @@ class DateTextField extends TextField
 		return parent::isValid();
 	}
 }
-?>

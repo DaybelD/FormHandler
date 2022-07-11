@@ -1289,6 +1289,12 @@ class FormHandler {
 			$btn->setExtra($extra);
 		}
 
+		if (!empty($class)) {
+			$fld->setclass($class);
+		}
+
+
+
 		// register the button
 		$this->_registerField($name, $btn);
 	}

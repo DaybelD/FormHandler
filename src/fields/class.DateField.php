@@ -155,6 +155,7 @@ class DateField extends Field
                     $this -> _oDay -> setMaxlength( 2 );
                     $this -> _oDay -> setValidator( _FH_DIGIT );
                     break;
+
             }
         }
 
@@ -708,5 +709,3 @@ class DateField extends Field
         return array( $iStart, $iEnd );
     }
 }
-
-?>

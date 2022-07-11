@@ -32,6 +32,8 @@ class SubmitButton extends Button
 
         // set the default submit caption
         $this->setCaption( $oForm->_text( 26 ) );
+
+        $this->setClass('');
     }
 
     /**
@@ -45,6 +47,12 @@ class SubmitButton extends Button
      * @access public
      * @author Teye Heimans
      */
+
+    public function setClass( $class )
+    {
+        $this->_iClass ='btn btn-warning '. $class;
+    }
+
     public function disableOnSubmit( $bStatus )
     {
         $this->_bDisableOnSubmit = (bool) $bStatus;
@@ -79,9 +87,10 @@ class SubmitButton extends Button
 
         // return the button
         return sprintf(
-          '<input type="submit" value="%s" name="%s" id="%2$s" %s '. FH_XHTML_CLOSE .'>',
+          '<input type="submit" value="%s" name="%s" id="%2$s" class="%s" %s '. FH_XHTML_CLOSE .'>',
           $this->_sCaption,
           $this->_sName,
+          $this->_iClass,
           (isset($this->_sExtra) ? ' '.$this->_sExtra:'').
           (isset($this->_iTabIndex) ? ' tabindex="'.$this->_iTabIndex.'"' : '')
         );

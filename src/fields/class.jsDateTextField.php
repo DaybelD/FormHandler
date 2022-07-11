@@ -113,8 +113,7 @@ class jsDateTextField extends DateTextField
 		"onclick=\"if( cal_".$this->_sName." ) cal_".$this->_sName.".select(document.forms['".$this -> _oForm->getName()."'].elements['".$this->_sName."'], 'anchor_".$this->_sName."', '".$this->_sJsMask."'); return false;\" ".
 		" name='anchor_".$this->_sName."' id='anchor_".$this->_sName."'>".
 		"<img src='".FH_FHTML_DIR."images/calendar.gif' border='0' alt='Select Date' ". FH_XHTML_CLOSE ."></a>\n".
-		"<span id='".$this->_sName."_span' ".
-		" style='position:absolute;visibility:hidden;background-color:white;layer-background-color:white;'></span>\n";
+		"<span id='".$this->_sName."_span' </span>\n";
 
 		return $html;
 	}

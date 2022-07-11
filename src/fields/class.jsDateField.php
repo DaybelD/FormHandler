@@ -148,8 +148,7 @@ class jsDateField extends DateField
 		"onclick=\"if( cal_".$this->_sName." ) cal_".$this->_sName.".showCalendar('anchor_".$this->_sName."', getDateString('".$this->_oForm->getFormName()."','".$this->_sName."_year', '".$this->_sName."_month', '".$this->_sName."_day')); return false;\" ".
 		" name='anchor_".$this->_sName."' id='anchor_".$this->_sName."'>".
 		"<img src='".FH_FHTML_DIR."images/calendar.gif' border='0' alt='Select Date' ". FH_XHTML_CLOSE ."></a>\n".
-		"<span id='".$this->_sName."_span' ".
-		" style='position:absolute;visibility:hidden;background-color:white;layer-background-color:white;'></span>\n";
+		"<span id='".$this->_sName."_span' </span>\n";
 				
 		return $html;
 	}
