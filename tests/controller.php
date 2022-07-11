@@ -148,31 +148,13 @@ $form -> resetButton();
 // go to ../index.php when the button is pressed 
 $form -> cancelButton("Cancel", "../index.php");
 
-/*
-
-//NO MUESTRA LA IMAGEN DE CAPTCHA
-// a textfield
-$form -> addLine("No muestra la imagen error");
-$form->CaptchaField("Verify the code", "code");
-
-
-//BOTONES
-
-
-
 //back button
 $form -> backButton("Atras", "Regresar");
 
-// star for required fields 
-$star = ' <font color="red">sopa</font>'; 
+$form -> submitButton ("Save"); 
 
-// some fields 
-$form -> textField("Name".$star, "name1"); 
-$form -> textField("Age".$star, "age"); 
 
-// add a line that every field with a red * is required 
-$form -> addLine($star); 
-
+//POR BOOSTRAP NO TOMA EL BORDER START NI EL BORDER STOP
 // some options used in the form 
 $brow = array( 
   "IE"  => "Microsoft Internet Explorer", 
@@ -183,7 +165,7 @@ $brow = array(
   "-1"  => "Other..." 
 );
 // start a fieldset! 
-//$form -> borderStart("Browser"); 
+$form -> borderStart("Browser"); 
 
 // browsers to select from 
 $form -> radioButton("Select the browser you use", "browswer", $brow); 
@@ -191,32 +173,35 @@ $form -> radioButton("Select the browser you use", "browswer", $brow);
 $form -> textField("Version", "version"); 
 
 // stop the border 
-//$form -> borderStop();
-
-// some fields 
-$form -> textField("Name", "name3", _FH_STRING); 
-$form -> textField("Age", "age3", _FH_INTEGER); 
-$form -> selectField("Gender", "gender3", array('M', 'F'), null, false);
-
-// a textfield + custom error message!!! 
-$form -> textField("First Name", "fname", _FH_STRING); 
-$form -> setErrorMessage( "fname", "You have to enter a first name!");
+$form -> borderStop();
+//POR BOOSTRAP NO TOMA EL BORDER START NI EL BORDER STOP
 
 // the auto complete items 
 $colors = array ( "red", "orange", "yellow", "green", "blue", "indigo", "violet", "brown", "rood" ); 
 // the textfield used for auto completion 
 $form -> textField("Type a color", "color2", _FH_STRING); 
-
 // set the auto completion for the field Color 
-$form -> setAutoComplete("color2", $colors); 
+$form -> setAutoComplete("color2", $colors);
 
 // the auto complete items 
-$providers = array ( "hotmail.com", "live.com", "php-globe.nl", "freeler.nl" ); 
+$providers = array ( "hotmail.com", "live.com", "php-globe.nl", "freeler.nl", "gmail.com", "yahoo.com" ); 
 // the textfield used for auto completion after
 $form -> textField("Type your email", "email", _FH_STRING); 
-
 // set the auto completion for the field Color 
 $form -> setAutoCompleteAfter("email", "@", $providers); 
+
+/*
+
+//NO MUESTRA LA IMAGEN DE CAPTCHA
+// a textfield
+$form -> addLine("No muestra la imagen error");
+$form->CaptchaField("Verify the code", "code");
+
+// a textfield + custom error message!!! 
+$form -> textField("First Name", "fname", _FH_STRING); 
+$form -> setErrorMessage( "fname", "You have to enter a first name!");
+
+
 
 //NEW PAGE
 //Funciona, falta prueba por validaciones en el capcha y al cargar imagen
@@ -255,18 +240,6 @@ $tabs = array(
 //No hay prueba debido a que debe crearse un archivo aparte con lenguaje y demas contenido
 // set the language to dutch
 $form -> setLanguage( 'nl' );
-
-// a textfield  + submit button
-$form -> textField    ("Your name", "name", FH_STRING);
-$form -> submitButton ("Save"); 
-
-//MENSAJE DE ERROR PRUEBA
-//Mensaje de error para campos incorrectos
-// textfield
-$form -> textField("Name", "name25", FH_STRING);
-
-// submitbutton
-$form -> submitButton("Save");
 
 // get the errors of invalid fields
 $errors = $form->catchErrors();

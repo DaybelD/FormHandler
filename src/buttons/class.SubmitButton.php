@@ -50,7 +50,7 @@ class SubmitButton extends Button
 
     public function setClass( $class )
     {
-        $this->_iClass ='btn btn-warning '. $class;
+        $this->_iClass ='btn btn-success '. $class;
     }
 
     public function disableOnSubmit( $bStatus )
