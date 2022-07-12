@@ -33,7 +33,7 @@ class DateField extends Field
     public function __construct( &$oForm, $sName, $sMask = null, $bRequired = null, $sInterval = null )
     {
         // set the default date display
-        $this -> setMask( !is_null( $sMask ) ? $sMask : FH_DATEFIELD_DEFAULT_DISPLAY );
+       $this -> setMask( !is_null( $sMask ) ? $sMask : FH_DATEFIELD_DEFAULT_DISPLAY );
 
         // set the default interval
         $this -> setInterval( !is_null( $sInterval ) ? $sInterval : FH_DATEFIELD_DEFAULT_DATE_INTERVAL);
@@ -160,7 +160,7 @@ class DateField extends Field
         }
 
         // call the Field constructor
-        parent::__construct( $oForm, $sName );
+        parent::__construct( $oForm, $sName);
     }
 
     /**

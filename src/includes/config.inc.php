@@ -54,6 +54,15 @@ fh_conf('FH_DEFAULT_ROW_MASK',
   "<span id='%error_id%' class='error'>%error%</span></div>\n"
 );
 
+// The default mask used to parse the fields
+// The mask can be changed with the function setMask()
+fh_conf('FH_DEFAULT_DATEFIELD_ROW_MASK',
+  "<div class='fh_campo datefield'><label for='%name%' class='form-label'>%title%</label>\n".
+  "%field%\n".
+  "%help%\n".
+  "<span id='%error_id%' class='error'>%error%</span></div>\n"
+);
+
 // When addLine() is used, this line is used to set the data in
 // (%s is going to be replaced with the value!)
 fh_conf('FH_LINE_MASK',
@@ -89,26 +98,6 @@ fh_conf('FH_FIELDSET_MASK',
 fh_conf('FH_ERROR_MASK',
   '<span id="error_%s" class="error">%s</span>'
 );
-
-// The mask used for the horizontal listfield
-fh_conf('FH_LISTFIELD_HORIZONTAL_MASK',
-  "      %onlabel%\n".
-  "      %offlabel%\n".
-  "      %onfield%\n".
-  "      <input type='button' value=' &gt; ' onclick=\"changeValue('%name%', false)\" ondblclick=\"moveAll('%name%', false)\" title='%ontitle%' />\n".
-  "      %offfield%\n".
-  "      <input type='button' value=' &lt; ' onclick=\"changeValue('%name%', true)\" ondblclick=\"moveAll('%name%', true)\" title='%offtitle%' />\n"
-);
-
-// The mask used for the vertical listfield
-fh_conf('FH_LISTFIELD_VERTICAL_MASK',
-  "     <div class='form-select'>%offlabel%\n".
-  "      %offfield%\n".
-  "      <input type='button' value=' &darr; ' onclick=\"changeValue('%name%', true)\" ondblclick=\"moveAll('%name%', true)\" title='%offtitle%' />&nbsp;\n".
-  "        &nbsp;<input type='button' value=' &uarr; ' onclick=\"changeValue('%name%', false)\" ondblclick=\"moveAll('%name%', false)\" title='%ontitle%' />\n".
-  "      %onlabel%\n".
-  "      %onfield%\n</div/>"
-); 
 
 // Should Overlib javascript be included for help messages?
 fh_conf('FH_USE_OVERLIB', true); 
@@ -289,12 +278,6 @@ fh_conf('FH_DATEFIELD_DEFAULT_REQUIRED', true);
 // Y = year (four digits)
 fh_conf('FH_DATETEXTFIELD_DEFAULT_DISPLAY', 'd-m-Y');
 
-// Use dropdown in jsCalendarPopup
-fh_conf('FH_JSCALENDARPOPUP_USE_DROPDOWN', false);
-
-// start day in jsCalendarPopup
-// 0 = sunday ... 6 = saturday
-fh_conf('FH_JSCALENDARPOPUP_STARTDAY', 1);
 
 // The default size of the listfield field's
 fh_conf('FH_DEFAULT_LISTFIELD_SIZE', 4);

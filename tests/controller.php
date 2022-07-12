@@ -124,14 +124,9 @@ $form -> editor("Editor de texto", "message2", null, "images/uploads/");
 // make the datefield 
 $form -> dateField("Birthdate", "birthdate1", null, null, null, null);
 
-// Datefield con calendario js
-$form -> jsDateField("Birthdate", "birthdate2");
 
 // make the datefield
 $form -> dateTextField("Birthdate", "birthdate3");
-
-// make the datefield con js
-$form -> jsDateTextField("Birthdate", "birthdate4"); 
 
 // a timefield 
 $form -> timeField("Time", "time"); 
@@ -200,24 +195,6 @@ $form->CaptchaField("Verify the code", "code");
 // a textfield + custom error message!!! 
 $form -> textField("First Name", "fname", _FH_STRING); 
 $form -> setErrorMessage( "fname", "You have to enter a first name!");
-
-
-
-//NEW PAGE
-//Funciona, falta prueba por validaciones en el capcha y al cargar imagen
-
-//first page... 
-//$form -> textField("Question 1", "q1", _FH_STRING, 30, 50); 
-//$form -> submitButton("Next page"); 
-
-// second page 
-//$form -> newPage(); 
-//$form -> textArea("Question 2", "q2", _FH_TEXT); 
-//$form -> submitButton("Next Page"); 
-
-// third and last page 
-//$form -> newPage(); 
-//$form -> textField("Question 3", "q3", _FH_STRING);
 
 //TABINDEX
 //NOTA: Campo para navegar en diversas paginas del mismo

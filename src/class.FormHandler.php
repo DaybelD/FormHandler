@@ -64,9 +64,8 @@ if (intval(str_replace('.', '', phpversion())) < 410) {
 	$_POST = $HTTP_POST_VARS;
 	$_FILES = $HTTP_POST_FILES;
 	$_SERVER = $HTTP_SERVER_VARS;
-}
+}else {
 // Configurar var si no tendremos que hacer que las matrices $_GET sean globales
-else {
 	define('_global', true);
 }
 
@@ -811,88 +810,6 @@ class FormHandler {
 		$this->_upload[] = $name;
 	}
 
-	/**
-	 * FormHandler::listField()
-	 *
-	 * Create a listField on the form
-	 *
-	 * @param string $title: The title of the field
-	 * @param string $name: The name of the field
-	 * @param array $options: The options used for the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
-	 * @param string $onTitle: The title used above the ON section of the field
-	 * @param string $offTitle: The title used above the OFF section of the field
-	 * @param boolean $useArrayKeyAsValue: If the array key's are the values for the options in the field
-	 * @param int $size: The size of the field (how many options are displayed)
-	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
-	 * @param string $verticalMode: Verticalmode
-	 * @return void
-	 * @access public
-	 * @author Teye Heimans
-	 */
-	public function listField(
-		$title,
-		$name,
-		$options,
-		$validator = null,
-		$class = null,
-		$useArrayKeyAsValue = null,
-		$onTitle = null,
-		$offTitle = null,
-		$size = null,
-		$extra = null,
-		$verticalMode = null) {
-		require_once FH_INCLUDE_DIR . 'fields/class.SelectField.php';
-		require_once FH_INCLUDE_DIR . 'fields/class.ListField.php';
-
-		// options has to be an array
-		if (!is_array($options)) {
-			trigger_error(
-				"You have to give an array as value with the listfield '$name'",
-				E_USER_WARNING
-			);
-			return;
-		}
-
-		// create a listfield
-		$fld = new ListField($this, $name, $options);
-
-		if (!empty($validator)) {
-			$fld->setValidator($validator);
-		}
-
-		if (!empty($class)) {
-			$fld->setClass($class);
-
-		}
-
-		if (!is_null($useArrayKeyAsValue)) {
-			$fld->useArrayKeyAsValue($useArrayKeyAsValue);
-		}
-
-		if (!empty($size)) {
-			$fld->setSize($size);
-		}
-
-		if (!empty($extra)) {
-			$fld->setExtra($extra);
-		}
-
-		if (!empty($onTitle)) {
-			$fld->setOnTitle($onTitle);
-		}
-
-		if (!empty($offTitle)) {
-			$fld->setOffTitle($offTitle);
-		}
-
-		if (!empty($verticalMode)) {
-			$fld->setVerticalMode($verticalMode);
-		}
-
-		// register the field
-		$this->_registerField($name, $fld, $title);
-	}
 
 	/**
 	 * FormHandler::editor()
@@ -1007,56 +924,6 @@ class FormHandler {
 		}
 
 		/// register the field
-		$this->_registerField($name, $fld, $title);
-
-		// save the field in the datefields array (special treatment! :)
-		$this->_date[] = $name;
-	}
-
-	/**
-	 * FormHandler::jsDateField()
-	 *
-	 * Create a dateField with a jscalendar popup on the form
-	 *
-	 * @param string $title: The title of the field
-	 * @param string $name: The name of the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
-	 * @param boolean $required: If the field is required to fill in or can the user leave it blank
-	 * @param string $mask: How do we have to display the fields? These can be used: d, m and y.
-	 * @param string $interval: The interval between the current year and the years to start/stop.Default the years are beginning at 90 yeas from the current. It is also possible to have years in the future. This is done like this: "90:10" (10 years in the future).
-	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
-	 * @param boolean $bIncludeJS: Should we include the js file (only needed once on a page)
-	 * @return void
-	 * @access public
-	 * @author Teye Heimans
-	 */
-	public function jsDateField(
-		$title,
-		$name,
-		$validator = null,
-		$required = null,
-		$mask = null,
-		$interval = null,
-		$extra = null,
-		$bIncludeJS = true
-	) {
-		require_once FH_INCLUDE_DIR . 'fields/class.SelectField.php';
-		require_once FH_INCLUDE_DIR . 'fields/class.TextField.php';
-		require_once FH_INCLUDE_DIR . 'fields/class.DateField.php';
-		require_once FH_INCLUDE_DIR . 'fields/class.jsDateField.php';
-
-		// create a new datefield
-		$fld = new jsDateField($this, $name, $mask, $required, $interval, $bIncludeJS);
-
-		if (!empty($validator)) {
-			$fld->setValidator($validator);
-		}
-
-		if (!empty($extra)) {
-			$fld->setExtra($extra);
-		}
-
-		// register the field
 		$this->_registerField($name, $fld, $title);
 
 		// save the field in the datefields array (special treatment! :)
@@ -1204,61 +1071,7 @@ class FormHandler {
 		$this->_date[] = $name;
 	}
 
-	/**
-	 * FormHandler::jsdateTextField()
-	 *
-	 * Create a dateTextField on the form
-	 * Validator added by Johan Wiegel
-	 *
-	 * @param string $title: The title of the field
-	 * @param string $name: The name of the field
-	 * @param string $mask: How do we have to display the fields? These can be used: d, m and y. (Only for DB-Field with Type 'Date')
-	 * @param bool $bParseOtherPresentations: try to parse other presentations of dateformat
-	 * @param boolean $bIncludeJS: Should we include the js file (only needed once on a page)
-	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
-	 * @param boolean $bIncludeJS: Should we include the js file (only needed once on a page)
-	 * @return void
-	 * @access public
-	 * @author Thomas Branius
-	 * @since 16-03-2010
-	 */
-	public function jsDateTextField(
-		$title,
-		$name,
-		$validator = null,
-		$mask = null,
-		$bParseOtherPresentations = false,
-		$extra = null,
-		$bIncludeJS = true
-	) {
-		require_once FH_INCLUDE_DIR . 'fields/class.TextField.php';
-		require_once FH_INCLUDE_DIR . 'fields/class.DateTextField.php';
-		require_once FH_INCLUDE_DIR . 'fields/class.jsDateTextField.php';
-
-		// create a new datetextfield
-		$fld = new jsDateTextField(
-			$this,
-			$name,
-			!empty($mask) ? $mask : null,
-			$bParseOtherPresentations,
-			$bIncludeJS
-		);
-
-		if (!empty($validator)) {
-			$fld->setValidator($validator);
-		}
-
-		if (!empty($extra)) {
-			$fld->setExtra($extra);
-		}
-
-		/// register the field
-		$this->_registerField($name, $fld, $title);
-
-		// save the field in the datefields array (special treatment! :)
-		$this->_date[] = $name;
-	}
-
+	
 	/*****************/
 	/**** BUTTONS ****/
 	/*****************/

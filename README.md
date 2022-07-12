@@ -61,3 +61,11 @@ http://www.fh3.nl/manual/manual.html
 ### License
 
 FormHandler is licensed under the GNU Lesser General Public License Version 2.1 - see the `LICENSE` file for details
+
+## Change log realizadas por 3Valtech
+
+*Eliminado el campo ListField
+*Eliminado el campo jsDateField
+*Eliminado el campo jsDateTextField
+*Eliminadas las referencias en config.inc
+*Eliminado jscalendar (innecesario)

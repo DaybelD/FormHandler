@@ -31,7 +31,14 @@ class SelectField extends Field
 		// call the constructor of the Field class
 		parent::__construct( $oForm, $sName );
 
+		$temp=explode('_', $sName);
+		if (isset($temp[1])) {
+		$this->setClass($temp[1]);	
+		}
+		else{
 		$this->setClass('');
+		}
+		
 		$this->useArrayKeyAsValue( FH_DEFAULT_USEARRAYKEY );
 		$this->setMultiple( false );
 	}

@@ -4,13 +4,12 @@ form{
 	padding:20px;
 	border-radius:8px;
 	margin:auto;
-	background-color:skyblue;
+	background-color:whitesmoke;
 	max-width: 800px;
 }
 form label{
 	width:100%;
 }
-
 
 form input[type="submit"]{
 	width:100%;
@@ -52,3 +51,9 @@ textarea{
 	font-weight: bolder;
 	margin-top: 30px;
 }
+
+.fh_campo:has(.day) {
+    display: flex;
+    color: navy;
+}
+

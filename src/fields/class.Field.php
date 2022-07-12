@@ -560,4 +560,3 @@ class Field
 		return $result;
 	}
 }
-?>

@@ -39,7 +39,7 @@ class DateTextField extends TextField
 
 		$this->_bParseOtherPresentations = $bParseOtherPresentations;
 
-		//$this->setValidator(array(&$this, "validate"));
+		$this->setValidator(array(&$this, "validate"));
 
 		// call the constructor of the Field class
 		parent::__construct($oForm, $sName);
@@ -291,5 +291,34 @@ class DateTextField extends TextField
 		}
 
 		return parent::isValid();
+	}
+	/**
+     * TextField::getField()
+     *
+     * Return the HTML of the field
+     *
+     * @return string: the html
+     * @access public
+     * @author Teye Heimans
+     */
+	public function getField()
+	{
+		// view mode enabled ?
+		if( $this -> getViewMode() )
+		{
+			// get the view value..
+			return $this -> _getViewValue();
+		}
+
+		return sprintf(
+		'<input type="date" name="%s" id="%1$s" value="%s" class="%s" %s'. FH_XHTML_CLOSE .'>%s',
+
+		$this->_sName,
+		(isset($this->_mValue) ? htmlspecialchars($this->_mValue, ENT_COMPAT | ENT_HTML401, FH_HTML_ENCODING):''),
+		$this->_iClass,
+		(isset($this->_iTabIndex) ? 'tabindex="'.$this->_iTabIndex.'" ' : '').
+		(isset($this->_sExtra) ? ' '.$this->_sExtra.' ' :''),
+		(isset($this->_sExtraAfter) ? $this->_sExtraAfter :'')
+		);
 	}
 }
