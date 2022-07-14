@@ -296,7 +296,7 @@ fh_conf('FH_DISPLAY_ERRORS', true);
 
 // If this variabele is set to true, FH will
 // expose itsself by adding a extra line on the bottom of the form
-fh_conf('FH_EXPOSE', true);
+fh_conf('FH_EXPOSE', false);
 
 // Disable the submit button after submitting the form ?
 fh_conf('FH_DEFAULT_DISABLE_SUBMIT_BTN', true);

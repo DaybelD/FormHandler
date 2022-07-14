@@ -12,6 +12,7 @@
 class SubmitButton extends Button
 {
     private $_bDisableOnSubmit;
+    protected $_iClass;
 
     /**
      * SubmitButton::SubmitButton()
@@ -32,8 +33,8 @@ class SubmitButton extends Button
 
         // set the default submit caption
         $this->setCaption( $oForm->_text( 26 ) );
-
         $this->setClass('');
+        
     }
 
     /**
@@ -50,7 +51,7 @@ class SubmitButton extends Button
 
     public function setClass( $class )
     {
-        $this->_iClass ='btn btn-success '. $class;
+        $this->_iClass ='btn '.$class;
     }
 
     public function disableOnSubmit( $bStatus )

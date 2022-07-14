@@ -15,7 +15,7 @@ define('FH_FLOAT', 'IsFloat'); // FH_INTEGER, solo con , (coma)
 define('FH_FILENAME', 'IsFilename'); // Nombre de archivo válido (que incluya puntos pero no barras ni otros caracteres no permitidos)
 define('FH_BOOL', 'IsBool'); // a boolean (TRUE "true" or "1" No distingue entre minusculas y mayuculas. Todo lo demas es FALSE)
 define('FH_VARIABLE', 'IsVariabele'); // Nombre valido de variable (letras, digitos, guion bajo)
-define('FH_PASSWORD', 'IsPassword'); // Clave valida (alfanumerica + algun otro caracter pero sin espacion. Solo permitido ASCII 33 - 126)
+define('FH_PASSWORD', 'IsPassword'); // Clave valida (alfanumerica + algun otro caracter pero sin espacio. Solo permitido ASCII 33 - 126)
 define('FH_URL', 'IsURL'); // un URL valido
 define('FH_URL_HOST', 'IsURLHost'); // una URL válida (¡la conexión http se usa para verificar si existe una URL!)
 define('FH_EMAIL', 'IsEmail'); // Direccion de correo electronico valida (Solo comprueba el formato valido: xxx@xxx.xxx)
@@ -1088,24 +1088,28 @@ class FormHandler {
 	 * @access public
 	 * @author Teye Heimans
 	 */
-	public function button($caption, $name = null, $extra = null) {
-		// get new button name if none is given
-		if (empty($name)) {
-			$name = $this->_getNewButtonName();
-		}
+	public function button(
+		$caption,
+		$name = null,
+		$extra = null
+		) {
+
+		require_once FH_INCLUDE_DIR . 'buttons/class.Button.php';
+
 
 		// create new submitbutton
 		$btn = new Button($this, $name);
 		$btn->setCaption($caption);
 
+
+		// get new button name if none is given
+		if (empty($name)) {
+			$name = $this->_getNewButtonName();
+		}
+
 		if (!empty($extra)) {
 			$btn->setExtra($extra);
 		}
-
-		if (!empty($class)) {
-			$fld->setclass($class);
-		}
-
 
 
 		// register the button
@@ -1125,9 +1129,13 @@ class FormHandler {
 	 * @access public
 	 * @author Teye Heimans
 	 */
-	public function submitButton($caption = null, $name = null, $extra = null, $disableOnSubmit = null) {
+	public function submitButton(
+		$caption = null, 
+		$name = null,
+		$class = null, 
+		$extra = null, 
+		$disableOnSubmit = null) {
 		require_once FH_INCLUDE_DIR . 'buttons/class.SubmitButton.php';
-
 		// get new button name if none is given
 		if (empty($name)) {
 			$name = $this->_getNewButtonName();
@@ -1138,6 +1146,10 @@ class FormHandler {
 
 		if (!empty($caption)) {
 			$btn->setCaption($caption);
+		}
+
+		if (!empty($class)) {
+			$btn->setClass($class);
 		}
 
 		if (!empty($extra)) {
@@ -1196,7 +1208,11 @@ class FormHandler {
 	 * @access public
 	 * @author Teye Heimans
 	 */
-	public function resetButton($caption = null, $name = null, $extra = null) {
+	public function resetButton(
+		$caption = null, 
+		$name = null,
+		$class = null, 
+		$extra = null) {
 		require_once FH_INCLUDE_DIR . 'buttons/class.ResetButton.php';
 
 		// get new button name if none given
@@ -1208,6 +1224,10 @@ class FormHandler {
 		$btn = new ResetButton($this, $name);
 		if (!empty($caption)) {
 			$btn->setCaption($caption);
+		}
+
+		if (!empty($class)) {
+			$btn->setClass($class);
 		}
 
 		if (!empty($extra)) {

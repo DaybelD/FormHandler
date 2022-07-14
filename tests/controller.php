@@ -138,15 +138,15 @@ $form -> button("Test", "btnTest", "onclick='alert(this.name)'");
 $form -> imageButton("images/boton.png");
 
  // the reset button 
-$form -> resetButton(); 
+$form -> resetButton('resetear', 'btn_reset', 'btn-danger'); 
 
 // go to ../index.php when the button is pressed 
-$form -> cancelButton("Cancel", "../index.php");
+$form -> cancelButton("Cancelar", "../index.php", "btn_cancel", "btn-succes");
 
 //back button
 $form -> backButton("Atras", "Regresar");
 
-$form -> submitButton ("Save"); 
+$form -> submitButton ("Save", "btn_save", "btn-warning"); 
 
 
 //POR BOOSTRAP NO TOMA EL BORDER START NI EL BORDER STOP

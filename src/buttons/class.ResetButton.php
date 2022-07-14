@@ -40,10 +40,10 @@ class ResetButton extends Button
      * @author Teye Heimans
      */
 
-    public function setClass( $class )
-    {
-        $this->_iClass ='btn btn-danger '. $class;
-    }
+ //   public function setClass( $class )
+   // {
+     //   $this->_iClass ='btn '. $class;
+   // }
 
     public function getButton()
     {
@@ -55,6 +55,10 @@ class ResetButton extends Button
           (isset($this->_sExtra) ? ' '.$this->_sExtra:'').
           (isset($this->_iTabIndex) ? ' tabindex="'.$this->_iTabIndex.'"' : '')
         );
+    }
+    public function setClass( $class )
+    {
+        $this->_iClass ='btn '.$class;
     }
 }
 
