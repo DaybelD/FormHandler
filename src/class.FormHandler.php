@@ -1091,6 +1091,7 @@ class FormHandler {
 	public function button(
 		$caption,
 		$name = null,
+		$class = null,
 		$extra = null
 		) {
 
@@ -1105,6 +1106,10 @@ class FormHandler {
 		// get new button name if none is given
 		if (empty($name)) {
 			$name = $this->_getNewButtonName();
+		}
+
+		if (!empty($class)) {
+			$btn->setClass($class);
 		}
 
 		if (!empty($extra)) {
@@ -1251,7 +1256,12 @@ class FormHandler {
 	 * @access public
 	 * @author Teye Heimans
 	 */
-	public function cancelButton($caption = null, $url = null, $name = null, $extra = null) {
+	public function cancelButton(
+		$caption = null, 
+		$url = null, 
+		$name = null,
+		$class = null, 
+		$extra = null) {
 		// get new button name if none given
 		if (empty($name)) {
 			$name = $this->_getNewButtonName();
@@ -1273,6 +1283,10 @@ class FormHandler {
 		$btn = new Button($this, $name);
 		$btn->setCaption($caption);
 
+		if (!empty($class)) {
+			$btn->setClass($class);
+		}
+
 		if (!empty($extra)) {
 			$btn->setExtra($extra);
 		}
@@ -1293,7 +1307,11 @@ class FormHandler {
 	 * @access public
 	 * @author Teye Heimans
 	 */
-	public function backButton($caption = null, $name = null, $extra = null) {
+	public function backButton(
+		$caption = null, 
+		$name = null, 
+		$class = null,
+		$extra = null) {
 		static $setJS = false;
 
 		// include the needed javascript file
@@ -1317,6 +1335,10 @@ class FormHandler {
 		// create new button
 		$btn = new Button($this, $name);
 		$btn->setCaption($caption);
+
+		if (!empty($class)) {
+			$btn->setClass($class);
+		}
 
 		if (!empty($extra)) {
 			$btn->setExtra($extra);

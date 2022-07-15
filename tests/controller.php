@@ -131,20 +131,21 @@ $form -> dateTextField("Birthdate", "birthdate3");
 // a timefield 
 $form -> timeField("Time", "time"); 
 
-// the button 
-$form -> button("Test", "btnTest", "onclick='alert(this.name)'");
-
 // image button! 
 $form -> imageButton("images/boton.png");
+
+// the button 
+$form -> button("btnTest","Test","btn-secondary btn-lg");
+
 
  // the reset button 
 $form -> resetButton('resetear', 'btn_reset', 'btn-danger'); 
 
 // go to ../index.php when the button is pressed 
-$form -> cancelButton("Cancelar", "../index.php", "btn_cancel", "btn-succes");
+$form -> cancelButton("btn_cancel", "../index.php", "Cancelar", "btn-success");
 
 //back button
-$form -> backButton("Atras", "Regresar");
+$form -> backButton("Atras", "Regresar", "btn-info");
 
 $form -> submitButton ("Save", "btn_save", "btn-warning"); 
 
