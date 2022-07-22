@@ -299,7 +299,7 @@ fh_conf('FH_DISPLAY_ERRORS', true);
 fh_conf('FH_EXPOSE', false);
 
 // Disable the submit button after submitting the form ?
-fh_conf('FH_DEFAULT_DISABLE_SUBMIT_BTN', true);
+fh_conf('FH_DEFAULT_DISABLE_SUBMIT_BTN', false);
 
 // use / for valid XHTML, '' for valid HTML
 fh_conf('FH_XHTML_CLOSE', '/');

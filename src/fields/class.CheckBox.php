@@ -23,9 +23,9 @@ class CheckBox extends Field
      *
      * Constructor: Create a new checkbox object
      *
-     * @param object $oForm: The form where this field is located on
-     * @param string $sName: The name of the field
-     * @param mixed: array|string $aOptions - The options for the field
+     * @param object $oForm: The form where this field is located on/ formulario donde este campo esta localizado
+     * @param string $sName: The name of the field/ nombre del campo
+     * @param mixed: array|string $aOptions - The options for the field/ opciones para el campo
      * @return CheckBox
      * @access public
      * @author Teye Heimans
@@ -37,7 +37,7 @@ class CheckBox extends Field
 
 		$this->_aOptions = $aOptions;
 
-		// call the constructor of the Field class
+		// call the constructor of the Field class/ llama al constructor de la clase campo
 		parent::__construct( $oForm, $sName );
 
 		$this->setClass('');
@@ -48,16 +48,16 @@ class CheckBox extends Field
 	/**
      * CheckBox::setValue()
      *
-     * Set the value of the field
+     * Set the value of the field/ establezca el valor del campo
      *
-     * @param string / array $mValue: the value to set
+     * @param string / array $mValue: the value to set/ valor a establecer
      * @return void
      * @access public
      * @author Teye Heimans
      */
 	public function setValue( $aValue )
 	{
-		// make an array from the value
+		// make an array from the value/ hacer una matriz a partir del valor 
 		if( !is_array($aValue) && is_array($this->_aOptions) )
 		{
 			$aValue = explode(',', $aValue);
@@ -254,5 +254,3 @@ class CheckBox extends Field
 		return $sField;
 	}
 }
-
-?>

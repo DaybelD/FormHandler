@@ -3,7 +3,7 @@
 /**
  * class ImageButton
  *
- * Create a image button on the given form
+ * Create a image button on the given form/ Crea una imagen como boton en el formulario
  *
  * @author Teye Heimans
  * @package FormHandler
@@ -18,9 +18,9 @@ class ImageButton extends Button
      *
      * Constructor: Create a new ImageButton object
      *
-     * @param object $form: the form where the image button is located on
-     * @param string $name: the name of the button
-     * @param string $image: the image we have to use as button
+     * @param object $form: the form where the image button is located on/ formulario donde esta localizado el boton
+     * @param string $name: the name of the button/ nombre del boton
+     * @param string $image: the image we have to use as button/ imagen que usaremos como boton
      * @return ImageButton
      * @access public
      * @author Teye Heimans
@@ -29,22 +29,22 @@ class ImageButton extends Button
     {
         parent::__construct($oForm, $sName);
 
-        // set the image we use
+        // set the image we use/ establezca la imagen que usaremos
         $this->_sImage = $sImage;
     }
 
     /**
      * ImageButton::getButton()
      *
-     * Return the HTML of the button
+     * Return the HTML of the button/ Devuelve el HTMl del boton 
      *
-     * @return string: the HTML of the button
+     * @return string: the HTML of the button/  HTML del boton
      * @access public
      * @author Teye Heimans
      */
     public function getButton()
     {
-        // return the button
+        // return the button/ devuelve el boton 
         return sprintf(
           '<input type="image" src="%s" name="%s" id="%2$s"%s '. FH_XHTML_CLOSE .'>',
           $this->_sImage,

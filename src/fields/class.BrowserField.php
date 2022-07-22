@@ -15,18 +15,18 @@ class BrowserField extends Field
     /**
      * TextField::BrowserField()
      *
-     * Constructor: Create a new textfield object
+     * Constructor: Create a new textfield object/ crea un nuevo objeto para el campo de texto
      *
-     * @param object &$oForm: The form where this field is located on
-     * @param string $sName: The name of the field
-     * @param string $sPath: The path to browse
+     * @param object &$oForm: The form where this field is located on/ formulario donde este campo esta localizado
+     * @param string $sName: The name of the field/ nombre del campo
+     * @param string $sPath: The path to browse/ ruta de navegacion
      * @return BrowserField
      * @author Johan Wiegel
      * @access public
      */
     public function __construct( &$oForm, $sName, $sPath )
     {
-        // call the constructor of the Field class
+        // call the constructor of the Field class/ llama al constructuor del la clase campo
         parent::__construct($oForm, $sName);
         $this->_path = $sPath;
 		$this->_form = $oForm;
@@ -36,11 +36,11 @@ class BrowserField extends Field
     }
 
     /**
-     * TextField::setSize()
+     * TextField::setClass()
      *
-     * Set the new size of the field
+     * Set the class of the field/ establezca la clase para el campo
      *
-     * @param integer $iSize: the new size
+     * @param integer $iClass: the new class/ nueva clase
      * @return void
      * @author Teye Heimans
      * @access public
@@ -53,7 +53,7 @@ class BrowserField extends Field
     /**
      * TextField::getField()
      *
-     * Return the HTML of the field
+     * Return the HTML of the field/ devuelve el HTML del campo
      *
      * @return string: the html
      * @access public
@@ -61,10 +61,10 @@ class BrowserField extends Field
      */
     public function getField()
     {
-        // view mode enabled ?
+        // view mode enabled ?/ Modo vista habilitado ? 
         if( $this -> getViewMode() )
         {
-            // get the view value..
+            // get the view value../ obtenga el valor de vista 
             return $this -> _getViewValue();
         }
 		

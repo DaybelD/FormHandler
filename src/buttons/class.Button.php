@@ -4,6 +4,7 @@
  * class Button
  *
  * Create a button on the given form
+ * Crea un boton
  *
  * @author Teye Heimans
  * @package FormHandler
@@ -21,17 +22,16 @@ class Button
     /**
      * Button::Button()
      *
-     * Constructor: create a new Button object
-     *
-     * @param object $form: the form where the button is located on
-     * @param string $name: the name of the button
+     * Constructor: create a new Button object/ crea un nuevo boton
+     * @param object $form: the form where the button is located on/ el formulario donde esta localizado en boton
+     * @param string $name: the name of the button/ nombre del boton
      * @return Button
      * @access public
      * @author Teye Heimans
      */
     public function __construct(&$oForm, $sName)
     {
-        // set the button name and caption
+        // set the button name and caption/ establecer el nombre y titulo del boton
         $this->_oForm    = $oForm;
         $this->_sName    = $sName;
         $this->setClass(''); 
@@ -62,9 +62,9 @@ class Button
     /**
      * Button::setCaption()
      *
-     * Set the caption of the button
+     * Set the caption of the button/ Establezca el titulo del boton
      *
-     * @param string $caption: The caption of the button
+     * @param string $caption: The caption of the button/ Titulo del boton
      * @return void
      * @access public
      * @author Teye Heimans
@@ -78,7 +78,7 @@ class Button
     /**
      * Button::getButton()
      *
-     * Return the HTML of the button
+     * Return the HTML of the button/ Devuelve el HTML del boton 
      *
      * @return string: the button
      * @access public

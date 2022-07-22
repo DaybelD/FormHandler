@@ -3,7 +3,7 @@
 /**
  * class ResetButton
  *
- * Create a resetbutton on the given form
+ * Create a resetbutton on the given form/ Crea un boton de reset
  *
  * @author Teye Heimans
  * @package FormHandler
@@ -14,10 +14,10 @@ class ResetButton extends Button
     /**
      * ResetButton::ResetButton()
      *
-     * constructor: Create a new reset button object
+     * constructor: Create a new reset button object/ crea un nuevo objeto de botón de reinicio
      *
-     * @param object $form: the form where the button is located on
-     * @param string $name: the name of the button
+     * @param object $form: the form where the button is located on/ formulario donde esta el boton localizado
+     * @param string $name: The name of the button/ nombre del boton
      * @return ResetButton
      * @access public
      * @author Teye Heimans
@@ -33,17 +33,12 @@ class ResetButton extends Button
     /**
      * ResetButton::getButton()
      *
-     * Return the HTMl of the button
+     * Return the HTMl of the button/ Devuelve el HTML del boton
      *
-     * @return string: the html of the button
+     * @return string: the html of the button/ html del boton
      * @access public
      * @author Teye Heimans
      */
-
- //   public function setClass( $class )
-   // {
-     //   $this->_iClass ='btn '. $class;
-   // }
 
     public function getButton()
     {

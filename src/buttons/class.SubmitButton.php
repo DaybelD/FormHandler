@@ -3,7 +3,7 @@
 /**
  * class SubmitButton
  *
- * Create a submitbutton on the given form
+ * Create a submitbutton on the given form/ Crea un submitbutton 
  *
  * @author Teye Heimans
  * @package FormHandler
@@ -19,8 +19,8 @@ class SubmitButton extends Button
      *
      * Constructor: The constructor to create a new Submitbutton object.
      *
-     * @param object $oForm: the form where this field is located on
-     * @param string $sName: the name of the button
+     * @param object $oForm: the form where this field is located on/ formulario donde este campo este localizado
+     * @param string $sName: the name of the button/ nombre del boton
      * @return SubmitButton
      * @access public
      * @author Teye Heimans
@@ -31,7 +31,7 @@ class SubmitButton extends Button
 
         $this->disableOnSubmit( FH_DEFAULT_DISABLE_SUBMIT_BTN );
 
-        // set the default submit caption
+        // set the default submit caption/ establezca el titulo submit por defecto
         $this->setCaption( $oForm->_text( 26 ) );
         $this->setClass('');
         
@@ -42,6 +42,8 @@ class SubmitButton extends Button
      *
      * Set if the submitbutton has to be disabled after pressing it
      * (avoid dubble post!)
+     * Establezca si el botón de envío debe deshabilitarse después de presionarlo
+     * (Evita la publicación dubble)
      *
      * @param boolean status
      * @return void
@@ -62,15 +64,15 @@ class SubmitButton extends Button
     /**
      * SubmitButton::getButton()
      *
-     * Returns the button
+     * Returns the button/ Devuelve el boton
      *
-     * @return string: the HTML of the button
+     * @return string: the HTML of the button/ HTML del boton
      * @access public
      * @author Teye Heimans
      */
     public function getButton()
     {
-        // set the javascript disable dubble submit option if wanted
+        // set the javascript disable dubble submit option if wanted/configure la opción de envío de javascript para deshabilitar dubble si lo desea
         if( $this->_bDisableOnSubmit )
         {
             // check if the user set a onclick event
@@ -86,7 +88,7 @@ class SubmitButton extends Button
             }
         }
 
-        // return the button
+        // return the button/ devuelve el boton
         return sprintf(
           '<input type="submit" value="%s" name="%s" id="%2$s" class="%s" %s '. FH_XHTML_CLOSE .'>',
           $this->_sCaption,

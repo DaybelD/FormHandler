@@ -94,7 +94,7 @@ class FormHandler {
 	protected $_name; // string: Form name/ Nombre del formulario
 	protected $_action; // string: Form action/ La accion del formulario
 	protected $_displayErrors; // boolean: if we have to show the errors in the form/ si tenemos que mostrar los errores en el formulario
-	protected $_mask; // string: La mascara que se debe usar/ The mask to use
+	protected $_mask; // string: The mask to use/ La mascara que se debe usar
 	protected $_upload; // array: Contains the names of the load fields/ Contiene los nombres de los campos de carga
 	protected $_date; // array: Contains date field names/ Contiene los nombres de los campos de fecha
 	protected $_onCorrect; // string: the callback function when the form is correct/ la función de devolución de llamada cuando el formulario es correcto
@@ -108,25 +108,25 @@ class FormHandler {
 	protected $_extra; // string: Additional tags for the <form> tag (such as CSS or javascript)/ Etiquetas adicionales para la etiqueta <form> (como CSS or javascript)
 	protected $_pageCounter; // int: How many pages are in the form/ Cuantas paginas contiene el formulario
 	protected $_curPage; // int: current page/ pagina actual
-	protected $_mail; // array: contiene los datos de envio
-	protected $_tabindexes; // array: Indice de pestañas de los campos
-	protected $_js; // array: contiene todo el javascript necesario para el formulario
-	protected $_help; // array: contiene texto de ayuda para los campos
-	protected $_helpIcon; // string: Ruta a la imagen de ayuda
-	protected $_cache; // array: Guarde los valores de este array despues de llamar al flush (entonces los objetos son borrados!)
-	protected $_viewMode; // boolean: el modo vista esta habilitado o no
-	protected $_tableSettings; // array: Matriz con toda la configuracion de las tablas
-	protected $_ajaxValidator; // boolean: si la validacion de Ajax debe ser usada o no
-	protected $_ajaxValidatorScript; // boolean: si la validacion de Ajax debe incluir la libreria o no.
+	protected $_mail; // array: contains mailing data/ contiene los datos de envio
+	protected $_tabindexes; // array: Index of field tabs/ Indice de pestañas de los campos
+	protected $_js; // array: contains all the javascript needed for the form/ contiene todo el javascript necesario para el formulario
+	protected $_help; // array: contains help text for the fields/ contiene texto de ayuda para los campos
+	protected $_helpIcon; // string: Route to help image/ Ruta a la imagen de ayuda
+	protected $_cache; // array: Save the values of this array after calling the flush (then the objects are deleted!)/ Guarde los valores de este array despues de llamar al flush (entonces los objetos son borrados!)
+	protected $_viewMode; // boolean: view mode is enabled or not/el modo vista esta habilitado o no
+	protected $_tableSettings; // array: Matrix with all table configurations/ Matriz con toda la configuracion de las tablas
+	protected $_ajaxValidator; // boolean: if Ajax validation should be used or not/ si la validacion de Ajax debe ser usada o no
+	protected $_ajaxValidatorScript; // boolean: if the Ajax validation should include the library or not./ si la validacion de Ajax debe incluir la libreria o no.
 
 	/**
 	 * FormHandler::FormHandler()
 	 *
-	 * constructor: inicializacion de algunas vars
+	 * constructor: initialization of some vars/ inicializacion de algunas vars
 	 *
-	 * @param string $name: Nombre del fomulario (usado en la etiqueta <form>
-	 * @param string $action: the action for the form (used in <form action="xxx">)
-	 * @param string $extra: extra css or js which is included in the <form> tag
+	 * @param string $name: Form name (used in the <form> tag)/ Nombre del fomulario (usado en la etiqueta <form>)
+	 * @param string $action: the action for the form (used in <form action="xxx">)/ la acción para el formulario (utilizada en <form action="xxx">)
+	 * @param string $extra: extra css or js which is included in the <form> tag/ css o js extra que se incluye en la etiqueta <form>.
 	 * @author Teye Heimans
 	 * @return FormHandler
 	 */
@@ -153,12 +153,12 @@ class FormHandler {
 		$this->_focus = null;
 		$this->_pageCounter = 1;
 
-		// make vars global if needed
+		// make vars global if needed/ hacer vars globales si es necesario
 		if (!_global) {
 			global $_SERVER, $_POST, $_GET;
 		}
 
-		// try to disable caching from the browser if possible
+		// try to disable caching from the browser if possible/ intente desactivar la caché del navegador si es posible
 		if (!headers_sent()) {
 			header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 			header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
@@ -168,7 +168,7 @@ class FormHandler {
 			header("Cache-control: private");
 		}
 
-		// set all config values
+		// set all config values/ establecer todos los valores de configuración
 		fh_conf();
 
 		// get config setting for _setTable, since 08-10-2009 JW
