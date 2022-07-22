@@ -2,7 +2,7 @@
 /**
  * class CheckBox
  *
- * Create a checkbox on the given form object
+ * Create a checkbox on the given form object/ crea una caja de seleccion
  *
  * @author Teye Heimans
  * @package FormHandler
@@ -11,17 +11,17 @@
 
 class CheckBox extends Field
 {
-	private $_aOptions;              // array: contains all the options!
+	private $_aOptions;              // array: contains all the options!/ contiene todas las opciones
 	// $this->_mValue contains the values which are selected!
-	private $_iClass;				 // clase checkbox
-	private $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values
-	private $_sMask;                 // string: what kind of "glue" should be used to merge the checkboxes
-	private $_oLoader;               // object: The maskLoader
+	private $_iClass;				 // checkbox class/ clase del checkbox
+	private $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values/ si las claves de la matriz seran usadas como valores
+	private $_sMask;                 // string: what kind of "glue" should be used to merge the checkboxes/ qué tipo de "pegamento" se debe usar para fusionar los checkboxes
+	private $_oLoader;               // object: The maskLoader/ cargador de mascara
 
 	/**
      * CheckBox::CheckBox()
      *
-     * Constructor: Create a new checkbox object
+     * Constructor: Create a new checkbox object/ crea un nuevo objeto para checkbox
      *
      * @param object $oForm: The form where this field is located on/ formulario donde este campo esta localizado
      * @param string $sName: The name of the field/ nombre del campo
@@ -65,8 +65,7 @@ class CheckBox extends Field
 			{
 				$sValue = trim($sValue);
 
-				// dont save an empty value when it does not exists in the
-				// options array!
+				// dont save an empty value when it does not exists in the options array!/ no guardar valores vacios cuando no existe en la matriz de opciones 
 				if( !empty($sValue)  ||
 				((is_array($this->_aOptions) &&
 				( in_array( $sValue, $this->_aOptions ) ||
@@ -96,7 +95,7 @@ class CheckBox extends Field
 	/**
      * CheckBox::useArrayKeyAsValue()
      *
-     * Set if the array keys of the options has to be used as values for the field
+     * Set if the array keys of the options has to be used as values for the field/ Establecer si las claves de matriz de las opciones deben usarse como valores para el campo
      *
      * @param boolean $bMode
      * @return void
@@ -113,7 +112,9 @@ class CheckBox extends Field
      *
      * Set the glue used to glue multiple checkboxes. This can be a mask
      * where %field% is replaced with a checkbox!
-     *
+     *Establezca el pegamento utilizado para pegar varios checkboxes. esto puede ser una mascara
+     *¡donde %field% se reemplaza con un checkbox!
+     * 
      * @param string $sMask
      * @return void
      * @author Teye Heimans
@@ -122,6 +123,7 @@ class CheckBox extends Field
 	public function setMask( $sMask )
 	{
 		// when there is no %field% used, put it in front of the mask/glue
+		// cuando no se use %field%, colóquelo delante de la máscara/pegamento
 		if( strpos( $sMask, '%field%' ) === false )
 		{
 			$sMask = '%field%' . $sMask;
@@ -133,7 +135,7 @@ class CheckBox extends Field
 	/**
      * CheckBox::getField()
      *
-     * Return the HTML of the field
+     * Return the HTML of the field/ Devuelve el HTML del campo
      *
      * @return string: the html of the field
      * @access Public
@@ -141,19 +143,19 @@ class CheckBox extends Field
      */
 	public function getField()
 	{
-		// view mode enabled ?
+		// view mode enabled ? / el modo vista esta habilitado? 
 		if( $this -> getViewMode() )
 		{
-			// get the view value..
+			// get the view value.. obtener el valor de la vista
 			return $this -> _getViewValue();
 		}
 
-		// multiple checkboxes ?
+		// multiple checkboxes ? multiples checkboxes
 		if( is_array( $this->_aOptions ) && count( $this->_aOptions )>0 )
 		{
 			$sResult = '';
 
-			// get the checkboxes
+			// get the checkboxes/ obtenga los checkboxes
 			foreach( $this->_aOptions as $iKey => $sValue )
 			{
 				// use the array key as value?
@@ -162,11 +164,11 @@ class CheckBox extends Field
 					$iKey = $sValue;
 				}
 
-				// get the checbox
+				// get the checbox/ obtenga el checkbox
 				$sResult .= $this->_getCheckBox( $iKey, $sValue, true );
 			}
 
-			// get a possible half filled mask
+			// get a possible half filled mask/ obtener una posible máscara medio llena
 			$sResult .= $this -> _oLoader -> fill();
 
 		}
@@ -175,7 +177,7 @@ class CheckBox extends Field
 			$sResult = '';
 		}
 
-		// just 1 checkbox...
+		// just 1 checkbox.../ solo 1 checkbox
 		else
 		{
 			$sResult = $this->_getCheckBox( $this->_aOptions, '' );
@@ -188,12 +190,12 @@ class CheckBox extends Field
 	/**
      * CheckBox::_getCheckBox()
      *
-     * Return an option of the checkbox with the given value
+     * Return an option of the checkbox with the given value/ Devuelve una opcion del checkbox con el valor dado
      *
-     * @param string $sValue: the value for the checkbox
-     * @param string $sTitle: the title for the checkbox
-     * @param bool $bUseMask: do we have to use the mask after the field?
-     * @return string: the HTML for the checkbox
+     * @param string $sValue: the value for the checkbox/ valor del checkbox
+     * @param string $sTitle: the title for the checkbox/ titulo para el checkbox
+     * @param bool $bUseMask: do we have to use the mask after the field?/ Tenemos que usar la máscara después del campo?
+     * @return string: the HTML for the checkbox/ HTML para los checkboxes
      * @access private
      * @author Teye Heimans
      */
@@ -201,7 +203,7 @@ class CheckBox extends Field
 	{
 		static $iCounter = 1;
 
-		// create a MaskLoader object when it does not exists yet
+		// create a MaskLoader object when it does not exists yet/ crea un objeto MaskLoader cuando aún no existe
 		if( !isset( $this->_oLoader ) || is_null( $this->_oLoader ) )
 		{
 			$this -> _oLoader = new MaskLoader();
@@ -209,11 +211,11 @@ class CheckBox extends Field
 			$this -> _oLoader -> setSearch( '/%field%/' );
 		}
 
-		// remove unwanted spaces
+		// remove unwanted spaces/ remueve espacios no deseados
 		$sValue = trim( $sValue );
 		$sTitle = trim( $sTitle );
 
-		// get the field HTML
+		// get the field HTML/ obtenga el campo HTML
 		if( $sTitle == '' ) 
 		{
 			$sField = sprintf(
@@ -245,7 +247,7 @@ class CheckBox extends Field
 			$sTitle
 			);
 		}
-		// do we have to use the mask ?
+		// do we have to use the mask ?/ Tenemos que usar la mascara?
 		if( $bUseMask )
 		{
 			$sField = $this -> _oLoader -> fill( $sField );

@@ -3,7 +3,7 @@
 /**
  * class SubmitButton
  *
- * Create a submitbutton on the given form/ Crea un submitbutton 
+ * Create a submitbutton on the given form/ Crea un boton de envio
  *
  * @author Teye Heimans
  * @package FormHandler
@@ -17,7 +17,7 @@ class SubmitButton extends Button
     /**
      * SubmitButton::SubmitButton()
      *
-     * Constructor: The constructor to create a new Submitbutton object.
+     * Constructor: The constructor to create a new Submitbutton object/ el constructor crea un nuevo objeto para el boton de envio
      *
      * @param object $oForm: the form where this field is located on/ formulario donde este campo este localizado
      * @param string $sName: the name of the button/ nombre del boton
@@ -99,5 +99,3 @@ class SubmitButton extends Button
         );
     }
 }
-
-?>

@@ -3,8 +3,7 @@
 /**
  * class Button
  *
- * Create a button on the given form
- * Crea un boton
+ * Create a button on the given form/ Crea un boton
  *
  * @author Teye Heimans
  * @package FormHandler
@@ -41,6 +40,7 @@ class Button
      * Field::setTabIndex()
      *
      * set the tabindex of the field
+     * establezca el enfoque del campo
      *
      * @param int $iIndex
      * @return void
@@ -99,9 +99,9 @@ class Button
     /**
      * Button::setExtra()
      *
-     * Set extra tag information, like CSS or Javascript
+     * Set extra tag information, like CSS or Javascript/ Establezca informacion extra en la etiqueta, como CSS o HTML
      *
-     * @param string $extra: the CSS, JS or other extra tag info
+     * @param string $extra: the CSS, JS or other extra tag info/ CSS, Js o cualquier extra en la informacion de la etiqueta
      * @return void
      * @access public
      * @author Teye Heimans

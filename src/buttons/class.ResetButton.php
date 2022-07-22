@@ -3,7 +3,7 @@
 /**
  * class ResetButton
  *
- * Create a resetbutton on the given form/ Crea un boton de reset
+ * Create a resetbutton on the given form/ Crea un boton de reinicio
  *
  * @author Teye Heimans
  * @package FormHandler
@@ -56,5 +56,3 @@ class ResetButton extends Button
         $this->_iClass ='btn '.$class;
     }
 }
-
-?>

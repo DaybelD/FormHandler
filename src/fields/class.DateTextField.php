@@ -2,7 +2,7 @@
 /**
  * class DateTextField
  *
- * Create a DateTextfield
+ * Create a DateTextfield/ Crear un campo de fecha con texto
  *
  * @author Thomas Branius
  * @since 16-03-2010
@@ -13,20 +13,20 @@
  */
 class DateTextField extends TextField
 {
-	var $_sDateMask;				// string: how to display the fields with mask
-	var $_sValParseRegExpr;			// string: how to parse the value
-	var $_iDayPos;					// int: position of day in regular expression
-	var $_iMonthPos;				// int: position of month in regular expression
-	var $_iYearPos;					// int: position of year in regular expression
-	var $_bParseOtherPresentations;	// bool: try to parse other presentations of dateformat
+	var $_sDateMask;				// string: how to display the fields with mask/ como mostrar los campos con mascara
+	var $_sValParseRegExpr;			// string: how to parse the value/ como analizar el valor
+	var $_iDayPos;					// int: position of day in regular expression/ posicion del dia en una expresion regular
+	var $_iMonthPos;				// int: position of month in regular expression/ posicion del mes en una expresion regular
+	var $_iYearPos;					// int: position of year in regular expression/ posicion del año en una expresion regular
+	var $_bParseOtherPresentations;	// bool: try to parse other presentations of dateformat/ tratar de analizar otras presentaciones de fomatos de fechas
 
 	/**
-     * Constructor: create a new dateTextField object
+     * Constructor: create a new dateTextField object/ crea un nuevo objeto de dateTextField
      *
-     * @param object &$oForm: the form where the datefield is located on
-     * @param string $sName: the name of the datefield
-     * @param string $sMask: the mask which is used to display the fields
-     * @param bool $bParseOtherPresentations: try to parse other presentations of dateformat
+     * @param object &$oForm: the form where the datefield is located on/ formualrio donde el campo fecha esta localizado
+     * @param string $sName: the name of the datefield/ nombre del campo
+     * @param string $sMask: the mask which is used to display the fields/ la mascara que se usara para visualizar los campos
+     * @param bool $bParseOtherPresentations: try to parse other presentations of dateformat/ trata de analizar otras presentaciones de formatos de fecha
      * @return dateTextField
      * @access public
      * @author Thomas Branius
@@ -34,21 +34,21 @@ class DateTextField extends TextField
      */
 	public function __construct( &$oForm, $sName, $sMask = null, $bParseOtherPresentations = false)
 	{
-		// set the default date display
+		// set the default date display/ establezca la visualizacion de la fecha por defecto
 		$this->setMask( !is_null( $sMask ) ? $sMask : FH_DATETEXTFIELD_DEFAULT_DISPLAY );
 
 		$this->_bParseOtherPresentations = $bParseOtherPresentations;
 
 		$this->setValidator(array(&$this, "validate"));
 
-		// call the constructor of the Field class
+		// call the constructor of the Field class/ llama al constructor de la clase campo
 		parent::__construct($oForm, $sName);
 	}
 
 	/**
-     * Set the display of the fields
+     * Set the display of the fields/ Configurar la visualización de los campos
      *
-     * @param string $sMast: how we have to display the datefield (day-month-year combination)
+     * @param string $sMast: how we have to display the datefield (day-month-year combination)/ cómo tenemos que mostrar el campo de fecha (combinación de día-mes-año)
      * @return void
      * @access public
      * @author Thomas Branius]
@@ -56,7 +56,7 @@ class DateTextField extends TextField
      */
 	function setMask( $sMask )
 	{
-		// validate the mask
+		// validate the mask/ validar la mascara 
 		$regex = '/^([dDmMyY])([\.\-\/])([dDmMyY])\2([dDmMyY])$/';
 
 		if (preg_match($regex, $sMask, $data) == 0
@@ -65,7 +65,7 @@ class DateTextField extends TextField
 		|| strtolower($data[3]) == strtolower($data[4]))
 		trigger_error("Invalid mask ['{$sMask}']. Useable chars: d, D, m, M, y, Y, ., -, /", E_USER_ERROR);
 
-		// set postion of day, month and year
+		// set postion of day, month and year/ establezca la posicion de dia, mes y año
 		for ($i = 1; $i < 5; $i++)
 		{
 			if (strtolower($data[$i]) == "d")
@@ -108,12 +108,13 @@ class DateTextField extends TextField
 		}
 
 
-		// mask for date-function
+		// mask for date-function/ mascara de la funcion-fecha
 		$this->_sDateMask = str_replace(array("D", "M"), array("j", "n"), $sMask);
 	}
 
 	/**
      * Get the date value as an array: array(y,m,d)
+     *  Obtenga el valor de la fecha como una matriz: matriz (y, m, d)
      *
      * @return array
      * @access public
@@ -137,9 +138,9 @@ class DateTextField extends TextField
 	}
 
 	/**
-     * Return the value of the field
+     * Return the value of the field/ Devuelve el valor del campo
      *
-     * @return mixed: the value of the field
+     * @return mixed: the value of the field/ valor del campo
      * @access public
      * @author Thomas Branius
      * @since 16-03-2010
@@ -158,9 +159,9 @@ class DateTextField extends TextField
 	}
 
 	/**
-     * Set the value of the field
+     * Set the value of the field/ establezca el valor del campo
      *
-     * @param mixed $mValue: The new value for the field
+     * @param mixed $mValue: The new value for the field/ el nuevo valor del campo
      * @return void
      * @access public
      * @author Thomas Branius
@@ -171,7 +172,7 @@ class DateTextField extends TextField
 		if ($this->_oForm->isPosted())
 		return parent::setValue($mValue);
 
-		// parse value from db
+		// parse value from db/ analiza el valor de db
 		$regex = '/([0-9]{4})-([0-9]{2})-([0-9]{2})/';
 
 		if (preg_match("/0000-00-00/", $mValue))
@@ -190,9 +191,9 @@ class DateTextField extends TextField
 	}
 
 	/**
-     * try to parse other presentations of dateformat
+     * try to parse other presentations of dateformat/ trata de analizar otras presentaciones de formatos de fecha
      *
-     * @return mixed: the value of the field
+     * @return mixed: the value of the field/ valor del campo
      * @access public
      * @author Thomas Branius
      * @since 16-03-2010
@@ -250,14 +251,15 @@ class DateTextField extends TextField
 
 	/**
      * Check if the date is valid (eg not 31-02-2003)
+     * compruebe si la fecha es valida (ejemplo 31-02-2003 no valido)
      *
-     * @return boolean: true if the field is correct, false if not
+     * @return boolean: true if the field is correct, false if not/ true si el campo es correcto, sino false
      * @access public
      * @author Thomas Branius
      */
 	public function isValid()
 	{
-		// the result has been requested before..
+		// the result has been requested before../ el resultado fue requerido antes
 		if( isset( $this->_isValid ) )
 		{
 			return $this->_isValid;
@@ -286,7 +288,7 @@ class DateTextField extends TextField
 
 		if( isset( $this->_isValid ) && $this->_isValid == false )
 		{
-			// set the error message
+			// set the error message/ establezca el mensaje de error
 			$this->_sError = $this->_oForm->_text( 14 );
 		}
 
@@ -295,7 +297,7 @@ class DateTextField extends TextField
 	/**
      * TextField::getField()
      *
-     * Return the HTML of the field
+     * Return the HTML of the field/ Devuelve el HTML del campo
      *
      * @return string: the html
      * @access public
@@ -303,10 +305,10 @@ class DateTextField extends TextField
      */
 	public function getField()
 	{
-		// view mode enabled ?
+		// view mode enabled ?/ modo vista esta habilitado?
 		if( $this -> getViewMode() )
 		{
-			// get the view value..
+			// get the view value../ obtenga el valor de la vista
 			return $this -> _getViewValue();
 		}
 

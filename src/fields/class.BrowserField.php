@@ -2,7 +2,7 @@
 /**
  * class BrowserField
  *
- * Create a browserfield
+ * Create a browserfield/ Crea un campo de navegacion
  *
  * @author Johan Wiegel
  * @package FormHandler

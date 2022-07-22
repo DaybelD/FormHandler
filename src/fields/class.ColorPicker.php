@@ -18,7 +18,7 @@ class ColorPicker extends TextField
 	/**
      * ColorPicker::ColorPicker()
      *
-     * Constructor: Create a new ColorPicker object
+     * Constructor: Create a new ColorPicker object/ crea un nuevo objeto ColorPicker
      *
      * @param object &$oForm: The form where this field is located on/ formulario donde esta localizado
      * @param string $sName: The name of the field/ nombre del campo
@@ -60,7 +60,7 @@ class ColorPicker extends TextField
 		// view mode enabled ?/ modo vista habilitado?
 		if( $this -> getViewMode() )
 		{
-			// get the view value.. obtenga ek valor de vista
+			// get the view value.. obtenga el valor de vista
 			return $this -> _getViewValue();
 		}
 

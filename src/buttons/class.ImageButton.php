@@ -16,7 +16,7 @@ class ImageButton extends Button
     /**
      * ImageButton::ImageButton()
      *
-     * Constructor: Create a new ImageButton object
+     * Constructor: Create a new ImageButton object/ Crea un nuevo objeto de imagen como boton
      *
      * @param object $form: the form where the image button is located on/ formulario donde esta localizado el boton
      * @param string $name: the name of the button/ nombre del boton
@@ -54,5 +54,3 @@ class ImageButton extends Button
         );
     }
 }
-
-?>
