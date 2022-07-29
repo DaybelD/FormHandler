@@ -17,7 +17,7 @@ class dbSelectField extends SelectField
      *
      * Public constructor: create a new db selectfield object/ crear un nuevo objeto dbSelectField
      *
-     * @param object &$oForm: the form where the datefield is located on/ formulario donde esta localizado el campo de fecha
+     * @param object &$oForm: the form where the datefield is located on/ formulario donde se encuentra el campo
      * @param string $sName: the name of the datefield/ nombre del campo de fecha 
      * @param object $oDb: object of the database handler/ objeto del manejador de base de datos
      * @param string $sTable: the table to get the fields from/ tabla para obtener los campos de

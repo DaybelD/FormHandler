@@ -3,7 +3,8 @@
  * class HiddenField
  *
  * Create a hiddenfield on the given form
- *
+ * Crea un campo oculto en el formulario
+ * 
  * @author Teye Heimans
  * @package FormHandler
  * @subpackage Fields
@@ -15,8 +16,9 @@ class HiddenField extends Field {
      * HiddenField::getField()
      *
      * Return the HTML of the field
+     * Devuelve el HTML del campo
      *
-     * @return string: The html of the field
+     * @return string: The html of the field/ Html del campo
      * @access public
      * @author Teye Heimans
      */
@@ -31,5 +33,3 @@ class HiddenField extends Field {
         );
     }
 }
-
-?>

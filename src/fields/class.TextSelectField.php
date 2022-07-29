@@ -3,6 +3,7 @@
  * class TextSelectField
  *
  * Create a textselectfield
+ * Crea un campo de texto de seleccion
  *
  * @author Johan Wiegel
  * @since 22-10-2008
@@ -11,16 +12,17 @@
  */
 class TextSelectField extends TextField
 {
-	protected $_iClass;         // string: clases
+	protected $_iClass;         // string: class/ clase 
 	private $_sOptions;
 	
 	/**
      * TextSelectField::TextSelectField()
      *
      * Constructor: Create a new textfield object
+     * Constructor: Crea un nuevo objeto de campo de texto de seleccion 
      *
-     * @param object &$oForm: The form where this field is located on
-     * @param string $sName: The name of the field
+     * @param object &$oForm: The form where this field is located on/ formulario donde se encuentra el campo
+     * @param string $sName: The name of the field/ nombre del campo
      * @return TextField
      * @author Teye Heimans
      * @access public

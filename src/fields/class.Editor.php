@@ -272,7 +272,7 @@ class Editor extends TextArea
 		// view mode enabled ?/ modo vista esta habilitado?
 		if( $this -> getViewMode() )
 		{
-			// get the view value.. obtener el valor de la vista
+			// get the view value../obtener el valor de la vista
 			return $this -> _getViewValue();
 		}
 

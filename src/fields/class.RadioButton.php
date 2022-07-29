@@ -4,6 +4,7 @@
  * class RadioButton
  *
  * Create a RadioButton
+ * Crea un radiobutton
  *
  * @author Teye Heimans
  * @package FormHandler
@@ -11,26 +12,27 @@
  */
 class RadioButton extends Field
 {
-    public $_aOptions;              // string: the value with is selected
-    private $_iClass;                // clase check (radio)
-    private $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values
-    private $_sMask;                 // string: what kind of "glue" should be used to merge the fields
-    private $_oLoader;               // object: a maskloader object
+    public $_aOptions;              // string: the value with is selected/ valor que se selecciona
+    private $_iClass;                // clase check (radio) comprueba la clase (radio)
+    private $_bUseArrayKeyAsValue;   // boolean: if the keys of the array should be used as values/ si las claves de la matriz deben usarse como valores
+    private $_sMask;                 // string: what kind of "glue" should be used to merge the fields/ que tipo de "glue" debe usarse oara fusionar los campos
+    private $_oLoader;               // object: a maskloader object/ cargador de mascaras
 
     /**
      * RadioButton::RadioButton()
      *
-     * Constructor: Create a new radiobutton object
+     * Constructor: Create a new radiobutton object/ crea un nuevo objeto radiobutton
      *
-     * @param object $oForm: The form where this field is located on
-     * @param string $sName: The name of the field
-     * @param array|string $aOptions: The options for the field
+     * @param object $oForm: The form where this field is located on/ formulario donde se encuentra el campo
+     * @param string $sName: The name of the field/ nombre del campo
+     * @param array|string $aOptions: The options for the field/ opciones para el campo
      * @return RadioButton
      * @author Teye Heimans
      */
     public function __construct( &$oForm, $sName, $aOptions )
     {
         // call the constructor of the Field class
+        // llama al constructor de la clase campo
         parent::__construct( $oForm, $sName );
 
         $this->_aOptions = $aOptions;
@@ -51,8 +53,9 @@ class RadioButton extends Field
      * RadioButton::useArrayKeyAsValue()
      *
      * Set if the array keys of the options has to be used as values for the field
+     * Establece si las claves de matriz de las opciones deben usarse como valores para el campo
      *
-     * @param boolean $bMode:  The mode
+     * @param boolean $bMode:  The mode/ modo
      * @return void
      * @access public
      * @author Teye Heimans
@@ -66,6 +69,7 @@ class RadioButton extends Field
      * RadioButton::setMask()
      *
      * Set the "glue" used to glue multiple radiobuttons
+     * establezca la "glue" para pegar varios radiobuttons
      *
      * @param string $sMask
      * @return void
@@ -75,6 +79,7 @@ class RadioButton extends Field
     public function setMask( $sMask )
     {
         // when there is no %field% used, put it in front of the mask/glue
+        // cuando no se use %field%, colóquelo delante de la máscara/glue
         if( strpos( $sMask, '%field%' ) === false )
         {
             $sMask = '%field%' . $sMask;
@@ -86,7 +91,7 @@ class RadioButton extends Field
     /**
      * RadioButton::getField()
      *
-     * Return the HTML of the field
+     * Return the HTML of the field/ devuelve el HTML del campo
      *
      * @return string: the html of the field
      * @access Public
@@ -94,10 +99,10 @@ class RadioButton extends Field
      */
     public function getField()
     {
-        // view mode enabled ?
+        // view mode enabled ?/ modo vista habilitado?
         if( $this -> getViewMode() )
         {
-            // get the view value..
+            // get the view value../ obtenga el valor de la vista..
             return $this -> _getViewValue();
         }
 
@@ -126,7 +131,8 @@ class RadioButton extends Field
         }
 
         // when we still got nothing, the mask is not filled yet.
-        // get the mask anyway
+        // cuando todavía no tenemos nada, la mascara aún no está llena.
+        // get the mask anyway/ obtenga la mascara de todas formas
         if( empty( $sResult ) )
         {
             $sResult = $this -> _oLoader -> fill();
@@ -139,11 +145,12 @@ class RadioButton extends Field
      * RadioButton::_getRadioButton()
      *
      * Return the radiobutton with the given title and value
+     * Devuelve el radiobutton con el titulo y valor dados
      *
-     * @param string $sValue: the value for the checkbox
-     * @param string $sTitle: the title for the checkbox
-     * @param bool $bUseMask: Do we need to use the mask ?
-     * @return string: the HTML for the checkbox
+     * @param string $sValue: the value for the checkbox/ valor del checkbox
+     * @param string $sTitle: the title for the checkbox/ titulo del checkbox
+     * @param bool $bUseMask: Do we need to use the mask ?/ necesitamos usar la mascara?
+     * @return string: the HTML for the checkbox/ HTML para el checkbox
      * @access Private
      * @author Teye Heimans
      */
@@ -174,6 +181,7 @@ class RadioButton extends Field
         );
 
         // do we have to use the mask ?
+        // tenemos que usar la mascara?
         if( $bUseMask )
         {
             $sField = $this -> _oLoader -> fill( $sField );
@@ -182,4 +190,3 @@ class RadioButton extends Field
         return $sField;
     }
 }
-?>

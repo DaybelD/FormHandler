@@ -4,7 +4,8 @@
  * class UploadField
  *
  * File uploads handler class
- *
+ * Clase de controlador de carga de archivos
+ * 
  * @author Teye Heimans
  * @package FormHandler
  * @subpackage Fields
@@ -12,18 +13,18 @@
  */
 class UploadField extends Field
 {
-	private $_aConfig;           // array: which contains the default upload config
-	private $_bAlertOverwrite;   // boolean: display a message when the file already exists
-	private $_sFilename;         // string: filename of the file
+	private $_aConfig;           // array: which contains the default upload config/ que contiene la configuracion de carga predeterminada
+	private $_bAlertOverwrite;   // boolean: display a message when the file already exists/ muestra un mensaje cuando el archivo ya existe
+	private $_sFilename;         // string: filename of the file/ nombre del archivo
 
 	/**
      * UploadField::UploadField()
      *
-     * Constructor: Create a new UploadField object
+     * Constructor: Create a new UploadField object/ crea un nuevo objeto de campo de carga
      *
-     * @param object &$oForm: The form where this field is located on
-     * @param string $sName: The name of the field
-     * @param array $aConfig: The config array
+     * @param object &$oForm: The form where this field is located on/ formulario donde se encuentra el campo
+     * @param string $sName: The name of the field/ nombre del campo
+     * @param array $aConfig: The config array/ La matriz de configuracion
      * @return UploadField
      * @access public
      * @author Teye Heimans
@@ -33,10 +34,10 @@ class UploadField extends Field
 		require_once(FH_INCLUDE_DIR.'includes/mimeTypes.php');
 		static $bSetJS = false;
 
-		// needed javascript included yet ?
+		// needed javascript included yet ?/ el javascript necesario ya esta incluido?
 		if(!$bSetJS)
 		{
-			// include the needed javascript
+			// include the needed javascript/ incluye el javascript necesario
 			$bSetJS = true;
 			$oForm->_setJS(FH_FHTML_DIR."js/extension_check.js", true);
 		}
@@ -45,16 +46,18 @@ class UploadField extends Field
 		$this->_bAlertOverwrite = true;
 
 		// check if there are spaces in the fieldname
+		// comprueba si hay espacios en el nombre del archivo
 		if(strpos($sName,' ') !== false)
 		{
 			trigger_error('Warning: There are spaces in the field name "'.$sName.'"!', E_USER_WARNING );
 		}
 
-		// set the config file
+		// set the config file/ establece el archivo de configuracion
 		$aDefault = unserialize( FH_DEFAULT_UPLOAD_CONFIG );
 		$this->_aConfig = array_merge( $aDefault, $aConfig );
 
 		// add slash to the end of the pathname if it does not have already
+		// agregue una barra al final del nombre de la ruta si aún no lo ha hecho
 		$l = substr($this->_aConfig['path'], -1);
 		if($l != '\\' && $l != '/')
 		{
@@ -62,12 +65,14 @@ class UploadField extends Field
 		}
 
 		// if no size is given, get the max uploadsize
+		// si no se proporciona el tamaño, obtenga el tamaño máximo de carga
 		if( empty($this->_aConfig['size']) )
 		{
 			$this->_aConfig['size'] = $this->_getMaxUploadSize();
 		}
 
 		// make the mime types given by the user useable
+		// hacer utilizables los tipos mime proporcionados por el usuario
 		if( is_string( $this->_aConfig['mime'] ) )
 		{
 			$mime = explode(' ', $this->_aConfig['mime'] );
@@ -77,6 +82,7 @@ class UploadField extends Field
 			unset( $mime );
 		}
 		// mime types are given as an array
+		// los tipo mime se dan como una matriz
 		else
 		{
 			foreach ( $this->_aConfig['mime'] as $key => $value )
@@ -99,44 +105,50 @@ class UploadField extends Field
 		$this->_oForm = $oForm;
 		$this->_sName = $sName;
 
-		// get the value of the field
+		// get the value of the field/ obtenga el valor del campo
 		if( $oForm->isPosted() )
 		{
 			// make sure that the $_FILES and $_POST array are global
+			// asegurese de que la matriz $_FILES y $_POST sean globales
 			if(!_global) global $_FILES, $_POST;
 
 			// get the value if it exists in the $_FILES array
+			// obtenga el valor si este existe en la matriz $_FILES
 			if( isset( $_FILES[$sName] ) )
 			{
 				// detect error type if php version is older then 4.2.0 (make the errors the same)
+				// detecta el tipo de error si la versión de php es anterior a la 4.2.0 (haz que los errores sean iguales)
 				if($_FILES[$sName]['tmp_name'] == 'none' && empty($_FILES[$sName]['name']))
 				{
-					// nothing uploaded
+					// nothing uploaded/ nada ha sido cargado
 					$_FILES[$sName]['error'] = 4;
 				}
 				elseif($_FILES[$sName]['tmp_name'] == 'none' && !empty($_FILES[$sName]['name']))
 				{
 					// file is bigger then given in MAX_FILE_SIZE.
+					// el archivo es mas grande que el tamaño dado en MAX_FILE_SIZE.
 					$_FILES[$sName]['error'] = 2;
 				}
 				elseif(!isset($_FILES[$sName]['error']))
 				{
-					// no error occured
+					// no error occured/ no ocurrio ningun error
 					$_FILES[$sName]['error'] = 0;
 				}
 
 				// save the uploaded file data
+				// guarda los datos del archivo cargado
 				$this->_mValue = $_FILES[$sName];
 
 				// check if there is a file uploaded...
+				// comprueba si hay un archivo cargado..
 				if( $this->isUploaded() )
 				{
 					$this->setValue( $this->_getFilename( ) );
 				}
 				else
 				{
-					// if this is an edit form and no value is given to the field,
-					// keep the existing value thats in the database
+					// if this is an edit form and no value is given to the field, keep the existing value thats in the database
+					// si este es un formulario de edicion y no se le da un valor al campo, mantenga el valor existente en la base de datos
 					if( isset( $oForm->edit) && $oForm->edit && isset( $oForm->_dbData[$sName] ) )
 					{
 						$this->setValue( $oForm->_dbData[$sName] );
@@ -144,14 +156,16 @@ class UploadField extends Field
 				}
 			}
 			// posted value known? (when using multiple pages)
+			// valor enviado conocido? (cuando se usan multiples paginas)
 			elseif ( isset( $_POST[$sName] ) )
 			{
 				$this->setValue( $_POST[$sName] );
 			}
-			// edit form?
+			// edit form?/ formulario de edicion?
 			elseif( (isset($oForm->edit) && $oForm->edit) )
 			{
 				// value known from the database?
+				// valor conocido de la base de datos?
 				if( isset( $oForm->_dbData[$sName] ) )
 				{
 					$this->setValue( $oForm->_dbData[$sName] );
@@ -159,6 +173,7 @@ class UploadField extends Field
 			}
 		}
 		// load database value if exists
+		// cargue el valor de la base de datos si existe
 		elseif( (isset($oForm->edit) && $oForm->edit) )
 		{
 			if( isset( $oForm->_dbData[$sName] ) )
@@ -168,23 +183,27 @@ class UploadField extends Field
 		}
 
 		// if no file is uploaded and it is a edit form, dont overwrite the current value
+		// si no se carga ningún archivo y es un formulario de edición, no sobrescriba el valor actual
 		if(!$this->isUploaded() && (isset($oForm->edit) && $oForm->edit) && $oForm->isPosted() )
 		{
 			$this->_oForm->_dontSave[] = $sName;
 		}
 
 		// check if the user got another value for this field.
+		// comprueba si el usuario tiene otro valor para este campo.
 		if( isset($oForm ->_buffer[ $sName ] ) )
 		{
 			list( $bOverwrite, $sValue ) = $oForm->_buffer[ $sName ];
 
 			// if the field does not exists in the database
+			// si el campo no existe en la base de datos
 			if($bOverwrite || !isset($oForm->_dbData[$sName]) )
 			{
 				$this->setValue( $sValue );
 			}
 
 			// remove the value from the buffer..
+			// elimine el valor del buffer.. 
 			unset( $oForm->_buffer[ $sName ] );
 		}
 	}
@@ -193,6 +212,7 @@ class UploadField extends Field
      * UploadField::getFileInfo()
      *
      * Return the data of an uploaded file or an empty array when no file is uploaded
+     * Devuelve los datos de un archivo cargado o una matriz vacía cuando no se carga ningún archivo
      *
      * @return array
      * @access public
@@ -201,21 +221,24 @@ class UploadField extends Field
 	public function getFileInfo()
 	{
 		// file uploaded! return the data!
+		// archivo cargado! devuelve los datos!
 		if( $this -> isUploaded() )
 		{
 			return $this -> _mValue;
 		}
 
 		// no file uploaded, return empty array
+		// no se ha cargado algun archivo/ devuelve la matriz vacia
 		return array();
 	}
 
 	/**
       * UploadField::setValue()
       *
-      * Set the value of the field (the filename of the uploaded file)
+      * Set the value of the field (the filename of the uploaded file) 
+      * Establece el valor del campo (el nombre del archivo cargado)
       *
-      * @param string $sFilename: The filename of the value
+      * @param string $sFilename: The filename of the value/ nombre de archivo del valor
       * @return void
       * @access public
       * @author Teye Heimans
@@ -228,9 +251,10 @@ class UploadField extends Field
 	/**
      * UploadField::getSavePath()
      *
-     * Return the path were we are going to save the file
+     * Return the path were we are going to save the file  
+     * Devuelve la ruta donde vamos a guardar el archivo.
      *
-     * @return string: the path where the file is saved
+     * @return string: the path where the file is saved/ la ruta donde se guarda el archivo
      * @access public
      * @author Teye Heimans
      */
@@ -242,9 +266,10 @@ class UploadField extends Field
 	/**
      * UploadField::getValue()
      *
-     * Return the current value
+     * Return the current value  
+     * Devuelve el valor actual
      *
-     * @return string: the current file
+     * @return string: the current file/ archivo actual
      * @access public
      * @author Teye Heimans
      */
@@ -256,7 +281,8 @@ class UploadField extends Field
 	/**
      * UploadField::_getViewValue()
      *
-     * Return the value as link to the file
+     * Return the value as link to the file  
+     * Devuelve es valor como un enlace al archivo
      * 
      * @return string
      * @access public
@@ -272,6 +298,7 @@ class UploadField extends Field
      * UploadField::isUploaded()
      *
      * Check if there is a file uploaded or not
+     * Compruebe si hay un archivo cargado o no
      *
      * @return boolean
      * @access public
@@ -292,17 +319,18 @@ class UploadField extends Field
      * UploadField::getField()
      *
      * Return the HTML of the field
+     * Devuelve el HTML del campo
      *
-     * @return string: the html of the field
+     * @return string: the html of the field/ html del campo
      * @access public
      * @author Teye Heimans
      */
 	public function getField()
 	{
-		// view mode enabled ?
+		// view mode enabled ?/ modo vista habilitado?
 		if( $this -> getViewMode() )
 		{
-			// get the view value..
+			// get the view value../ obtenga el modo vista
 			return $this -> _getViewValue();
 		}
 
@@ -672,36 +700,37 @@ class UploadField extends Field
 	/**
      * UploadField::_getFilename()
      *
-     * Get the filename like we are going to save it
+     * Get the filename like we are going to save it  
+     * Obtener el nombre de archivo como lo vamos a guardar
      *
-     * @param boolean $bIgnoreRename: Ignore the rename option ?
-     * @return string: the filename
+     * @param boolean $bIgnoreRename: Ignore the rename option?/ ignorar la opcion de renombrar?
+     * @return string: the filename/ nombre de archivo
      * @access private
      * @author Teye Heimans
      */
 	private function _getFilename( $bIgnoreRename = false )
 	{
-		// easy name to work with
+		// easy name to work with/ un nombre facil que funcione con
 		$sFile = $this->_mValue['name'];
 
-		// get the extension of the uploaded file
+		// get the extension of the uploaded file/ obtenga la extension del archivo cargado
 		$sExt = $this->_getExtension( $sFile );
 		if( !$sExt )
 		{
 			return null;
 		}
 
-		// use the given filename if wanted
+		// use the given filename if wanted/ use el nombre de archivo dado si se quiere
 		if(!empty($this->_aConfig['name']))
 		{
 			$sFile = $this->_aConfig['name'].'.'.$sExt;
 		}
 
-		// replace not wanted caracters
+		// replace not wanted caracters/ reemplace los caracteres no deseados
 		$sFile = preg_replace('/\.'.$sExt.'$/i', '', $sFile);  // remove extension
 		$sFile = preg_replace("{^[\\/\*\?\:\,]+$}", '', $sFile ); // remove dangerous characters
 
-		// rename when wanted
+		// rename when wanted/ renombrar cuando se quiera
 		if(strtolower($this->_aConfig['exists']) == 'rename' && !$bIgnoreRename)
 		{
 			$sPath = $this->_aConfig['path'];
@@ -709,17 +738,18 @@ class UploadField extends Field
 			$sCopy = '';
 			$i = 1;
 			while (
-			// file exists or ...
+			// file exists or .../ el archivo existe o no
 			file_exists($sPath.$sFile.$sCopy.'.'.$sExt) ||
 			// other uploadfield has registered this filename ...
+			// otro campo de carga ha registrado este nombre de archivo...
 			!$this->_oForm->_registerFileName( $sPath.$sFile.$sCopy.'.'.$sExt, $this->_sName))
 			{
-				// then get a new filename
+				// then get a new filename/ entonces obtenga un nuevo nombre de archivo
 				$sCopy = '('.$i++ .')';
 			}
 			return $sFile.$sCopy.'.'.$sExt;
 		}
-		// no renaming wanted..
+		// no renaming wanted../ no se quiere renombrar..
 		else
 		{
 			return $sFile.'.'.$sExt;
@@ -730,8 +760,9 @@ class UploadField extends Field
      * UploadField::_getExtension()
      *
      * Retrieve the extension of the given filename
-     *
-     * @param string $sFilename: The filename where we have to retrieve the extension from
+     * Recuperar la extensión del nombre de archivo dado 
+     * 
+     * @param string $sFilename: The filename where we have to retrieve the extension from/ El nombre del archivo del que tenemos que recuperar la extensión.
      * @return string: the extension
      * @access private
      * @author Teye Heimans
@@ -747,8 +778,9 @@ class UploadField extends Field
      * UploadField::_getMaxUploadSize()
      *
      * Get the max uploadsize
-     *
-     * @return integer: the max upload size
+     * Obtenga el tamaño de carga maximo 
+     * 
+     * @return integer: the max upload size/ tamaño de carga maximo
      * @access private
      * @author Teye Heimans
      */
@@ -768,9 +800,10 @@ class UploadField extends Field
 	/**
      * UploadField::_iniSizeToBytes()
      *
-     * Get the given size in bytes
+     * Get the given size in bytes  
+     * Obtenga el tamaño dado en bytes
      *
-     * @param string $sIniSize: The size we have to make to bytes
+     * @param string $sIniSize: The size we have to make to bytes/ El tamaño que tenemos que pasar a bytes.
      * @return integer: the size in bytes
      * @access private
      * @author Teye Heimans
@@ -804,5 +837,3 @@ class UploadField extends Field
 		}
 	}
 }
-
-?>

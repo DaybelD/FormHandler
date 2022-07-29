@@ -4,6 +4,7 @@
  * class TextField
  *
  * Create a textfield
+ * Crea un campo de texto
  *
  * @author Teye Heimans
  * @package FormHandler
@@ -11,16 +12,16 @@
  */
 class TextField extends Field
 {
-	protected $_iClass;         // string: clases asociadas al campo
-	protected $_iMaxlength;    // int: the maxlength of the field
+	protected $_iClass;      // string: class associated with the field/ clase asociada al campo
+	protected $_iMaxlength;  // int: the maxlength of the field/ longitud maxima del campo
 
 	/**
      * TextField::TextField()
      *
-     * Constructor: Create a new textfield object
+     * Constructor: Create a new textfield object/ crea un nuevo objeto de campo de texto
      *
-     * @param object &$oForm: The form where this field is located on
-     * @param string $sName: The name of the field
+     * @param object &$oForm: The form where this field is located on/ formulario donde se encuentra localizado
+     * @param string $sName: The name of the field/ nombre del campo
      * @return TextField
      * @author Teye Heimans
      * @access public
@@ -34,11 +35,12 @@ class TextField extends Field
 	}
 
 	/**
-     * TextField::setSize()
+     * TextField::setClass()
      *
-     * Set the new size of the field
-     *
-     * @param integer $iSize: the new size
+     * Set the new class of the field
+     * Establezca la nueva clase del campo
+     * 
+     * @param integer $iClass: the new class
      * @return void
      * @author Teye Heimans
      * @access public
@@ -52,6 +54,7 @@ class TextField extends Field
 	 * TextField::checkMaxLength()
 	 *
 	 * Check the maxlength of the field
+	 * Comprueba la maxima longitud del campo
 	 *
 	 * @param integer $iLength: the maxlength
 	 * @return void
@@ -73,6 +76,7 @@ class TextField extends Field
 	 * TextField::checkMinLength()
 	 *
 	 * Check the minlength of the field
+	 * Comprueba la minima longitud del campo
 	 *
 	 * @param integer $iLength: the maxlength
 	 * @return void
@@ -94,6 +98,7 @@ class TextField extends Field
      * TextField::setMaxlength()
      *
      * Set the new maxlength of the field
+     * Establezca la nueva longitud maxima del campo
      *
      * @param integer $iMaxlength: the new maxlength
      * @return void
@@ -108,7 +113,7 @@ class TextField extends Field
 	/**
      * TextField::getField()
      *
-     * Return the HTML of the field
+     * Return the HTML of the field/ Devuelve el HTML del campo
      *
      * @return string: the html
      * @access public
@@ -116,10 +121,10 @@ class TextField extends Field
      */
 	public function getField()
 	{
-		// view mode enabled ?
+		// view mode enabled ?/ modo vista habilitado?
 		if( $this -> getViewMode() )
 		{
-			// get the view value..
+			// get the view value../ obtenga el valor de la vista
 			return $this -> _getViewValue();
 		}
 

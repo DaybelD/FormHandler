@@ -20,7 +20,7 @@ class dbTextSelectField extends TextSelectField
      *
      * Public constructor: create a new dbTextSelectField object/ crea un nuevo objeto dbTextSelectField
      *
-     * @param object &$oForm: the form where the TextSelectfield is located on/formulario donde esta localizado el campo de seleccion de texto
+     * @param object &$oForm: the form where the TextSelectfield is located on/formulario donde se encuentra el campo
      * @param string $sName: the name of the datefield/ nombre del campo de fecha
      * @param object $oDb: object of the database handler/ objeto del manejador de base de datos
      * @param string $sTable: the table to get the fields from/ tabla para obtener los campos de

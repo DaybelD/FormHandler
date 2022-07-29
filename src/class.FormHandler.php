@@ -90,7 +90,7 @@ require_once FH_INCLUDE_DIR . 'includes/class.MaskLoader.php';
 class FormHandler {
 	// protected !!
 	protected $_fields; // array: Contains all fields/ Contiene todos los campos
-	protected $_posted; // boolean: Whether the form is post or not/ Si el formulario esta publicado o no
+	protected $_posted; // boolean: Whether the form is post or not/ Si el formulario es enviado o no
 	protected $_name; // string: Form name/ Nombre del formulario
 	protected $_action; // string: Form action/ La accion del formulario
 	protected $_displayErrors; // boolean: if we have to show the errors in the form/ si tenemos que mostrar los errores en el formulario
@@ -172,18 +172,22 @@ class FormHandler {
 		fh_conf();
 
 		// get config setting for _setTable, since 08-10-2009 JW
+		// obtener la configuracion asignada para _setTable
 		$this->_setTable = FH_USE_TABLE;
 
 		// get config setting for _focus, since 14-01-2010 JW
+		// obtener la configuracion asignada para _focus
 		$this->_focus = FH_SET_FOCUS;
 
 		// set the name of the form (the user has submitted one)
+		// establezca el nombre del formulario (el usuario ha enviado uno)
 		if (!empty($name)) {
 			$this->_name = $name;
 		}
 		// get a unique form name because the user did not give one
+		// obtener un nombre de formulario unico porque el usuario no dio uno
 		else {
-			// get a unique form name!
+			// get a unique form name!/ obtenga un nombre de formulario unico
 			$i = null;
 			while (defined('FH_' . FH_DEFAULT_FORM_NAME . $i)) {
 				$i = is_null($i) ? 1 : ($i + 1);
@@ -195,6 +199,7 @@ class FormHandler {
 		}
 
 		// set the action of the form if none is given
+		// establece la action del formulario si no se ha dado alguna
 		if (!empty($action)) {
 			$this->_action = $action;
 		} else {
@@ -205,40 +210,42 @@ class FormHandler {
 		}
 
 		// get the $extra (JS, css, etc..) to put into the <form> tag
+		// obtengas el $extra (JS, css, etc..) para poner dentro de la etiqueta <form>
 		if (!empty($extra)) {
 			$this->_extra = $extra;
 		}
 
-		// set the default mask
+		// set the default mask/ establece la mascara por defecto
 		$this->setMask(FH_DEFAULT_ROW_MASK);
 
-		// set the default help icon
+		// set the default help icon/ establece el icono de ayuda por defecto
 		$this->setHelpIcon(FH_FHTML_DIR . 'images/helpicon.gif');
 
-		// check if the form is posted
+		// check if the form is posted/ comprueba si el formulario es enviado
 		$this->_posted = ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST[$this->_name . '_submit']));
 
 		// make a hidden field so we can identify the form
+		// hacer un campo oculto para que podamos identificar el formulario
 		$this->hiddenField($this->_name . '_submit', '1');
 
-		// get the current page
+		// get the current page/ obtenga la pagina actual
 		$this->_curPage = isset($_POST[$this->_name . '_page']) ? $_POST[$this->_name . '_page'] : 1;
 
-		// set our own error handler
+		// set our own error handler/ establecer nuestro propio manejador de errores
 		if (FH_DISPLAY_ERRORS) {
 			error_reporting(E_ALL);
 			set_error_handler('catchErrors');
 		}
 
-		// set the language...
+		// set the language.../ establece el idioma
 		$this->setLanguage();
 
-		// set the default table settings
+		// set the default table settings/ establece la configuracion por defecto de la tabla
 		$this->setTableSettings();
 	}
 
 	/**
-	 * Get Name Form
+	 * Get Name Form/ Obtenga el nombre del formulario
 	 *
 	 * @return string
 	 */
@@ -247,7 +254,7 @@ class FormHandler {
 	}
 
 	/********************************************************/
-	/************* FIELDS ***********************************/
+	/************* FIELDS/CAMPOS ***********************************/
 	/********************************************************/
 
 	/**
@@ -255,11 +262,11 @@ class FormHandler {
 	 *
 	 * Creates a browserfield on the form
 	 *
-	 * @param string $title: The title of the field
-	 * @param string $name: The name of the field
-	 * @param string $path: The path to browse
+	 * @param string $title: The title of the field/ Titulo del campo
+	 * @param string $name: The name of the field/ Nombre del campo
+	 * @param string $path: The path to browse/ Ruta de navegacion
 	 * @param string $validator: The validator which should be used to validate the value of the field
-	 * @param int $size: The size of the field
+	 * @param integer $iClass: The new class 
 	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
 	 * @return void
 	 * @access public
@@ -275,7 +282,7 @@ class FormHandler {
 		require_once FH_INCLUDE_DIR . 'fields/class.BrowserField.php';
 		require_once FH_INCLUDE_DIR . 'buttons/class.Button.php';
 
-		// create the field
+		// create the field/ crea el campo
 		$fld = new BrowserField($this, $name, $path);
 		if (!empty($validator)) {
 			$fld->setValidator($validator);
@@ -3746,4 +3753,3 @@ class FormHandler {
 		}
 	}
 }
-?>
