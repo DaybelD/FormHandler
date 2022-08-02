@@ -32,5 +32,3 @@ else
 {
 	echo 'Something went wrong.';
 }
-
-?>

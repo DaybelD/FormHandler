@@ -266,12 +266,13 @@ class FormHandler {
 	 * @param string $name: The name of the field/ Nombre del campo
 	 * @param string $path: The path to browse/ Ruta de navegacion
 	 * @param string $validator: The validator which should be used to validate the value of the field
-	 * @param integer $iClass: The new class 
+	 * @param int $size: The size of the field
 	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
 	 * @return void
 	 * @access public
 	 * @author Johan Wiegel
 	 */
+	// Carga imagenes de un archivo de FCKeditor
 	public function browserField(
 		$title,
 		$name,
@@ -303,12 +304,12 @@ class FormHandler {
 	/**
 	 * FormHandler::textField()
 	 *
-	 * Crea campo de texto
+	 * Create a textfield/ Crea campo de texto
 	 *
 	 * El campo de texto trae por defecto la clase de boostrap asignada (form-control)
 	 * 
-	 * @param string $title: Titulo del campo
-	 * @param string $name: Nombre del campo
+	 * @param string $title: The title of the field/ Titulo del campo
+	 * @param string $name: The name of the field/ Nombre del campo
 	 * @param string $validator: Validacion del campo (o null)
 	 * @param string $class: Las clases asociadas al campo (o null)
 	 * @param string $extra: CSS, Javascript o cualquier otra cosa dentro de la etiqueta HTML
@@ -405,14 +406,15 @@ class FormHandler {
 	 * FormHandler::textSelectField()
 	 *
 	 * Creates a textSelectfield on the form
+	 * Crea un campo de texto de selección
 	 *
-	 * @param string $title: The title of the field
-	 * @param string $name: The name of the field
-	 * @param array $aOptions : the options for the select part
-	 * @param string $validator: The validator which should be used to validate the value of the field
-	 * @param int $size: The size of the field
-	 * @param int $maxlength: The allowed max input of the field
-	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
+	 * @param string $title: The title of the field/ Titulo del campo
+	 * @param string $name: The name of the field/ Nombre del campo
+	 * @param array $aOptions : the options for the select part/ Opciones para la parte de seleccion
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que se usará para validar el valor del campo
+	 * @param int $size: The size of the field/ Tamaño del campo
+	 * @param int $maxlength: The allowed max input of the field/ El maximo de entradas permitidas del campo
+	 * @param string $extra: CSS, JS or other which are inserted into the HTML tag/ CSS, JS, u otro, el cual será insertado dentro de la etiqueta HTML
 	 * @return void
 	 * @access public
 	 * @author Johan wiegel
@@ -454,13 +456,13 @@ class FormHandler {
 	/**
 	 * FormHandler::passField()
 	 *
-	 * Crea campo de clave
+	 * Create a passField on the form/ Crea campo de clave
 	 *
-	 * @param string $title: Titulo del campo 
-	 * @param string $name: Nombre del campo
-	 * @param string $validator: Validacion del campo
-	 * @param string $class: Clases asociadas al campo
-	 * @param string $extra: CSS, Javascript o cualquier cosa dentro de la etiqueta HTML
+	 * @param string $title: The tittle of the field/ Titulo del campo 
+	 * @param string $name: The name of the field/ Nombre del campo
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que debe usarse para validar el valor del campo
+	 * @param string $class: Classes associated with the field/ Clases asociadas al campo
+	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag/ CSS, Javascript o cualquier cosa dentro de la etiqueta HTML
 	 * @return void
 	 * @access public
 	 * @author Teye Heimans
@@ -475,7 +477,7 @@ class FormHandler {
 		require_once FH_INCLUDE_DIR . 'fields/class.TextField.php';
 		require_once FH_INCLUDE_DIR . 'fields/class.PassField.php';
 
-		// create the field
+		// create the field/ crea el campo
 		$fld = new PassField($this, $name);
 
 		if (!empty($validator)) {
@@ -497,11 +499,11 @@ class FormHandler {
 	/**
 	 * FormHandler::hiddenField()
 	 *
-	 * Create a hidden field
+	 * Create a hidden field/ Crea un campo oculto
 	 *
-	 * @param string $name: The name of the field
-	 * @param string $value: The value of the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
+	 * @param string $name: The name of the field/ Nombre del campo
+	 * @param string $value: The value of the field/ Valor del campo
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que debe usarse para validar el valor del campo
 	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
 	 * @return void
 	 * @access public
@@ -514,7 +516,7 @@ class FormHandler {
 		$extra = null) {
 		require_once FH_INCLUDE_DIR . 'fields/class.HiddenField.php';
 
-		// create new hidden field
+		// create new hidden field/ crea un nuevo campo oculto
 		$fld = new HiddenField($this, $name);
 
 		// only set the hidden field value if there is not a value in the $_POST array
@@ -537,11 +539,11 @@ class FormHandler {
 	/**
 	 * FormHandler::textArea()
 	 *
-	 * Crea un campo de area de texto 
+	 * Create a new textArea/ Crea un campo de area de texto 
 	 *
-	 * @param string $title: Titulo del campo
-	 * @param string $name: Nombre del campo
-	 * @param string $validator: Validacion del campo
+	 * @param string $title: The title of the field/ Titulo del campo
+	 * @param string $name: Name of the field/ Nombre del campo
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que debe usarse para validar el valor del campo
 	 * @param string $class: clases asociadas al campo
 	 * @param int $rows: Altura del campo
 	 * @param string $extra: CSS, Javascript o cualquier cosa dentro de la etiqueta HTML
@@ -586,7 +588,7 @@ class FormHandler {
 	 * @param string $title: Titulo del campo
 	 * @param string $name: Nombre del campo
 	 * @param array $options: Opciones usadas por el campo
-	 * @param string $validator: Validacion del campo
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que debe usarse para validar el valor del campo
 	 * @param boolean $useArrayKeyAsValue: Valores para las opciones
 	 * @param boolean $multiple: Sera posible la seleccion multiple ? (Default: false)
 	 * @param int $size: Tamaño del campo (Cuantas opciones se muestran)
@@ -617,7 +619,7 @@ class FormHandler {
 			return;
 		}
 
-		// create new selectfield
+		// create new selectfield/ crea un nuevo campo de seleccion
 		$fld = new SelectField($this, $name);
 		$fld->setOptions($options);
 
@@ -644,6 +646,7 @@ class FormHandler {
 
 
 		// if no size is set and multiple is enabled, set the size default to 4
+		// 
 		else if ($multiple) {
 			$fld->setSize(4);
 		}
@@ -657,10 +660,10 @@ class FormHandler {
 	 *
 	 * Crea un Checkbox
 	 *
-	 * @param string $title: Titulo del campo
-	 * @param string $name: Nombre del campo
+	 * @param string $title: The Title of the field/ Titulo del campo
+	 * @param string $name: The name of the field/ Nombre del campo
 	 * @param array|string $value: Opciones a utilizar
-	 * @param string $validator: Validacion del campo
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que debe usarse para validar el valor del campo
 	 * @param string $class: clase general para el campo
 	 * @param boolean $useArrayKeyAsValue: Valores de las opciones
 	 * @param string $extra: CSS, Javascript o cualquier cosa dentro de la etiqueta HTML
@@ -681,7 +684,7 @@ class FormHandler {
 		$mask = null) {
 		require_once FH_INCLUDE_DIR . 'fields/class.CheckBox.php';
 
-		// create a new checkbox
+		// create a new checkbox/ crea un nuevo checkbox
 		$fld = new CheckBox($this, $name, $value);
 
 		if (!empty($validator)) {
@@ -691,7 +694,6 @@ class FormHandler {
 		if (!empty($class)) {
 			$fld->setClass($class);
 		}
-		
 
 		if (!is_null($useArrayKeyAsValue)) {
 			$fld->useArrayKeyAsValue($useArrayKeyAsValue);
@@ -717,7 +719,7 @@ class FormHandler {
 	 * @param string $title: The title of the field
 	 * @param string $name: The name of the field
 	 * @param array $options: The options used for the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que debe usarse para validar el valor del campo
 	 * @param boolean $useArrayKeyAsValue: If the array key's are the values for the options in the field
 	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
 	 * @param string $mask: if more the 1 options are given, glue the fields together with this mask
@@ -772,10 +774,10 @@ class FormHandler {
 	 *
 	 * Crea un campo de carga de imagenes
 	 *
-	 * @param string $title: Titulo del campo
-	 * @param string $name: Nombre del campo
+	 * @param string $title: The title of the filed/ Titulo del campo
+	 * @param string $name: The name of the field/ Nombre del campo
 	 * @param array $config: Configuracion usada en el campo
-	 * @param string $validator: Validacion del campo
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que debe usarse para validar el valor del campo
 	 * @param string $extra: CSS, Javascript o cualquier cosa agregada a la etiqueta HTML
 	 * @param string $alertOverwrite: Alerta de sobreescritura
 	 * @return void
@@ -824,9 +826,9 @@ class FormHandler {
 	 *
 	 * Create a editor on the form
 	 *
-	 * @param string $title: The title of the field
-	 * @param string $name: The name of the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
+	 * @param string $title: The title of the field/ Titulo del campo
+	 * @param string $name: The name of the field/ Nombre del campo
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que debe usarse para validar el valor del campo
 	 * @param string $path: Path on the server where we have to upload the files
 	 * @param string $toolbar: The toolbar we have to use
 	 * @param string $skin: The skin to use
@@ -893,7 +895,7 @@ class FormHandler {
 	 *
 	 * @param string $title: The title of the field
 	 * @param string $name: The name of the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que debe usarse para validar el valor del campo
 	 * @param boolean $required: If the field is required to fill in or can the user leave it blank
 	 * @param string $mask: How do we have to display the fields? These can be used: d, m and y.
 	 * @param string $interval: The interval between the current year and the years to start/stop.Default the years are beginning at 90 yeas from the current. It is also possible to have years in the future. This is done like this: "90:10" (10 years in the future).
@@ -945,7 +947,7 @@ class FormHandler {
 	 *
 	 * @param string $title: The title of the field
 	 * @param string $name: The name of the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que debe usarse para validar el valor del campo
 	 * @param int $format: 12 or 24. Which should we use?
 	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
 	 * @return void
@@ -992,7 +994,7 @@ class FormHandler {
 	 *
 	 * @param string $title: The title of the field
 	 * @param string $name: The name of the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que debe usarse para validar el valor del campo
 	 * @param int $size: The size of the field
 	 * @param int $maxlength: The allowed max input of the field
 	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag
@@ -1035,7 +1037,7 @@ class FormHandler {
 	 *
 	 * @param string $title: The title of the field
 	 * @param string $name: The name of the field
-	 * @param string $validator: The validator which should be used to validate the value of the field
+	 * @param string $validator: The validator which should be used to validate the value of the field/ Validador que debe usarse para validar el valor del campo
 	 * @param string $mask: How do we have to display the fields? These can be used: d, m and y. (Only for DB-Field with Type 'Date')
 	 * @param bool $bParseOtherPresentations: try to parse other presentations of dateformat
 	 * @param string $extra: CSS, Javascript or other which are inserted into the HTML tag

@@ -369,5 +369,3 @@ if(!function_exists('array_fill'))
         return $aResult;
     }
 }
-
-?>
